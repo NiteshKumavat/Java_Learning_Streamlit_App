@@ -1,0 +1,93 @@
+{
+  "module": "Java Fundamentals",
+  "learning_objective": "Master core Java syntax, control structures, primitive data types, and fundamental object manipulation without framework abstractions.",
+  "subtopics": [
+    {
+      "name": "Variables and Data Types",
+      "description": "Primitives (int, double, boolean, char, byte, short, long, float) vs Reference Types. Memory layout (Stack vs Heap).",
+      "code_snippet": "public class VariablesDemo {\n    public static void main(String[] args) {\n        int count = 10;          // Stack allocated\n        double price = 99.99;    // Stack allocated\n        boolean isActive = true; // Stack allocated\n        char grade = 'A';        // Stack allocated\n        String name = \"Java\";    // Reference on stack, object on heap\n        System.out.println(\"Variables initialized successfully.\");\n    }\n}"
+    },
+    {
+      "name": "Operators",
+      "description": "Arithmetic (+, -, *, /, %), Relational (==, !=, >, <), Logical (&&, ||, !), Bitwise (&, |, ^), and Assignment operators.",
+      "code_snippet": "public class OperatorsDemo {\n    public static void main(String[] args) {\n        int a = 15, b = 4;\n        boolean isEven = (a % 2 == 0);\n        boolean complexCondition = (a > 10) && (b < 5);\n        int bitwiseAnd = a & b;\n        System.out.println(\"Remainder: \" + (a % b) + \", Condition: \" + complexCondition);\n    }\n}"
+    },
+    {
+      "name": "Control Flow - Conditionals",
+      "description": "Branching execution paths using if, else if, else, and switch statements (including traditional and modern switch expressions).",
+      "code_snippet": "public class ConditionalsDemo {\n    public static void main(String[] args) {\n        int score = 85;\n        if (score >= 90) {\n            System.out.println(\"Grade A\");\n        } else if (score >= 80) {\n            System.out.println(\"Grade B\");\n        } else {\n            System.out.println(\"Grade C\");\n        }\n\n        String day = \"MONDAY\";\n        switch (day) {\n            case \"MONDAY\" -> System.out.println(\"Start of work week\");\n            case \"FRIDAY\" -> System.out.println(\"End of work week\");\n            default -> System.out.println(\"Mid week\");\n        }\n    }\n}"
+    },
+    {
+      "name": "Control Flow - Loops",
+      "description": "Iterative execution using standard for loops, enhanced for-each loops, while loops, and do-while loops with break/continue control.",
+      "code_snippet": "public class LoopsDemo {\n    public static void main(String[] args) {\n        for (int i = 1; i <= 3; i++) {\n            System.out.println(\"For loop count: \" + i);\n        }\n        int count = 3;\n        while (count > 0) {\n            System.out.println(\"While loop count: \" + count);\n            count--;\n        }\n    }\n}"
+    },
+    {
+      "name": "Methods",
+      "description": "Modularizing code into functions, parameter passing (pass-by-value in Java), return types, static vs instance methods, and method overloading.",
+      "code_snippet": "public class MethodsDemo {\n    public static int add(int a, int b) {\n        return a + b;\n    }\n    public static double add(double a, double b) {\n        return a + b;\n    }\n    public static void main(String[] args) {\n        System.out.println(\"Sum Int: \" + add(5, 10));\n        System.out.println(\"Sum Double: \" + add(5.5, 4.5));\n    }\n}"
+    },
+    {
+      "name": "Arrays",
+      "description": "Fixed-size, contiguous memory data structures. Single-dimensional and multi-dimensional arrays, indexing, iteration, and common array manipulation.",
+      "algorithms_and_logic": "Linear Traversal, Array Inversion, Finding Max/Min elements.",
+      "code_snippet": "public class ArraysDemo {\n    public static void main(String[] args) {\n        int[] numbers = {4, 2, 9, 1, 7};\n        int max = numbers[0];\n        for (int num : numbers) {\n            if (num > max) max = num;\n        }\n        System.out.println(\"Max element: \" + max);\n    }\n}"
+    },
+    {
+      "name": "Strings & StringBuilder",
+      "description": "String immutability, String Pool memory management, string operations vs mutable string manipulation using StringBuilder for performance optimization.",
+      "code_snippet": "public class StringDemo {\n    public static void main(String[] args) {\n        String s1 = \"Hello\";\n        String s2 = s1 + \" World\"; // Creates new String instance\n        \n        StringBuilder sb = new StringBuilder(\"Hello\");\n        sb.append(\" World\"); // Modifies in-place without generating garbage\n        System.out.println(sb.toString());\n    }\n}"
+    },
+    {
+      "name": "Type Casting",
+      "description": "Implicit conversion (widening: byte -> short -> int -> long -> float -> double) and Explicit conversion (narrowing) with potential truncation.",
+      "code_snippet": "public class CastingDemo {\n    public static void main(String[] args) {\n        int intVal = 100;\n        double doubleVal = intVal; // Widening (automatic)\n        \n        double pi = 3.14159;\n        int roundedPi = (int) pi; // Narrowing (explicit, truncates decimal)\n        System.out.println(\"Implicit: \" + doubleVal + \", Explicit: \" + roundedPi);\n    }\n}"
+    },
+    {
+      "name": "Input/Output",
+      "description": "Reading console input using java.util.Scanner and outputting data via System.out methods.",
+      "code_snippet": "import java.util.Scanner;\n\npublic class IODemo {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        System.out.print(\"Enter your name: \");\n        String name = scanner.nextLine();\n        System.out.println(\"Hello, \" + name + \"!\");\n        scanner.close();\n    }\n}"
+    },
+    {
+      "name": "Basic Debugging",
+      "description": "Reading stack traces, identifying common runtime exceptions (NullPointerException, ArrayIndexOutOfBoundsException), and using print-debugging or IDE breakpoints.",
+      "code_snippet": "public class DebuggingDemo {\n    public static void main(String[] args) {\n        try {\n            int[] arr = {1, 2, 3};\n            System.out.println(arr[5]); // Triggers exception\n        } catch (ArrayIndexOutOfBoundsException e) {\n            System.err.println(\"Error caught: Attempted to access index out of bounds.\");\n            e.printStackTrace();\n        }\n    }\n}"
+    }
+  ],
+  "practical_projects": [
+    {
+      "project_name": "Calculator",
+      "description": "Console application that takes two numbers and an operator, executing mathematical calculations using methods and control statements.",
+      "implementation_code": "import java.util.Scanner;\n\npublic class Calculator {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        System.out.print(\"Enter expression (e.g., 5 + 3): \");\n        if (!scanner.hasNextDouble()) return;\n        double num1 = scanner.nextDouble();\n        char op = scanner.next().charAt(0);\n        double num2 = scanner.nextDouble();\n        \n        double result = switch (op) {\n            case '+' -> num1 + num2;\n            case '-' -> num1 - num2;\n            case '*' -> num1 * num2;\n            case '/' -> num2 != 0 ? num1 / num2 : Double.NaN;\n            default -> Double.NaN;\n        };\n        System.out.println(\"Result: \" + result);\n        scanner.close();\n    }\n}"
+    },
+    {
+      "project_name": "Number Guessing Game",
+      "description": "Generates a random integer between 1 and 100, prompting the user for guesses and giving 'higher/lower' feedback inside a loop until correct.",
+      "implementation_code": "import java.util.Scanner;\nimport java.util.Random;\n\npublic class GuessingGame {\n    public static void main(String[] args) {\n        int target = new Random().nextInt(100) + 1;\n        Scanner scanner = new Scanner(System.in);\n        int guess = 0, attempts = 0;\n        while (guess != target) {\n            System.out.print(\"Guess a number (1-100): \");\n            guess = scanner.nextInt();\n            attempts++;\n            if (guess < target) System.out.println(\"Too low!\");\n            else if (guess > target) System.out.println(\"Too high!\");\n        }\n        System.out.println(\"Correct! Took \" + attempts + \" attempts.\");\n        scanner.close();\n    }\n}"
+    },
+    {
+      "project_name": "Palindrome Checker",
+      "description": "Checks if a string is identical forwards and backwards, ignoring non-alphanumeric characters and casing.",
+      "algorithm": "Two-Pointer Strategy: O(N) Time, O(1) Auxiliary Space",
+      "implementation_code": "public class PalindromeChecker {\n    public static boolean isPalindrome(String input) {\n        String cleaned = input.replaceAll(\"[^a-zA-Z0-9]\", \"\").toLowerCase();\n        int left = 0, right = cleaned.length() - 1;\n        while (left < right) {\n            if (cleaned.charAt(left) != cleaned.charAt(right)) return false;\n            left++;\n            right--;\n        }\n        return true;\n    }\n    public static void main(String[] args) {\n        System.out.println(isPalindrome(\"A man, a plan, a canal: Panama\")); // true\n    }\n}"
+    },
+    {
+      "project_name": "Prime Number Checker",
+      "description": "Determines whether a given integer is a prime number.",
+      "algorithm": "Trial Division up to Square Root of N: O(sqrt(N)) Time, O(1) Space",
+      "implementation_code": "public class PrimeChecker {\n    public static boolean isPrime(int n) {\n        if (n <= 1) return false;\n        if (n <= 3) return true;\n        if (n % 2 == 0 || n % 3 == 0) return false;\n        for (int i = 5; i * i <= n; i += 6) {\n            if (n % i == 0 || n % (i + 2) == 0) return false;\n        }\n        return true;\n    }\n    public static void main(String[] args) {\n        System.out.println(\"Is 29 prime? \" + isPrime(29));\n    }\n}"
+    },
+    {
+      "project_name": "Array Operations (Reversing & Rotations)",
+      "description": "Utility program performing essential array transformations without using high-level framework structures.",
+      "algorithm": "In-Place Array Reversal: O(N) Time, O(1) Space",
+      "implementation_code": "import java.util.Arrays;\n\npublic class ArrayOps {\n    public static void reverse(int[] arr) {\n        int i = 0, j = arr.length - 1;\n        while (i < j) {\n            int temp = arr[i];\n            arr[i] = arr[j];\n            arr[j] = temp;\n            i++; j--;\n        }\n    }\n    public static void main(String[] args) {\n        int[] data = {10, 20, 30, 40, 50};\n        reverse(data);\n        System.out.println(Arrays.toString(data)); // [50, 40, 30, 20, 10]\n    }\n}"
+    },
+    {
+      "project_name": "String Manipulation (Anagram Detection)",
+      "description": "Detects if two strings contain the exact same characters in different arrangements.",
+      "algorithm": "Frequency Array Counter: O(N) Time, O(1) Space (assuming 256 ASCII characters)",
+      "implementation_code": "public class AnagramChecker {\n    public static boolean isAnagram(String s1, String s2) {\n        if (s1.length() != s2.length()) return false;\n        int[] counts = new int[256];\n        for (int i = 0; i < s1.length(); i++) {\n            counts[s1.charAt(i)]++;\n            counts[s2.charAt(i)]--;\n        }\n        for (int count : counts) {\n            if (count != 0) return false;\n        }\n        return true;\n    }\n    public static void main(String[] args) {\n        System.out.println(isAnagram(\"listen\", \"silent\")); // true\n    }\n}"
+    }
+  ]
+}
