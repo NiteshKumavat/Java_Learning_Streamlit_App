@@ -1,93 +1,531 @@
 {
-  "module": "Java Fundamentals",
-  "learning_objective": "Master core Java syntax, control structures, primitive data types, and fundamental object manipulation without framework abstractions.",
-  "subtopics": [
-    {
-      "name": "Variables and Data Types",
-      "description": "Primitives (int, double, boolean, char, byte, short, long, float) vs Reference Types. Memory layout (Stack vs Heap).",
-      "code_snippet": "public class VariablesDemo {\n    public static void main(String[] args) {\n        int count = 10;          // Stack allocated\n        double price = 99.99;    // Stack allocated\n        boolean isActive = true; // Stack allocated\n        char grade = 'A';        // Stack allocated\n        String name = \"Java\";    // Reference on stack, object on heap\n        System.out.println(\"Variables initialized successfully.\");\n    }\n}"
-    },
-    {
-      "name": "Operators",
-      "description": "Arithmetic (+, -, *, /, %), Relational (==, !=, >, <), Logical (&&, ||, !), Bitwise (&, |, ^), and Assignment operators.",
-      "code_snippet": "public class OperatorsDemo {\n    public static void main(String[] args) {\n        int a = 15, b = 4;\n        boolean isEven = (a % 2 == 0);\n        boolean complexCondition = (a > 10) && (b < 5);\n        int bitwiseAnd = a & b;\n        System.out.println(\"Remainder: \" + (a % b) + \", Condition: \" + complexCondition);\n    }\n}"
-    },
-    {
-      "name": "Control Flow - Conditionals",
-      "description": "Branching execution paths using if, else if, else, and switch statements (including traditional and modern switch expressions).",
-      "code_snippet": "public class ConditionalsDemo {\n    public static void main(String[] args) {\n        int score = 85;\n        if (score >= 90) {\n            System.out.println(\"Grade A\");\n        } else if (score >= 80) {\n            System.out.println(\"Grade B\");\n        } else {\n            System.out.println(\"Grade C\");\n        }\n\n        String day = \"MONDAY\";\n        switch (day) {\n            case \"MONDAY\" -> System.out.println(\"Start of work week\");\n            case \"FRIDAY\" -> System.out.println(\"End of work week\");\n            default -> System.out.println(\"Mid week\");\n        }\n    }\n}"
-    },
-    {
-      "name": "Control Flow - Loops",
-      "description": "Iterative execution using standard for loops, enhanced for-each loops, while loops, and do-while loops with break/continue control.",
-      "code_snippet": "public class LoopsDemo {\n    public static void main(String[] args) {\n        for (int i = 1; i <= 3; i++) {\n            System.out.println(\"For loop count: \" + i);\n        }\n        int count = 3;\n        while (count > 0) {\n            System.out.println(\"While loop count: \" + count);\n            count--;\n        }\n    }\n}"
-    },
-    {
-      "name": "Methods",
-      "description": "Modularizing code into functions, parameter passing (pass-by-value in Java), return types, static vs instance methods, and method overloading.",
-      "code_snippet": "public class MethodsDemo {\n    public static int add(int a, int b) {\n        return a + b;\n    }\n    public static double add(double a, double b) {\n        return a + b;\n    }\n    public static void main(String[] args) {\n        System.out.println(\"Sum Int: \" + add(5, 10));\n        System.out.println(\"Sum Double: \" + add(5.5, 4.5));\n    }\n}"
-    },
-    {
-      "name": "Arrays",
-      "description": "Fixed-size, contiguous memory data structures. Single-dimensional and multi-dimensional arrays, indexing, iteration, and common array manipulation.",
-      "algorithms_and_logic": "Linear Traversal, Array Inversion, Finding Max/Min elements.",
-      "code_snippet": "public class ArraysDemo {\n    public static void main(String[] args) {\n        int[] numbers = {4, 2, 9, 1, 7};\n        int max = numbers[0];\n        for (int num : numbers) {\n            if (num > max) max = num;\n        }\n        System.out.println(\"Max element: \" + max);\n    }\n}"
-    },
-    {
-      "name": "Strings & StringBuilder",
-      "description": "String immutability, String Pool memory management, string operations vs mutable string manipulation using StringBuilder for performance optimization.",
-      "code_snippet": "public class StringDemo {\n    public static void main(String[] args) {\n        String s1 = \"Hello\";\n        String s2 = s1 + \" World\"; // Creates new String instance\n        \n        StringBuilder sb = new StringBuilder(\"Hello\");\n        sb.append(\" World\"); // Modifies in-place without generating garbage\n        System.out.println(sb.toString());\n    }\n}"
-    },
-    {
-      "name": "Type Casting",
-      "description": "Implicit conversion (widening: byte -> short -> int -> long -> float -> double) and Explicit conversion (narrowing) with potential truncation.",
-      "code_snippet": "public class CastingDemo {\n    public static void main(String[] args) {\n        int intVal = 100;\n        double doubleVal = intVal; // Widening (automatic)\n        \n        double pi = 3.14159;\n        int roundedPi = (int) pi; // Narrowing (explicit, truncates decimal)\n        System.out.println(\"Implicit: \" + doubleVal + \", Explicit: \" + roundedPi);\n    }\n}"
-    },
-    {
-      "name": "Input/Output",
-      "description": "Reading console input using java.util.Scanner and outputting data via System.out methods.",
-      "code_snippet": "import java.util.Scanner;\n\npublic class IODemo {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        System.out.print(\"Enter your name: \");\n        String name = scanner.nextLine();\n        System.out.println(\"Hello, \" + name + \"!\");\n        scanner.close();\n    }\n}"
-    },
-    {
-      "name": "Basic Debugging",
-      "description": "Reading stack traces, identifying common runtime exceptions (NullPointerException, ArrayIndexOutOfBoundsException), and using print-debugging or IDE breakpoints.",
-      "code_snippet": "public class DebuggingDemo {\n    public static void main(String[] args) {\n        try {\n            int[] arr = {1, 2, 3};\n            System.out.println(arr[5]); // Triggers exception\n        } catch (ArrayIndexOutOfBoundsException e) {\n            System.err.println(\"Error caught: Attempted to access index out of bounds.\");\n            e.printStackTrace();\n        }\n    }\n}"
-    }
-  ],
-  "practical_projects": [
-    {
-      "project_name": "Calculator",
-      "description": "Console application that takes two numbers and an operator, executing mathematical calculations using methods and control statements.",
-      "implementation_code": "import java.util.Scanner;\n\npublic class Calculator {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        System.out.print(\"Enter expression (e.g., 5 + 3): \");\n        if (!scanner.hasNextDouble()) return;\n        double num1 = scanner.nextDouble();\n        char op = scanner.next().charAt(0);\n        double num2 = scanner.nextDouble();\n        \n        double result = switch (op) {\n            case '+' -> num1 + num2;\n            case '-' -> num1 - num2;\n            case '*' -> num1 * num2;\n            case '/' -> num2 != 0 ? num1 / num2 : Double.NaN;\n            default -> Double.NaN;\n        };\n        System.out.println(\"Result: \" + result);\n        scanner.close();\n    }\n}"
-    },
-    {
-      "project_name": "Number Guessing Game",
-      "description": "Generates a random integer between 1 and 100, prompting the user for guesses and giving 'higher/lower' feedback inside a loop until correct.",
-      "implementation_code": "import java.util.Scanner;\nimport java.util.Random;\n\npublic class GuessingGame {\n    public static void main(String[] args) {\n        int target = new Random().nextInt(100) + 1;\n        Scanner scanner = new Scanner(System.in);\n        int guess = 0, attempts = 0;\n        while (guess != target) {\n            System.out.print(\"Guess a number (1-100): \");\n            guess = scanner.nextInt();\n            attempts++;\n            if (guess < target) System.out.println(\"Too low!\");\n            else if (guess > target) System.out.println(\"Too high!\");\n        }\n        System.out.println(\"Correct! Took \" + attempts + \" attempts.\");\n        scanner.close();\n    }\n}"
-    },
-    {
-      "project_name": "Palindrome Checker",
-      "description": "Checks if a string is identical forwards and backwards, ignoring non-alphanumeric characters and casing.",
-      "algorithm": "Two-Pointer Strategy: O(N) Time, O(1) Auxiliary Space",
-      "implementation_code": "public class PalindromeChecker {\n    public static boolean isPalindrome(String input) {\n        String cleaned = input.replaceAll(\"[^a-zA-Z0-9]\", \"\").toLowerCase();\n        int left = 0, right = cleaned.length() - 1;\n        while (left < right) {\n            if (cleaned.charAt(left) != cleaned.charAt(right)) return false;\n            left++;\n            right--;\n        }\n        return true;\n    }\n    public static void main(String[] args) {\n        System.out.println(isPalindrome(\"A man, a plan, a canal: Panama\")); // true\n    }\n}"
-    },
-    {
-      "project_name": "Prime Number Checker",
-      "description": "Determines whether a given integer is a prime number.",
-      "algorithm": "Trial Division up to Square Root of N: O(sqrt(N)) Time, O(1) Space",
-      "implementation_code": "public class PrimeChecker {\n    public static boolean isPrime(int n) {\n        if (n <= 1) return false;\n        if (n <= 3) return true;\n        if (n % 2 == 0 || n % 3 == 0) return false;\n        for (int i = 5; i * i <= n; i += 6) {\n            if (n % i == 0 || n % (i + 2) == 0) return false;\n        }\n        return true;\n    }\n    public static void main(String[] args) {\n        System.out.println(\"Is 29 prime? \" + isPrime(29));\n    }\n}"
-    },
-    {
-      "project_name": "Array Operations (Reversing & Rotations)",
-      "description": "Utility program performing essential array transformations without using high-level framework structures.",
-      "algorithm": "In-Place Array Reversal: O(N) Time, O(1) Space",
-      "implementation_code": "import java.util.Arrays;\n\npublic class ArrayOps {\n    public static void reverse(int[] arr) {\n        int i = 0, j = arr.length - 1;\n        while (i < j) {\n            int temp = arr[i];\n            arr[i] = arr[j];\n            arr[j] = temp;\n            i++; j--;\n        }\n    }\n    public static void main(String[] args) {\n        int[] data = {10, 20, 30, 40, 50};\n        reverse(data);\n        System.out.println(Arrays.toString(data)); // [50, 40, 30, 20, 10]\n    }\n}"
-    },
-    {
-      "project_name": "String Manipulation (Anagram Detection)",
-      "description": "Detects if two strings contain the exact same characters in different arrangements.",
-      "algorithm": "Frequency Array Counter: O(N) Time, O(1) Space (assuming 256 ASCII characters)",
-      "implementation_code": "public class AnagramChecker {\n    public static boolean isAnagram(String s1, String s2) {\n        if (s1.length() != s2.length()) return false;\n        int[] counts = new int[256];\n        for (int i = 0; i < s1.length(); i++) {\n            counts[s1.charAt(i)]++;\n            counts[s2.charAt(i)]--;\n        }\n        for (int count : counts) {\n            if (count != 0) return false;\n        }\n        return true;\n    }\n    public static void main(String[] args) {\n        System.out.println(isAnagram(\"listen\", \"silent\")); // true\n    }\n}"
-    }
-  ]
+    "module": "Java Fundamentals",
+    "learning_objective": "Build a strong foundation in Java syntax, data, operators, control flow, methods, object-oriented programming, collections, and exceptions.",
+    "how_to_use_this_guide": "For every lesson, read the explanation, run the code, and review the points_to_remember.",
+    "subtopics": [
+        {
+            "name": "Java Basics and Program Structure",
+            "explanation": "Java source code is written in classes. Execution normally begins in the main method. The compiler converts source code into bytecode, and the JVM runs that bytecode.",
+            "code": "public class HelloJava {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, Java!\");\n    }\n}",
+            "points_to_remember": [
+                "The public class name must match the file name.",
+                "main is the standard entry point.",
+                "Java is case-sensitive.",
+                "Statements normally end with a semicolon."
+            ],
+            "subtopics": [
+                {
+                    "name": "Comments and Naming",
+                    "explanation": "Comments are ignored by the compiler. Naming conventions make code easier to read.",
+                    "code": "// Single-line comment\n/* Multi-line comment */\nint studentCount = 30;\nclass StudentRecord { }",
+                    "points_to_remember": [
+                        "Use camelCase for variables and methods.",
+                        "Use PascalCase for classes.",
+                        "Use UPPER_SNAKE_CASE for constants."
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Variables and Data Types",
+            "explanation": "A variable is a named storage location with a type. Java has eight primitive types and reference types such as String, arrays, and objects.",
+            "code": "int count = 42;\ndouble price = 99.99;\nboolean active = true;\nchar grade = 'A';\nString language = \"Java\";\nSystem.out.println(language + count);",
+            "points_to_remember": [
+                "Primitive types store simple values; reference variables refer to objects.",
+                "Use L for long and f for float literals.",
+                "Local variables must be initialized before use.",
+                "null is allowed for reference types, not primitive types."
+            ],
+            "subtopics": [
+                {
+                    "name": "Primitive Types",
+                    "explanation": "byte, short, int, and long store whole numbers; float and double store decimals; char stores one character; boolean stores true or false.",
+                    "code": "byte a = 1; short b = 2; int c = 3; long d = 4L;\nfloat e = 1.5f; double f = 2.5; char g = 'J'; boolean h = true;",
+                    "points_to_remember": [
+                        "int is the usual whole-number type.",
+                        "double is the usual decimal type.",
+                        "Use long when int is not large enough."
+                    ]
+                },
+                {
+                    "name": "Constants with final",
+                    "explanation": "final prevents a variable from being assigned again. static final fields are commonly used as constants.",
+                    "code": "static final double TAX_RATE = 0.18;\nfinal int DAYS_IN_WEEK = 7;",
+                    "points_to_remember": [
+                        "A final variable can be assigned only once.",
+                        "Constants are usually named in uppercase.",
+                        "final prevents reassignment, not object mutation."
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Type Casting and Conversion",
+            "explanation": "Widening conversion moves a value to a type with a larger range and is usually automatic. Narrowing requires an explicit cast and may lose data.",
+            "code": "int whole = 10;\ndouble widened = whole;\ndouble decimal = 3.99;\nint narrowed = (int) decimal;\nSystem.out.println(narrowed); // 3",
+            "points_to_remember": [
+                "Casting double to int truncates; it does not round.",
+                "Narrowing can lose data or overflow.",
+                "Use Integer.parseInt to convert numeric text to int.",
+                "Use String.valueOf to convert a value to text."
+            ],
+            "subtopics": []
+        },
+        {
+            "name": "Operators",
+            "explanation": "Operators calculate values, compare data, assign results, and build conditions. Parentheses make precedence explicit.",
+            "code": "int result = (10 + 5) * 2;\nboolean valid = result > 20 && result < 40;\nSystem.out.println(result);\nSystem.out.println(valid);",
+            "points_to_remember": [
+                "Use parentheses when precedence is not obvious.",
+                "Do not compare strings with ==; use equals.",
+                "Integer division discards the fractional part.",
+                "Do not confuse = assignment with == comparison."
+            ],
+            "subtopics": [
+                {
+                    "name": "Arithmetic Operators",
+                    "explanation": "+ adds, - subtracts, * multiplies, / divides, and % returns the remainder.",
+                    "code": "int a = 17; int b = 5;\nSystem.out.println(a + b);\nSystem.out.println(a / b);\nSystem.out.println(a % b);",
+                    "points_to_remember": [
+                        "Integer division returns an integer.",
+                        "Division by zero throws an exception for integers.",
+                        "Remainder is useful for even/odd checks."
+                    ]
+                },
+                {
+                    "name": "Relational Operators",
+                    "explanation": "Relational operators compare values and return boolean: ==, !=, >, <, >=, and <=.",
+                    "code": "int age = 20;\nSystem.out.println(age == 20);\nSystem.out.println(age != 18);\nSystem.out.println(age >= 18);\nSystem.out.println(age < 65);",
+                    "points_to_remember": [
+                        "A comparison produces true or false.",
+                        "== compares primitive values.",
+                        "Use equals for object content such as String.",
+                        "= assigns a value; == compares values."
+                    ]
+                },
+                {
+                    "name": "Logical Operators",
+                    "explanation": "&& means AND, || means OR, and ! reverses a boolean value.",
+                    "code": "int age = 25; boolean hasId = true;\nboolean canEnter = age >= 18 && hasId;\nboolean needsHelp = !hasId || age < 18;",
+                    "points_to_remember": [
+                        "&& and || use short-circuit evaluation.",
+                        "&& skips its right side when the left side is false.",
+                        "|| skips its right side when the left side is true."
+                    ]
+                },
+                {
+                    "name": "Assignment Operators",
+                    "explanation": "Assignment stores values. Compound forms combine assignment with arithmetic, such as +=, -=, *=, /=, and %=.",
+                    "code": "int score = 10;\nscore += 5;\nscore *= 2;\nSystem.out.println(score);",
+                    "points_to_remember": [
+                        "= assigns a value.",
+                        "Compound assignment combines an operation and assignment.",
+                        "Compound assignment includes an implicit cast back to the variable type."
+                    ]
+                },
+                {
+                    "name": "Unary Increment and Decrement",
+                    "explanation": "++ increases by one, -- decreases by one, and unary + or - indicates a numeric sign.",
+                    "code": "int count = 5;\nSystem.out.println(count++);\nSystem.out.println(++count);\nSystem.out.println(-count);",
+                    "points_to_remember": [
+                        "Postfix uses the old value before changing it.",
+                        "Prefix changes the value before using it.",
+                        "Avoid complex expressions with multiple increments."
+                    ]
+                },
+                {
+                    "name": "Ternary Operator",
+                    "explanation": "The ternary operator has the form condition ? valueIfTrue : valueIfFalse and returns one of two values.",
+                    "code": "int marks = 72;\nString result = marks >= 40 ? \"Pass\" : \"Fail\";",
+                    "points_to_remember": [
+                        "Both branches should have compatible types.",
+                        "Use if/else when the expression is hard to read.",
+                        "Ternary is an expression that returns a value."
+                    ]
+                },
+                {
+                    "name": "Bitwise Operators",
+                    "explanation": "&, |, ^, and ~ work on individual bits of integral values.",
+                    "code": "int a = 6; int b = 3;\nSystem.out.println(a & b);\nSystem.out.println(a | b);\nSystem.out.println(a ^ b);\nSystem.out.println(~a);",
+                    "points_to_remember": [
+                        "Bitwise operators are useful for flags and masks.",
+                        "& and | differ from short-circuit && and ||.",
+                        "Bitwise operators work on integral types."
+                    ]
+                },
+                {
+                    "name": "Shift Operators",
+                    "explanation": "<< shifts bits left, >> shifts right while preserving the sign, and >>> shifts right while filling with zeroes.",
+                    "code": "int value = 8;\nSystem.out.println(value << 1);\nSystem.out.println(value >> 2);\nSystem.out.println(-8 >>> 1);",
+                    "points_to_remember": [
+                        "Left shift commonly multiplies by powers of two.",
+                        ">> preserves the sign bit.",
+                        ">>> inserts zeroes from the left."
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Control Flow",
+            "explanation": "Control-flow statements choose between paths or repeat a block of code.",
+            "code": "int score = 82;\nif (score >= 40) {\n    System.out.println(\"Pass\");\n} else {\n    System.out.println(\"Fail\");\n}",
+            "points_to_remember": [
+                "Conditions must evaluate to boolean.",
+                "Use braces for readable blocks.",
+                "Keep branches small and focused."
+            ],
+            "subtopics": [
+                {
+                    "name": "if, else if, and else",
+                    "explanation": "if runs when true, else if checks another condition, and else handles remaining cases.",
+                    "code": "int score = 85;\nif (score >= 90) System.out.println(\"A\");\nelse if (score >= 80) System.out.println(\"B\");\nelse System.out.println(\"C\");",
+                    "points_to_remember": [
+                        "Conditions are checked top to bottom.",
+                        "Only the first matching branch runs.",
+                        "Order overlapping ranges carefully."
+                    ]
+                },
+                {
+                    "name": "switch Statement and Expression",
+                    "explanation": "switch selects code based on one value. Arrow syntax avoids accidental fall-through, and switch expressions return values.",
+                    "code": "String day = \"MONDAY\";\nString type = switch (day) {\n    case \"SATURDAY\", \"SUNDAY\" -> \"Weekend\";\n    default -> \"Weekday\";\n};",
+                    "points_to_remember": [
+                        "Include default for unexpected values.",
+                        "Traditional cases need break to stop fall-through.",
+                        "Labels must match the switch value type."
+                    ]
+                },
+                {
+                    "name": "for, while, and do-while",
+                    "explanation": "for is useful when the iteration pattern is known, while checks before each iteration, and do-while always runs at least once.",
+                    "code": "for (int i = 1; i <= 3; i++) System.out.println(i);\nint count = 3;\nwhile (count > 0) count--;\nint choice;\ndo { choice = 1; } while (choice != 1);",
+                    "points_to_remember": [
+                        "Update loop state so the loop can finish.",
+                        "while may execute zero times.",
+                        "do-while executes at least once."
+                    ]
+                },
+                {
+                    "name": "break, continue, and enhanced for",
+                    "explanation": "break exits a loop, continue skips to the next iteration, and enhanced for visits every element.",
+                    "code": "int[] numbers = {1, 2, 3, 4, 5};\nfor (int number : numbers) {\n    if (number == 2) continue;\n    if (number == 5) break;\n    System.out.println(number);\n}",
+                    "points_to_remember": [
+                        "Use break and continue sparingly.",
+                        "Enhanced for is ideal for reading every element.",
+                        "Use an indexed loop when you need positions."
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Methods",
+            "explanation": "Methods package reusable behavior. A method accepts parameters and may return a value or use void when it returns nothing.",
+            "code": "static int add(int first, int second) {\n    return first + second;\n}\nSystem.out.println(add(5, 7));",
+            "points_to_remember": [
+                "Java passes arguments by value.",
+                "A return statement must match the declared return type.",
+                "Give methods one clear responsibility.",
+                "static methods belong to the class; instance methods belong to objects."
+            ],
+            "subtopics": [
+                {
+                    "name": "Parameters, return values, and void",
+                    "explanation": "Parameters are local inputs. A return value sends a result to the caller; void means there is no returned value.",
+                    "code": "static double area(double radius) {\n    return Math.PI * radius * radius;\n}\nstatic void greet(String name) {\n    System.out.println(\"Hello \" + name);\n}",
+                    "points_to_remember": [
+                        "Arguments follow parameter order.",
+                        "A void method can use return; to exit early.",
+                        "Validate inputs when invalid values break the method contract."
+                    ]
+                },
+                {
+                    "name": "Method Overloading",
+                    "explanation": "Overloading uses one method name with different parameter lists. The compiler chooses the matching signature.",
+                    "code": "static int add(int a, int b) { return a + b; }\nstatic double add(double a, double b) { return a + b; }",
+                    "points_to_remember": [
+                        "Return type alone cannot overload a method.",
+                        "Parameter count, types, or order must differ.",
+                        "Overloading is compile-time polymorphism."
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Arrays",
+            "explanation": "An array stores a fixed number of values of one type. Indexing starts at zero and length gives the number of elements.",
+            "code": "int[] numbers = {4, 2, 9, 1, 7};\nfor (int number : numbers) System.out.println(number);\nSystem.out.println(numbers.length);",
+            "points_to_remember": [
+                "The last index is length - 1.",
+                "Array size cannot change after creation.",
+                "Invalid indexes throw ArrayIndexOutOfBoundsException.",
+                "Arrays can contain primitives or references."
+            ],
+            "subtopics": [
+                {
+                    "name": "Creating and Updating Arrays",
+                    "explanation": "Arrays can be initialized with values or created with a fixed length. Elements are changed through indexes.",
+                    "code": "int[] scores = new int[3];\nscores[0] = 90;\nscores[1] = 85;\nscores[2] = 95;",
+                    "points_to_remember": [
+                        "A new int array starts with zero values.",
+                        "A new boolean array starts with false values.",
+                        "A new reference array starts with null values."
+                    ]
+                },
+                {
+                    "name": "Two-Dimensional Arrays",
+                    "explanation": "A two-dimensional array is an array whose elements are arrays, useful for tables and grids.",
+                    "code": "int[][] grid = {{1, 2}, {3, 4}};\nSystem.out.println(grid[1][0]);",
+                    "points_to_remember": [
+                        "Use array[row][column].",
+                        "Java supports jagged arrays.",
+                        "Nested loops commonly visit every cell."
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Strings and StringBuilder",
+            "explanation": "String is immutable, so its contents cannot change after creation. StringBuilder is mutable and efficient for repeated text changes.",
+            "code": "String first = \"Hello\";\nString second = first + \" Java\";\nStringBuilder builder = new StringBuilder(\"Hello\");\nbuilder.append(\" Java\");\nSystem.out.println(second);\nSystem.out.println(builder);",
+            "points_to_remember": [
+                "Use equals for String content comparison.",
+                "String methods return new strings.",
+                "Use StringBuilder for repeated concatenation in a loop.",
+                "String literals may be stored in the String pool."
+            ],
+            "subtopics": [
+                {
+                    "name": "Common String Operations",
+                    "explanation": "String provides methods for length, searching, extracting parts, changing case, and removing whitespace.",
+                    "code": "String text = \" Java Basics \";\nSystem.out.println(text.trim());\nSystem.out.println(text.length());\nSystem.out.println(text.contains(\"Java\"));\nSystem.out.println(text.substring(1, 5));",
+                    "points_to_remember": [
+                        "substring uses inclusive start and exclusive end.",
+                        "Many methods are case-sensitive.",
+                        "Check indexes before charAt or substring."
+                    ]
+                },
+                {
+                    "name": "StringBuilder",
+                    "explanation": "StringBuilder changes one character sequence with append, insert, delete, and reverse.",
+                    "code": "StringBuilder message = new StringBuilder();\nmessage.append(\"Java\");\nmessage.append(\" is fun\");\nSystem.out.println(message);",
+                    "points_to_remember": [
+                        "Call toString when an actual String is required.",
+                        "StringBuilder is not synchronized.",
+                        "It is especially useful inside loops."
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Object-Oriented Programming",
+            "explanation": "OOP models programs with classes and objects. Its core ideas are encapsulation, inheritance, polymorphism, and abstraction.",
+            "code": "class Dog {\n    private String name;\n    Dog(String name) { this.name = name; }\n    void bark() { System.out.println(name + \" says woof\"); }\n}\nDog dog = new Dog(\"Max\");\ndog.bark();",
+            "points_to_remember": [
+                "A class defines state and behavior; an object is an instance.",
+                "Keep fields private and expose controlled behavior.",
+                "Prefer composition when inheritance is not a true is-a relationship."
+            ],
+            "subtopics": [
+                {
+                    "name": "Classes, Objects, and Constructors",
+                    "explanation": "A class is a blueprint. A constructor initializes a new object and has the class name with no return type.",
+                    "code": "class Book {\n    String title;\n    Book(String title) { this.title = title; }\n}\nBook book = new Book(\"Java\");",
+                    "points_to_remember": [
+                        "new creates an object and calls a constructor.",
+                        "this refers to the current object.",
+                        "Constructors are not inherited."
+                    ]
+                },
+                {
+                    "name": "Encapsulation and Access Modifiers",
+                    "explanation": "Encapsulation protects internal state. public, protected, package-private, and private define visibility.",
+                    "code": "class Account {\n    private double balance;\n    public void deposit(double amount) {\n        if (amount > 0) balance += amount;\n    }\n    public double getBalance() { return balance; }\n}",
+                    "points_to_remember": [
+                        "private members are accessible only inside their class.",
+                        "Use methods to validate state changes.",
+                        "Expose only behavior that callers need."
+                    ]
+                },
+                {
+                    "name": "Inheritance and Polymorphism",
+                    "explanation": "extends creates a subclass. A parent-type reference can point to a child object, and overridden behavior is selected at runtime.",
+                    "code": "class Animal { void sound() { System.out.println(\"Sound\"); } }\nclass Cat extends Animal { @Override void sound() { System.out.println(\"Meow\"); } }\nAnimal animal = new Cat();\nanimal.sound();",
+                    "points_to_remember": [
+                        "A class has one direct superclass.",
+                        "Use @Override to verify overriding.",
+                        "The reference type controls accessible members; the object type controls overridden behavior."
+                    ]
+                },
+                {
+                    "name": "Abstract Classes and Interfaces",
+                    "explanation": "An abstract class can share implementation and declare abstract methods. An interface defines a contract that classes implement.",
+                    "code": "interface Printable { void print(); }\nclass Report implements Printable {\n    public void print() { System.out.println(\"Report\"); }\n}",
+                    "points_to_remember": [
+                        "Use implements for an interface.",
+                        "A concrete class must implement required methods.",
+                        "A class can implement multiple interfaces."
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Static, Wrapper Classes, and Enum",
+            "explanation": "Three useful Java features: static members belong to the class, wrapper classes represent primitive values as objects, and enums define a fixed set of constants.",
+            "code": "",
+            "points_to_remember": [
+                "Static methods cannot directly access instance fields.",
+                "Autoboxing converts primitives to wrappers and unboxing converts back.",
+                "A wrapper reference can be null; a primitive cannot.",
+                "Use enum for a fixed set of choices."
+            ],
+            "subtopics": [
+                {
+                    "name": "Static",
+                    "explanation": "The static keyword makes a variable or method belong to the class rather than to individual objects.",
+                    "code": "class Counter {\n    static int count = 0;\n\n    Counter() {\n        count++;\n    }\n\n    static void showCount() {\n        System.out.println(\"Objects created: \" + count);\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        new Counter();\n        new Counter();\n        Counter.showCount();\n    }\n}",
+                    "points_to_remember": [
+                        "Static members belong to the class.",
+                        "A static method can be called using the class name.",
+                        "Static methods cannot directly access instance variables.",
+                        "Static variables are shared by all objects of the class."
+                    ]
+                },
+                {
+                    "name": "Wrapper Classes",
+                    "explanation": "Wrapper classes represent primitive data types as objects, such as Integer for int and Double for double.",
+                    "code": "public class Main {\n    public static void main(String[] args) {\n        int number = 10;\n\n        // Autoboxing\n        Integer boxed = number;\n\n        // Unboxing\n        int primitive = boxed;\n\n        System.out.println(boxed);\n        System.out.println(primitive);\n    }\n}",
+                    "points_to_remember": [
+                        "Every primitive type has a corresponding wrapper class.",
+                        "int → Integer, double → Double, char → Character, boolean → Boolean.",
+                        "Autoboxing converts a primitive into a wrapper object.",
+                        "Unboxing converts a wrapper object back into a primitive.",
+                        "Wrapper references can be null, but primitives cannot."
+                    ]
+                },
+                {
+                    "name": "Enum",
+                    "explanation": "An enum defines a fixed set of named constants, making it useful when a variable can have only specific values.",
+                    "code": "enum Size {\n    SMALL,\n    MEDIUM,\n    LARGE\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Size selected = Size.MEDIUM;\n\n        System.out.println(selected);\n    }\n}",
+                    "points_to_remember": [
+                        "Enum represents a fixed set of constants.",
+                        "Enum values are accessed using the enum name.",
+                        "Use enum instead of arbitrary strings for predefined choices.",
+                        "Enum values can be used with switch statements."
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Input and Output",
+            "explanation": "System.out prints to standard output, while Scanner reads formatted input from the console.",
+            "code": "import java.util.Scanner;\n\nScanner scanner = new Scanner(System.in);\nSystem.out.print(\"Enter your age: \");\nint age = scanner.nextInt();\nSystem.out.println(\"Age: \" + age);\nscanner.close();",
+            "points_to_remember": [
+                "Use nextLine for a complete line and nextInt for an integer token.",
+                "After nextInt, consume the remaining newline before nextLine.",
+                "Close resources when finished.",
+                "Validate input before using it."
+            ],
+            "subtopics": []
+        },
+        {
+            "name": "Exception Handling",
+            "explanation": "Exceptions represent abnormal situations. try contains risky code, catch handles a matching exception, finally performs cleanup, and throw/throws communicate errors.",
+            "code": "try {\n    int value = Integer.parseInt(\"not a number\");\n} catch (NumberFormatException error) {\n    System.out.println(\"Invalid number\");\n} finally {\n    System.out.println(\"Finished\");\n}",
+            "points_to_remember": [
+                "Catch specific exceptions before general ones.",
+                "Do not silently ignore exceptions.",
+                "Use try-with-resources for AutoCloseable resources.",
+                "Checked exceptions must be caught or declared."
+            ],
+            "subtopics": [
+                {
+                    "name": "throw and throws",
+                    "explanation": "throw sends an exception now. throws declares that a method may pass an exception to its caller.",
+                    "code": "static void withdraw(double balance, double amount) {\n    if (amount > balance) throw new IllegalArgumentException(\"Insufficient balance\");\n}",
+                    "points_to_remember": [
+                        "Use exceptions for exceptional situations.",
+                        "Exception messages should explain the problem.",
+                        "Preserve the original cause when wrapping exceptions."
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Collections Basics",
+            "explanation": "Collections store groups of objects with flexible sizes. List preserves order, Set prevents duplicates, and Map stores key-value pairs.",
+            "code": "import java.util.ArrayList;\nimport java.util.HashMap;\nimport java.util.List;\nimport java.util.Map;\n\nList<String> names = new ArrayList<>();\nnames.add(\"Asha\");\nMap<String, Integer> scores = new HashMap<>();\nscores.put(\"Asha\", 95);\nSystem.out.println(scores.get(\"Asha\"));",
+            "points_to_remember": [
+                "Collections store reference types, so use wrappers for primitives.",
+                "List permits duplicates and keeps order.",
+                "Set stores unique elements.",
+                "Map keys are unique.",
+                "Use interface types on the left when possible."
+            ],
+            "subtopics": [
+                {
+                    "name": "List",
+                    "explanation": "List is an ordered collection that allows duplicate elements. ArrayList is a common implementation of the List interface.",
+                    "code": "List<String> languages = new ArrayList<>();\nlanguages.add(\"Java\");\nlanguages.add(\"Python\");\nlanguages.add(\"Java\");\nSystem.out.println(languages);\nSystem.out.println(languages.get(0));",
+                    "points_to_remember": [
+                        "List maintains insertion order.",
+                        "List allows duplicate elements.",
+                        "ArrayList is commonly used when frequent access by index is required."
+                    ]
+                },
+                {
+                    "name": "Set",
+                    "explanation": "Set is a collection that does not allow duplicate elements. HashSet is a common implementation of the Set interface.",
+                    "code": "Set<String> languages = new HashSet<>();\nlanguages.add(\"Java\");\nlanguages.add(\"Java\");\nlanguages.add(\"Python\");\nSystem.out.println(languages);\nSystem.out.println(languages.size());",
+                    "points_to_remember": [
+                        "Set does not allow duplicate elements.",
+                        "HashSet does not guarantee insertion order.",
+                        "Use Set when uniqueness of elements is required."
+                    ]
+                },
+                {
+                    "name": "Map",
+                    "explanation": "Map stores data as key-value pairs. HashMap is a common implementation of the Map interface.",
+                    "code": "Map<Integer, String> languages = new HashMap<>();\nlanguages.put(1, \"Java\");\nlanguages.put(2, \"Python\");\nlanguages.put(3, \"C++\");\nSystem.out.println(languages);\nSystem.out.println(languages.get(1));",
+                    "points_to_remember": [
+                        "Map stores data as key-value pairs.",
+                        "HashMap does not guarantee insertion order.",
+                        "Keys must be unique, while values can be duplicated.",
+                        "Check whether a key exists when a lookup may return null."
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Packages, Imports, and Debugging",
+            "explanation": "Packages organize classes and prevent naming conflicts. Imports allow short names. Debugging uses compiler messages, stack traces, logs, and breakpoints to find causes.",
+            "code": "package com.example.basics;\n\nimport java.util.Arrays;\n\npublic class DebugDemo {\n    public static void main(String[] args) {\n        int[] values = {1, 2, 3};\n        System.out.println(Arrays.toString(values));\n    }\n}",
+            "points_to_remember": [
+                "The package declaration comes before imports.",
+                "A stack trace shows the exception and call path.",
+                "Read the first relevant application line in a stack trace.",
+                "A debugger lets you inspect variables line by line."
+            ],
+            "subtopics": []
+        }
+    ],
+    "practical_projects": [
+        {
+            "project_name": "Calculator",
+            "description": "Practice input, operators, methods, and switch with a four-operation calculator.",
+            "algorithm": "Read two numbers, select an operation, validate division by zero, and print the result.",
+            "implementation_code": "import java.util.Scanner;\n\npublic class Calculator {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        double first = scanner.nextDouble();\n        char operator = scanner.next().charAt(0);\n        double second = scanner.nextDouble();\n        double result = switch (operator) {\n            case '+' -> first + second;\n            case '-' -> first - second;\n            case '*' -> first * second;\n            case '/' -> second == 0 ? Double.NaN : first / second;\n            default -> Double.NaN;\n        };\n        System.out.println(result);\n        scanner.close();\n    }\n}"
+        },
+        {
+            "project_name": "Number Guessing Game",
+            "description": "Practice Random, Scanner, conditions, loops, and counters.",
+            "algorithm": "Generate a target from 1 to 100 and repeat guesses until the target is found.",
+            "implementation_code": "import java.util.Random;\nimport java.util.Scanner;\n\npublic class GuessingGame {\n    public static void main(String[] args) {\n        int target = new Random().nextInt(100) + 1;\n        Scanner scanner = new Scanner(System.in);\n        int guess;\n        do {\n            guess = scanner.nextInt();\n            if (guess < target) System.out.println(\"Higher\");\n            else if (guess > target) System.out.println(\"Lower\");\n        } while (guess != target);\n        System.out.println(\"Correct\");\n        scanner.close();\n    }\n}"
+        },
+        {
+            "project_name": "Palindrome and Prime Checker",
+            "description": "Practice strings, loops, methods, and boolean return values.",
+            "algorithm": "Use two pointers for palindrome checking and trial division up to the square root for prime checking.",
+            "implementation_code": "public class BasicChecks {\n    static boolean isPalindrome(String value) {\n        int left = 0;\n        int right = value.length() - 1;\n        while (left < right) {\n            if (value.charAt(left++) != value.charAt(right--)) return false;\n        }\n        return true;\n    }\n\n    static boolean isPrime(int number) {\n        if (number < 2) return false;\n        for (int divisor = 2; divisor * divisor <= number; divisor++) {\n            if (number % divisor == 0) return false;\n        }\n        return true;\n    }\n}"
+        }
+    ]
 }
