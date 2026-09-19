@@ -1,0 +1,764 @@
+{
+  "Collections - List, Set and Map": {
+    "explanation": "Java Collections Framework provides interfaces and classes for storing and manipulating groups of objects. List maintains an ordered collection and allows duplicates, Set stores unique elements, and Map stores key-value pairs. Common implementations include ArrayList, LinkedList, HashSet, LinkedHashSet, TreeSet, HashMap, LinkedHashMap, and TreeMap.",
+    "topics": {
+
+      "List Introduction": {
+        "explanation": "List is an ordered collection that allows duplicate elements. Elements can be accessed using their index. Common List implementations are ArrayList and LinkedList.",
+        "code": "import java.util.ArrayList;\nimport java.util.List;\n\npublic class ListDemo {\n    public static void main(String[] args) {\n        List<String> names = new ArrayList<>();\n\n        names.add(\"Alice\");\n        names.add(\"Bob\");\n        names.add(\"Alice\");\n\n        System.out.println(names);\n    }\n}",
+        "example": "A List can store student names where duplicate names are allowed.",
+        "points_to_remember": [
+          "List maintains insertion order.",
+          "List allows duplicate elements.",
+          "List supports index-based access.",
+          "Common implementations include ArrayList and LinkedList."
+        ]
+      },
+
+      "ArrayList": {
+        "explanation": "ArrayList is a resizable-array implementation of the List interface. It provides fast random access using indexes.",
+        "code": "import java.util.ArrayList;\n\npublic class ArrayListDemo {\n    public static void main(String[] args) {\n        ArrayList<String> languages = new ArrayList<>();\n\n        languages.add(\"Java\");\n        languages.add(\"Python\");\n        languages.add(\"C++\");\n\n        System.out.println(languages);\n    }\n}",
+        "example": "ArrayList is useful when frequent reading by index is required.",
+        "points_to_remember": [
+          "ArrayList is dynamically resizable.",
+          "It maintains insertion order.",
+          "It allows duplicates and null values.",
+          "Random access using get() is efficient.",
+          "Insertion or removal in the middle can require shifting elements."
+        ]
+      },
+
+      "LinkedList": {
+        "explanation": "LinkedList is a doubly linked implementation of List and Deque. It supports operations at both ends and can be useful when frequent insertions or removals occur at known positions.",
+        "code": "import java.util.LinkedList;\n\npublic class LinkedListDemo {\n    public static void main(String[] args) {\n        LinkedList<String> list = new LinkedList<>();\n\n        list.add(\"Java\");\n        list.addFirst(\"Python\");\n        list.addLast(\"C++\");\n\n        System.out.println(list);\n    }\n}",
+        "example": "LinkedList can be used as both a List and a queue/deque.",
+        "points_to_remember": [
+          "LinkedList implements List and Deque.",
+          "It maintains insertion order.",
+          "It allows duplicates and null values.",
+          "It provides addFirst() and addLast().",
+          "Random index-based access is slower than ArrayList."
+        ]
+      },
+
+      "List add()": {
+        "explanation": "add() inserts an element into a List. It can add an element at the end or at a specified index.",
+        "code": "import java.util.ArrayList;\nimport java.util.List;\n\npublic class ListAddDemo {\n    public static void main(String[] args) {\n        List<String> list = new ArrayList<>();\n\n        list.add(\"Java\");\n        list.add(\"Python\");\n        list.add(1, \"C++\");\n\n        System.out.println(list);\n    }\n}",
+        "example": "An element can be added either at the end or at a specific index.",
+        "points_to_remember": [
+          "add(element) adds at the end.",
+          "add(index, element) inserts at a specific position.",
+          "Adding at an index shifts later elements."
+        ]
+      },
+
+      "List get()": {
+        "explanation": "get() retrieves an element from a List using its index.",
+        "code": "import java.util.ArrayList;\n\npublic class ListGetDemo {\n    public static void main(String[] args) {\n        ArrayList<String> list = new ArrayList<>();\n        list.add(\"Java\");\n        list.add(\"Python\");\n\n        System.out.println(list.get(0));\n    }\n}",
+        "example": "get(0) returns Java.",
+        "points_to_remember": [
+          "Indexes start from 0.",
+          "An invalid index causes IndexOutOfBoundsException.",
+          "ArrayList provides efficient index-based access."
+        ]
+      },
+
+      "List set()": {
+        "explanation": "set() replaces the element at a specified index.",
+        "code": "import java.util.ArrayList;\n\npublic class ListSetDemo {\n    public static void main(String[] args) {\n        ArrayList<String> list = new ArrayList<>();\n        list.add(\"Java\");\n        list.add(\"Python\");\n\n        list.set(1, \"C++\");\n\n        System.out.println(list);\n    }\n}",
+        "example": "Python is replaced by C++.",
+        "points_to_remember": [
+          "set() replaces an existing element.",
+          "It does not increase the List size.",
+          "The specified index must already exist."
+        ]
+      },
+
+      "List remove()": {
+        "explanation": "remove() removes an element either by index or by object.",
+        "code": "import java.util.ArrayList;\n\npublic class ListRemoveDemo {\n    public static void main(String[] args) {\n        ArrayList<String> list = new ArrayList<>();\n        list.add(\"Java\");\n        list.add(\"Python\");\n        list.add(\"C++\");\n\n        list.remove(\"Python\");\n        list.remove(0);\n\n        System.out.println(list);\n    }\n}",
+        "example": "An element can be removed using its value or index.",
+        "points_to_remember": [
+          "remove(index) removes by position.",
+          "remove(object) removes the first matching object.",
+          "Removing an element changes the List size."
+        ]
+      },
+
+      "List contains()": {
+        "explanation": "contains() checks whether a List contains a specified element.",
+        "code": "import java.util.ArrayList;\n\npublic class ListContainsDemo {\n    public static void main(String[] args) {\n        ArrayList<String> list = new ArrayList<>();\n        list.add(\"Java\");\n        list.add(\"Python\");\n\n        System.out.println(list.contains(\"Java\"));\n    }\n}",
+        "example": "The result is true because Java exists in the List.",
+        "points_to_remember": [
+          "contains() returns boolean.",
+          "It uses equals() semantics to determine matching elements."
+        ]
+      },
+
+      "List indexOf() and lastIndexOf()": {
+        "explanation": "indexOf() returns the first occurrence of an element, while lastIndexOf() returns the last occurrence.",
+        "code": "import java.util.ArrayList;\n\npublic class ListIndexDemo {\n    public static void main(String[] args) {\n        ArrayList<String> list = new ArrayList<>();\n        list.add(\"Java\");\n        list.add(\"Python\");\n        list.add(\"Java\");\n\n        System.out.println(list.indexOf(\"Java\"));\n        System.out.println(list.lastIndexOf(\"Java\"));\n    }\n}",
+        "example": "The first Java occurs at index 0 and the last Java occurs at index 2.",
+        "points_to_remember": [
+          "indexOf() searches from the beginning.",
+          "lastIndexOf() searches from the end.",
+          "Both return -1 when no match exists."
+        ]
+      },
+
+      "List size() and isEmpty()": {
+        "explanation": "size() returns the number of elements in a collection, while isEmpty() checks whether the collection contains no elements.",
+        "code": "import java.util.ArrayList;\n\npublic class ListSizeDemo {\n    public static void main(String[] args) {\n        ArrayList<String> list = new ArrayList<>();\n\n        System.out.println(list.size());\n        System.out.println(list.isEmpty());\n    }\n}",
+        "example": "An empty List has size 0 and isEmpty() returns true.",
+        "points_to_remember": [
+          "size() returns the number of elements.",
+          "isEmpty() returns true when size is zero."
+        ]
+      },
+
+      "List clear()": {
+        "explanation": "clear() removes all elements from a List.",
+        "code": "import java.util.ArrayList;\n\npublic class ListClearDemo {\n    public static void main(String[] args) {\n        ArrayList<String> list = new ArrayList<>();\n        list.add(\"Java\");\n        list.add(\"Python\");\n\n        list.clear();\n\n        System.out.println(list);\n    }\n}",
+        "example": "After clear(), the List becomes empty.",
+        "points_to_remember": [
+          "clear() removes all elements.",
+          "The List object itself remains usable.",
+          "After clearing, size() returns 0."
+        ]
+      },
+
+      "List removeIf()": {
+        "explanation": "removeIf() removes all elements that satisfy a specified predicate.",
+        "code": "import java.util.ArrayList;\n\npublic class RemoveIfDemo {\n    public static void main(String[] args) {\n        ArrayList<Integer> numbers = new ArrayList<>();\n        numbers.add(10);\n        numbers.add(15);\n        numbers.add(20);\n        numbers.add(25);\n\n        numbers.removeIf(n -> n % 2 != 0);\n\n        System.out.println(numbers);\n    }\n}",
+        "example": "All odd numbers are removed.",
+        "points_to_remember": [
+          "removeIf() accepts a Predicate.",
+          "Every matching element is removed.",
+          "It modifies the collection."
+        ]
+      },
+
+      "List sort()": {
+        "explanation": "sort() sorts a List according to its natural ordering or a supplied Comparator.",
+        "code": "import java.util.ArrayList;\n\npublic class ListSortDemo {\n    public static void main(String[] args) {\n        ArrayList<Integer> numbers = new ArrayList<>();\n        numbers.add(30);\n        numbers.add(10);\n        numbers.add(20);\n\n        numbers.sort(null);\n\n        System.out.println(numbers);\n    }\n}",
+        "example": "The numbers are sorted as [10, 20, 30].",
+        "points_to_remember": [
+          "sort(null) uses natural ordering.",
+          "A Comparator can define custom ordering.",
+          "sort() modifies the List."
+        ]
+      },
+
+      "Set Introduction": {
+        "explanation": "Set is a Collection that does not allow duplicate elements. Common implementations include HashSet, LinkedHashSet, and TreeSet.",
+        "code": "import java.util.HashSet;\nimport java.util.Set;\n\npublic class SetDemo {\n    public static void main(String[] args) {\n        Set<String> languages = new HashSet<>();\n\n        languages.add(\"Java\");\n        languages.add(\"Python\");\n        languages.add(\"Java\");\n\n        System.out.println(languages);\n    }\n}",
+        "example": "Adding Java twice still stores only one Java element.",
+        "points_to_remember": [
+          "Set does not allow duplicate elements.",
+          "Set does not provide index-based access.",
+          "HashSet is commonly used for fast membership checks.",
+          "Set ordering depends on its implementation."
+        ]
+      },
+
+      "HashSet": {
+        "explanation": "HashSet is a Set implementation based on hashing. It provides efficient basic operations such as add, remove, and contains on average.",
+        "code": "import java.util.HashSet;\n\npublic class HashSetDemo {\n    public static void main(String[] args) {\n        HashSet<Integer> numbers = new HashSet<>();\n\n        numbers.add(30);\n        numbers.add(10);\n        numbers.add(20);\n        numbers.add(10);\n\n        System.out.println(numbers);\n    }\n}",
+        "example": "The duplicate value 10 is stored only once.",
+        "points_to_remember": [
+          "HashSet does not allow duplicates.",
+          "HashSet does not guarantee iteration order.",
+          "It permits one null element.",
+          "It is based on hashing."
+        ]
+      },
+
+      "LinkedHashSet": {
+        "explanation": "LinkedHashSet is a HashSet variant that maintains insertion order during iteration.",
+        "code": "import java.util.LinkedHashSet;\n\npublic class LinkedHashSetDemo {\n    public static void main(String[] args) {\n        LinkedHashSet<String> set = new LinkedHashSet<>();\n\n        set.add(\"Java\");\n        set.add(\"Python\");\n        set.add(\"C++\");\n\n        System.out.println(set);\n    }\n}",
+        "example": "Elements are iterated in the order in which they were inserted.",
+        "points_to_remember": [
+          "Duplicates are not allowed.",
+          "Insertion order is maintained.",
+          "It generally uses more memory than HashSet because of linked structure."
+        ]
+      },
+
+      "TreeSet": {
+        "explanation": "TreeSet is a NavigableSet implementation that keeps elements sorted according to their natural ordering or a supplied Comparator.",
+        "code": "import java.util.TreeSet;\n\npublic class TreeSetDemo {\n    public static void main(String[] args) {\n        TreeSet<Integer> numbers = new TreeSet<>();\n\n        numbers.add(30);\n        numbers.add(10);\n        numbers.add(20);\n\n        System.out.println(numbers);\n    }\n}",
+        "example": "The values are stored in sorted order: [10, 20, 30].",
+        "points_to_remember": [
+          "TreeSet maintains sorted order.",
+          "Duplicates are not allowed.",
+          "TreeSet provides navigation methods such as first(), last(), lower(), and higher().",
+          "Elements must be mutually comparable or a suitable Comparator must be supplied."
+        ]
+      },
+
+      "Set add()": {
+        "explanation": "add() inserts an element into a Set. If the element already exists, the Set remains unchanged.",
+        "code": "import java.util.HashSet;\n\npublic class SetAddDemo {\n    public static void main(String[] args) {\n        HashSet<String> set = new HashSet<>();\n\n        System.out.println(set.add(\"Java\"));\n        System.out.println(set.add(\"Java\"));\n    }\n}",
+        "example": "The first add returns true, while the second returns false because Java already exists.",
+        "points_to_remember": [
+          "add() returns true when the Set changes.",
+          "It returns false when the element already exists.",
+          "Sets automatically prevent duplicates."
+        ]
+      },
+
+      "Set contains()": {
+        "explanation": "contains() checks whether a Set contains a specified element.",
+        "code": "import java.util.HashSet;\n\npublic class SetContainsDemo {\n    public static void main(String[] args) {\n        HashSet<String> set = new HashSet<>();\n        set.add(\"Java\");\n        set.add(\"Python\");\n\n        System.out.println(set.contains(\"Java\"));\n    }\n}",
+        "example": "The result is true because Java is present.",
+        "points_to_remember": [
+          "contains() returns boolean.",
+          "HashSet provides efficient average-case membership checks."
+        ]
+      },
+
+      "Set remove()": {
+        "explanation": "remove() removes a specified element from a Set if it exists.",
+        "code": "import java.util.HashSet;\n\npublic class SetRemoveDemo {\n    public static void main(String[] args) {\n        HashSet<String> set = new HashSet<>();\n        set.add(\"Java\");\n        set.add(\"Python\");\n\n        set.remove(\"Java\");\n\n        System.out.println(set);\n    }\n}",
+        "example": "Java is removed from the Set.",
+        "points_to_remember": [
+          "remove() returns true when an element is removed.",
+          "It returns false when the element does not exist."
+        ]
+      },
+
+      "Set Union": {
+        "explanation": "Union combines all unique elements from two sets. It can be implemented using addAll().",
+        "code": "import java.util.HashSet;\nimport java.util.Set;\n\npublic class SetUnionDemo {\n    public static void main(String[] args) {\n        Set<Integer> a = new HashSet<>();\n        Set<Integer> b = new HashSet<>();\n\n        a.add(1);\n        a.add(2);\n        b.add(2);\n        b.add(3);\n\n        Set<Integer> union = new HashSet<>(a);\n        union.addAll(b);\n\n        System.out.println(union);\n    }\n}",
+        "example": "The union contains 1, 2, and 3.",
+        "points_to_remember": [
+          "addAll() combines elements.",
+          "Duplicates are automatically removed by the Set.",
+          "The original sets can remain unchanged when working on a copy."
+        ]
+      },
+
+      "Set Intersection": {
+        "explanation": "Intersection contains only elements that are present in both sets. It can be implemented using retainAll().",
+        "code": "import java.util.HashSet;\nimport java.util.Set;\n\npublic class SetIntersectionDemo {\n    public static void main(String[] args) {\n        Set<Integer> a = new HashSet<>();\n        Set<Integer> b = new HashSet<>();\n\n        a.add(1);\n        a.add(2);\n        a.add(3);\n        b.add(2);\n        b.add(3);\n        b.add(4);\n\n        a.retainAll(b);\n\n        System.out.println(a);\n    }\n}",
+        "example": "The result contains 2 and 3.",
+        "points_to_remember": [
+          "retainAll() keeps only common elements.",
+          "retainAll() modifies the collection on which it is called."
+        ]
+      },
+
+      "Set Difference": {
+        "explanation": "Difference contains elements that exist in one set but not in another. It can be implemented using removeAll().",
+        "code": "import java.util.HashSet;\nimport java.util.Set;\n\npublic class SetDifferenceDemo {\n    public static void main(String[] args) {\n        Set<Integer> a = new HashSet<>();\n        Set<Integer> b = new HashSet<>();\n\n        a.add(1);\n        a.add(2);\n        a.add(3);\n        b.add(2);\n        b.add(3);\n\n        a.removeAll(b);\n\n        System.out.println(a);\n    }\n}",
+        "example": "The result contains only 1.",
+        "points_to_remember": [
+          "removeAll() removes elements found in another collection.",
+          "The operation modifies the original Set."
+        ]
+      },
+
+      "Map Introduction": {
+        "explanation": "Map stores data as key-value pairs. Each key can occur only once, while multiple keys can have the same value.",
+        "code": "import java.util.HashMap;\nimport java.util.Map;\n\npublic class MapDemo {\n    public static void main(String[] args) {\n        Map<Integer, String> students = new HashMap<>();\n\n        students.put(101, \"Alice\");\n        students.put(102, \"Bob\");\n        students.put(103, \"Charlie\");\n\n        System.out.println(students);\n    }\n}",
+        "example": "A student ID can be used as a key and the student's name as the value.",
+        "points_to_remember": [
+          "Map stores key-value pairs.",
+          "Keys are unique.",
+          "Values can be duplicated.",
+          "Map is not a subtype of Collection."
+        ]
+      },
+
+      "HashMap": {
+        "explanation": "HashMap is a hash-table-based Map implementation that provides efficient average-case lookup, insertion, and removal.",
+        "code": "import java.util.HashMap;\n\npublic class HashMapDemo {\n    public static void main(String[] args) {\n        HashMap<String, Integer> scores = new HashMap<>();\n\n        scores.put(\"Alice\", 90);\n        scores.put(\"Bob\", 85);\n        scores.put(\"Charlie\", 95);\n\n        System.out.println(scores);\n    }\n}",
+        "example": "A HashMap can associate student names with their scores.",
+        "points_to_remember": [
+          "Keys are unique.",
+          "HashMap does not guarantee iteration order.",
+          "HashMap permits one null key and multiple null values.",
+          "It provides efficient average-case basic operations."
+        ]
+      },
+
+      "LinkedHashMap": {
+        "explanation": "LinkedHashMap is a HashMap variant that maintains a predictable iteration order, normally insertion order.",
+        "code": "import java.util.LinkedHashMap;\n\npublic class LinkedHashMapDemo {\n    public static void main(String[] args) {\n        LinkedHashMap<Integer, String> map = new LinkedHashMap<>();\n\n        map.put(1, \"Java\");\n        map.put(2, \"Python\");\n        map.put(3, \"C++\");\n\n        System.out.println(map);\n    }\n}",
+        "example": "Entries are iterated in insertion order.",
+        "points_to_remember": [
+          "Keys are unique.",
+          "Insertion order is maintained by default.",
+          "It can also be configured for access-order iteration.",
+          "It permits one null key and multiple null values."
+        ]
+      },
+
+      "TreeMap": {
+        "explanation": "TreeMap is a NavigableMap implementation that stores entries sorted according to key ordering.",
+        "code": "import java.util.TreeMap;\n\npublic class TreeMapDemo {\n    public static void main(String[] args) {\n        TreeMap<Integer, String> map = new TreeMap<>();\n\n        map.put(30, \"C\");\n        map.put(10, \"A\");\n        map.put(20, \"B\");\n\n        System.out.println(map);\n    }\n}",
+        "example": "The keys are maintained in sorted order: 10, 20, 30.",
+        "points_to_remember": [
+          "Keys are sorted.",
+          "Keys must be mutually comparable or a Comparator must be provided.",
+          "TreeMap provides navigation methods.",
+          "TreeMap does not permit null keys under natural ordering."
+        ]
+      },
+
+      "Map put()": {
+        "explanation": "put() inserts or updates a key-value mapping in a Map.",
+        "code": "import java.util.HashMap;\n\npublic class MapPutDemo {\n    public static void main(String[] args) {\n        HashMap<Integer, String> map = new HashMap<>();\n\n        map.put(1, \"Java\");\n        map.put(2, \"Python\");\n        map.put(1, \"C++\");\n\n        System.out.println(map);\n    }\n}",
+        "example": "The second put for key 1 replaces Java with C++.",
+        "points_to_remember": [
+          "Keys must be unique.",
+          "Putting an existing key replaces its value.",
+          "put() returns the previous value associated with the key, or null if there was no mapping."
+        ]
+      },
+
+      "Map get()": {
+        "explanation": "get() retrieves the value associated with a specified key.",
+        "code": "import java.util.HashMap;\n\npublic class MapGetDemo {\n    public static void main(String[] args) {\n        HashMap<Integer, String> map = new HashMap<>();\n        map.put(101, \"Alice\");\n\n        System.out.println(map.get(101));\n    }\n}",
+        "example": "get(101) returns Alice.",
+        "points_to_remember": [
+          "get() returns the associated value.",
+          "If the key does not exist, get() returns null.",
+          "Use getOrDefault() when a fallback value is useful."
+        ]
+      },
+
+      "Map getOrDefault()": {
+        "explanation": "getOrDefault() returns the value associated with a key or a specified default value when the key is absent.",
+        "code": "import java.util.HashMap;\n\npublic class GetOrDefaultDemo {\n    public static void main(String[] args) {\n        HashMap<String, Integer> map = new HashMap<>();\n        map.put(\"Java\", 90);\n\n        System.out.println(map.getOrDefault(\"Python\", 0));\n    }\n}",
+        "example": "Because Python is absent, the result is 0.",
+        "points_to_remember": [
+          "It avoids explicit null checking for simple fallback behavior.",
+          "The Map is not modified by getOrDefault()."
+        ]
+      },
+
+      "Map containsKey()": {
+        "explanation": "containsKey() checks whether a specified key exists in a Map.",
+        "code": "import java.util.HashMap;\n\npublic class ContainsKeyDemo {\n    public static void main(String[] args) {\n        HashMap<Integer, String> map = new HashMap<>();\n        map.put(101, \"Alice\");\n\n        System.out.println(map.containsKey(101));\n    }\n}",
+        "example": "The result is true because key 101 exists.",
+        "points_to_remember": [
+          "containsKey() returns boolean.",
+          "It is useful before retrieving or updating a mapping."
+        ]
+      },
+
+      "Map containsValue()": {
+        "explanation": "containsValue() checks whether at least one mapping contains a specified value.",
+        "code": "import java.util.HashMap;\n\npublic class ContainsValueDemo {\n    public static void main(String[] args) {\n        HashMap<Integer, String> map = new HashMap<>();\n        map.put(101, \"Alice\");\n        map.put(102, \"Bob\");\n\n        System.out.println(map.containsValue(\"Alice\"));\n    }\n}",
+        "example": "The result is true because Alice exists as a value.",
+        "points_to_remember": [
+          "containsValue() returns boolean.",
+          "Unlike keys, values do not need to be unique."
+        ]
+      },
+
+      "Map remove()": {
+        "explanation": "remove() removes a mapping associated with a specified key. An overload can also remove only when a key-value pair matches.",
+        "code": "import java.util.HashMap;\n\npublic class MapRemoveDemo {\n    public static void main(String[] args) {\n        HashMap<Integer, String> map = new HashMap<>();\n        map.put(1, \"Java\");\n        map.put(2, \"Python\");\n\n        map.remove(1);\n\n        System.out.println(map);\n    }\n}",
+        "example": "The mapping with key 1 is removed.",
+        "points_to_remember": [
+          "remove(key) removes the mapping for the key.",
+          "remove(key, value) removes only when both match.",
+          "remove() returns the previous value or null when appropriate."
+        ]
+      },
+
+      "Map replace()": {
+        "explanation": "replace() updates the value associated with an existing key.",
+        "code": "import java.util.HashMap;\n\npublic class MapReplaceDemo {\n    public static void main(String[] args) {\n        HashMap<Integer, String> map = new HashMap<>();\n        map.put(1, \"Java\");\n\n        map.replace(1, \"Python\");\n\n        System.out.println(map);\n    }\n}",
+        "example": "The value Java is replaced with Python.",
+        "points_to_remember": [
+          "replace() changes an existing mapping.",
+          "It does not add a new key when the key is absent.",
+          "replace(key, oldValue, newValue) performs conditional replacement."
+        ]
+      },
+
+      "Map putIfAbsent()": {
+        "explanation": "putIfAbsent() inserts a mapping only when the specified key does not already have a mapping.",
+        "code": "import java.util.HashMap;\n\npublic class PutIfAbsentDemo {\n    public static void main(String[] args) {\n        HashMap<String, Integer> map = new HashMap<>();\n\n        map.put(\"Java\", 90);\n        map.putIfAbsent(\"Java\", 100);\n        map.putIfAbsent(\"Python\", 80);\n\n        System.out.println(map);\n    }\n}",
+        "example": "Java remains associated with 90 while Python is added with 80.",
+        "points_to_remember": [
+          "Existing mappings are not overwritten.",
+          "Useful for initializing values only when absent."
+        ]
+      },
+
+      "Map computeIfAbsent()": {
+        "explanation": "computeIfAbsent() computes and associates a value when a key is not already associated with a non-null value.",
+        "code": "import java.util.HashMap;\n\npublic class ComputeIfAbsentDemo {\n    public static void main(String[] args) {\n        HashMap<String, Integer> map = new HashMap<>();\n\n        map.computeIfAbsent(\"Java\", key -> key.length());\n\n        System.out.println(map);\n    }\n}",
+        "example": "The value 4 is calculated and associated with Java.",
+        "points_to_remember": [
+          "The mapping function is used when the key is absent or mapped to null.",
+          "Useful for lazy value creation.",
+          "The mapping function should return null only when no mapping should be recorded."
+        ]
+      },
+
+      "Map computeIfPresent()": {
+        "explanation": "computeIfPresent() recalculates a value when a key already has a non-null mapping.",
+        "code": "import java.util.HashMap;\n\npublic class ComputeIfPresentDemo {\n    public static void main(String[] args) {\n        HashMap<String, Integer> map = new HashMap<>();\n        map.put(\"Java\", 10);\n\n        map.computeIfPresent(\"Java\", (key, value) -> value + 5);\n\n        System.out.println(map);\n    }\n}",
+        "example": "The value changes from 10 to 15.",
+        "points_to_remember": [
+          "The mapping function receives the key and current value.",
+          "If the function returns null, the mapping is removed."
+        ]
+      },
+
+      "Map compute()": {
+        "explanation": "compute() recalculates the value associated with a key whether or not a previous mapping exists.",
+        "code": "import java.util.HashMap;\n\npublic class ComputeDemo {\n    public static void main(String[] args) {\n        HashMap<String, Integer> map = new HashMap<>();\n        map.put(\"Java\", 10);\n\n        map.compute(\"Java\", (key, value) -> value == null ? 1 : value + 1);\n\n        System.out.println(map);\n    }\n}",
+        "example": "The value associated with Java becomes 11.",
+        "points_to_remember": [
+          "compute() can create or update a mapping.",
+          "The mapping function receives the key and current value.",
+          "Returning null removes the mapping."
+        ]
+      },
+
+      "Map merge()": {
+        "explanation": "merge() combines a new value with an existing value using a specified remapping function.",
+        "code": "import java.util.HashMap;\n\npublic class MergeDemo {\n    public static void main(String[] args) {\n        HashMap<String, Integer> map = new HashMap<>();\n\n        map.merge(\"Java\", 1, Integer::sum);\n        map.merge(\"Java\", 2, Integer::sum);\n\n        System.out.println(map);\n    }\n}",
+        "example": "The value for Java becomes 3 after merging 1 and 2.",
+        "points_to_remember": [
+          "If the key is absent, the supplied value is inserted.",
+          "If the key exists, the remapping function combines the values.",
+          "Returning null from the remapping function removes the mapping."
+        ]
+      },
+
+      "Map keySet()": {
+        "explanation": "keySet() returns a Set view containing all keys in the Map.",
+        "code": "import java.util.HashMap;\n\npublic class KeySetDemo {\n    public static void main(String[] args) {\n        HashMap<Integer, String> map = new HashMap<>();\n        map.put(1, \"Java\");\n        map.put(2, \"Python\");\n\n        System.out.println(map.keySet());\n    }\n}",
+        "example": "The result contains the keys 1 and 2.",
+        "points_to_remember": [
+          "keySet() returns a view, not an independent copy.",
+          "Changes to the Map can be reflected in the returned Set.",
+          "Useful for iterating over keys."
+        ]
+      },
+
+      "Map values()": {
+        "explanation": "values() returns a Collection view containing all values in the Map.",
+        "code": "import java.util.HashMap;\n\npublic class ValuesDemo {\n    public static void main(String[] args) {\n        HashMap<Integer, String> map = new HashMap<>();\n        map.put(1, \"Java\");\n        map.put(2, \"Python\");\n\n        System.out.println(map.values());\n    }\n}",
+        "example": "The result contains the values Java and Python.",
+        "points_to_remember": [
+          "values() returns a view.",
+          "Values can contain duplicates.",
+          "Useful when only values need to be processed."
+        ]
+      },
+
+      "Map entrySet()": {
+        "explanation": "entrySet() returns a Set view of Map.Entry objects representing key-value pairs.",
+        "code": "import java.util.HashMap;\nimport java.util.Map;\n\npublic class EntrySetDemo {\n    public static void main(String[] args) {\n        HashMap<Integer, String> map = new HashMap<>();\n        map.put(1, \"Java\");\n        map.put(2, \"Python\");\n\n        for (Map.Entry<Integer, String> entry : map.entrySet()) {\n            System.out.println(entry.getKey() + \" = \" + entry.getValue());\n        }\n    }\n}",
+        "example": "entrySet() is commonly used when both keys and values are required during iteration.",
+        "points_to_remember": [
+          "entrySet() returns Map.Entry objects.",
+          "getKey() retrieves the key.",
+          "getValue() retrieves the value.",
+          "It is commonly used for efficient Map iteration."
+        ]
+      },
+
+      "Map forEach()": {
+        "explanation": "forEach() performs an action for each key-value mapping.",
+        "code": "import java.util.HashMap;\n\npublic class MapForEachDemo {\n    public static void main(String[] args) {\n        HashMap<String, Integer> map = new HashMap<>();\n        map.put(\"Java\", 90);\n        map.put(\"Python\", 85);\n\n        map.forEach((key, value) ->\n            System.out.println(key + \" = \" + value)\n        );\n    }\n}",
+        "example": "Each key-value pair is processed using a lambda expression.",
+        "points_to_remember": [
+          "forEach() accepts a BiConsumer.",
+          "It provides both the key and value.",
+          "The iteration order depends on the Map implementation."
+        ]
+      },
+
+      "Map replaceAll()": {
+        "explanation": "replaceAll() replaces every Map value using a remapping function.",
+        "code": "import java.util.HashMap;\n\npublic class ReplaceAllDemo {\n    public static void main(String[] args) {\n        HashMap<String, Integer> scores = new HashMap<>();\n        scores.put(\"Alice\", 80);\n        scores.put(\"Bob\", 90);\n\n        scores.replaceAll((name, score) -> score + 5);\n\n        System.out.println(scores);\n    }\n}",
+        "example": "Every score is increased by 5.",
+        "points_to_remember": [
+          "replaceAll() processes every mapping.",
+          "The remapping function receives the key and value.",
+          "It modifies the Map."
+        ]
+      },
+
+      "Map size() and isEmpty()": {
+        "explanation": "size() returns the number of mappings in a Map, while isEmpty() checks whether the Map contains no mappings.",
+        "code": "import java.util.HashMap;\n\npublic class MapSizeDemo {\n    public static void main(String[] args) {\n        HashMap<String, Integer> map = new HashMap<>();\n\n        System.out.println(map.size());\n        System.out.println(map.isEmpty());\n    }\n}",
+        "example": "An empty Map has size 0 and isEmpty() returns true.",
+        "points_to_remember": [
+          "size() counts key-value mappings.",
+          "isEmpty() returns true when there are no mappings."
+        ]
+      },
+
+      "Map clear()": {
+        "explanation": "clear() removes all key-value mappings from a Map.",
+        "code": "import java.util.HashMap;\n\npublic class MapClearDemo {\n    public static void main(String[] args) {\n        HashMap<String, Integer> map = new HashMap<>();\n        map.put(\"Java\", 90);\n        map.put(\"Python\", 80);\n\n        map.clear();\n\n        System.out.println(map);\n    }\n}",
+        "example": "The Map becomes empty after clear().",
+        "points_to_remember": [
+          "clear() removes every mapping.",
+          "The Map object remains usable afterward."
+        ]
+      },
+
+      "Map replaceAll and compute operations": {
+        "explanation": "Modern Map APIs provide functional methods such as compute, computeIfAbsent, computeIfPresent, merge, and replaceAll for concise value manipulation.",
+        "code": "import java.util.HashMap;\n\npublic class ModernMapMethods {\n    public static void main(String[] args) {\n        HashMap<String, Integer> map = new HashMap<>();\n\n        map.computeIfAbsent(\"Java\", key -> 1);\n        map.computeIfPresent(\"Java\", (key, value) -> value + 1);\n        map.merge(\"Java\", 5, Integer::sum);\n        map.replaceAll((key, value) -> value * 2);\n\n        System.out.println(map);\n    }\n}",
+        "example": "These methods allow values to be initialized, updated, merged, and transformed using lambda expressions.",
+        "points_to_remember": [
+          "computeIfAbsent() initializes missing values.",
+          "computeIfPresent() updates existing values.",
+          "compute() can handle both absent and present keys.",
+          "merge() combines values.",
+          "replaceAll() transforms every mapping."
+        ]
+      },
+
+      "Collections Utility Class": {
+        "explanation": "java.util.Collections provides static utility methods for working with Collection objects such as Lists, including sorting, reversing, shuffling, searching, and finding minimum or maximum elements.",
+        "code": "import java.util.ArrayList;\nimport java.util.Collections;\n\npublic class CollectionsDemo {\n    public static void main(String[] args) {\n        ArrayList<Integer> numbers = new ArrayList<>();\n\n        numbers.add(30);\n        numbers.add(10);\n        numbers.add(20);\n\n        Collections.sort(numbers);\n        System.out.println(numbers);\n\n        Collections.reverse(numbers);\n        System.out.println(numbers);\n    }\n}",
+        "example": "Collections.sort() sorts a List and Collections.reverse() reverses its order.",
+        "points_to_remember": [
+          "Collections is a utility class.",
+          "sort() sorts a List.",
+          "reverse() reverses a List.",
+          "shuffle() randomly reorders a List.",
+          "min() and max() find minimum and maximum elements.",
+          "binarySearch() searches a sorted List."
+        ]
+      },
+
+      "Collection Iteration": {
+        "explanation": "Java collections can be traversed using enhanced for loops, iterators, streams, and forEach().",
+        "code": "import java.util.ArrayList;\nimport java.util.Iterator;\n\npublic class IterationDemo {\n    public static void main(String[] args) {\n        ArrayList<String> list = new ArrayList<>();\n        list.add(\"Java\");\n        list.add(\"Python\");\n        list.add(\"C++\");\n\n        Iterator<String> iterator = list.iterator();\n\n        while (iterator.hasNext()) {\n            System.out.println(iterator.next());\n        }\n    }\n}",
+        "example": "Iterator allows sequential traversal through a collection.",
+        "points_to_remember": [
+          "Iterator provides hasNext() and next().",
+          "Iterator can safely remove elements using remove().",
+          "Enhanced for loops provide simpler iteration.",
+          "Streams provide functional-style processing."
+        ]
+      },
+
+      "Iterator": {
+        "explanation": "Iterator is an interface used to traverse elements of a Collection sequentially.",
+        "code": "import java.util.ArrayList;\nimport java.util.Iterator;\n\npublic class IteratorDemo {\n    public static void main(String[] args) {\n        ArrayList<Integer> numbers = new ArrayList<>();\n        numbers.add(10);\n        numbers.add(20);\n        numbers.add(30);\n\n        Iterator<Integer> iterator = numbers.iterator();\n\n        while (iterator.hasNext()) {\n            int value = iterator.next();\n\n            if (value == 20) {\n                iterator.remove();\n            }\n        }\n\n        System.out.println(numbers);\n    }\n}",
+        "example": "Iterator can remove the current element safely during iteration.",
+        "points_to_remember": [
+          "hasNext() checks whether another element exists.",
+          "next() returns the next element.",
+          "remove() removes the last element returned by next().",
+          "Direct structural modification during iteration can cause ConcurrentModificationException."
+        ]
+      },
+
+      "ListIterator": {
+        "explanation": "ListIterator is an Iterator specifically for Lists and supports bidirectional traversal as well as element insertion and replacement.",
+        "code": "import java.util.ArrayList;\nimport java.util.ListIterator;\n\npublic class ListIteratorDemo {\n    public static void main(String[] args) {\n        ArrayList<String> list = new ArrayList<>();\n        list.add(\"Java\");\n        list.add(\"Python\");\n        list.add(\"C++\");\n\n        ListIterator<String> iterator = list.listIterator();\n\n        while (iterator.hasNext()) {\n            System.out.println(iterator.next());\n        }\n\n        while (iterator.hasPrevious()) {\n            System.out.println(iterator.previous());\n        }\n    }\n}",
+        "example": "ListIterator can move both forward and backward through a List.",
+        "points_to_remember": [
+          "ListIterator supports forward and backward traversal.",
+          "hasNext() checks forward elements.",
+          "hasPrevious() checks backward elements.",
+          "It provides add(), set(), and remove().",
+          "It is available only for Lists."
+        ]
+      }
+    },
+
+    "built_in_methods": {
+      "Collection_common_methods": [
+        "add()",
+        "addAll()",
+        "remove()",
+        "removeAll()",
+        "removeIf()",
+        "retainAll()",
+        "contains()",
+        "containsAll()",
+        "size()",
+        "isEmpty()",
+        "clear()",
+        "toArray()",
+        "iterator()",
+        "spliterator()",
+        "stream()",
+        "parallelStream()",
+        "forEach()"
+      ],
+
+      "List_methods": [
+        "add()",
+        "addAll()",
+        "get()",
+        "set()",
+        "remove()",
+        "removeIf()",
+        "contains()",
+        "indexOf()",
+        "lastIndexOf()",
+        "size()",
+        "isEmpty()",
+        "clear()",
+        "subList()",
+        "replaceAll()",
+        "sort()",
+        "listIterator()",
+        "iterator()",
+        "toArray()"
+      ],
+
+      "Set_methods": [
+        "add()",
+        "addAll()",
+        "remove()",
+        "removeAll()",
+        "retainAll()",
+        "contains()",
+        "containsAll()",
+        "size()",
+        "isEmpty()",
+        "clear()",
+        "iterator()",
+        "toArray()",
+        "stream()",
+        "parallelStream()"
+      ],
+
+      "Map_methods": [
+        "put()",
+        "putAll()",
+        "putIfAbsent()",
+        "get()",
+        "getOrDefault()",
+        "containsKey()",
+        "containsValue()",
+        "remove()",
+        "replace()",
+        "replaceAll()",
+        "replace(key, oldValue, newValue)",
+        "compute()",
+        "computeIfAbsent()",
+        "computeIfPresent()",
+        "merge()",
+        "keySet()",
+        "values()",
+        "entrySet()",
+        "forEach()",
+        "size()",
+        "isEmpty()",
+        "clear()",
+        "getOrDefault()"
+      ],
+
+      "HashSet_methods": [
+        "add()",
+        "remove()",
+        "contains()",
+        "size()",
+        "isEmpty()",
+        "clear()",
+        "iterator()",
+        "removeIf()"
+      ],
+
+      "TreeSet_navigation_methods": [
+        "first()",
+        "last()",
+        "lower()",
+        "floor()",
+        "ceiling()",
+        "higher()",
+        "pollFirst()",
+        "pollLast()",
+        "headSet()",
+        "tailSet()",
+        "subSet()",
+        "descendingSet()"
+      ],
+
+      "TreeMap_navigation_methods": [
+        "firstKey()",
+        "lastKey()",
+        "lowerKey()",
+        "floorKey()",
+        "ceilingKey()",
+        "higherKey()",
+        "pollFirstEntry()",
+        "pollLastEntry()",
+        "headMap()",
+        "tailMap()",
+        "subMap()",
+        "descendingMap()",
+        "navigableKeySet()"
+      ],
+
+      "Collections_utility_methods": [
+        "sort()",
+        "binarySearch()",
+        "reverse()",
+        "shuffle()",
+        "swap()",
+        "fill()",
+        "copy()",
+        "min()",
+        "max()",
+        "frequency()",
+        "disjoint()",
+        "rotate()",
+        "replaceAll()",
+        "unmodifiableList()",
+        "unmodifiableSet()",
+        "unmodifiableMap()",
+        "synchronizedList()",
+        "synchronizedSet()",
+        "synchronizedMap()"
+      ]
+    },
+
+    "implementation_comparison": {
+      "List": {
+        "ArrayList": "Resizable array, fast random access, preserves insertion order, allows duplicates.",
+        "LinkedList": "Doubly linked list, supports List and Deque operations, preserves insertion order, allows duplicates."
+      },
+      "Set": {
+        "HashSet": "Unique elements, no guaranteed iteration order, hashing-based.",
+        "LinkedHashSet": "Unique elements, maintains insertion order.",
+        "TreeSet": "Unique elements, maintains sorted order."
+      },
+      "Map": {
+        "HashMap": "Key-value storage, no guaranteed iteration order, hashing-based.",
+        "LinkedHashMap": "Key-value storage with predictable insertion-order iteration by default.",
+        "TreeMap": "Key-value storage sorted by keys."
+      }
+    },
+
+    "summary": [
+      "List stores ordered elements and allows duplicates.",
+      "ArrayList is commonly used for fast index-based access.",
+      "LinkedList supports both List and Deque operations.",
+      "Set stores unique elements.",
+      "HashSet provides hash-based storage without guaranteed iteration order.",
+      "LinkedHashSet maintains insertion order.",
+      "TreeSet maintains sorted order.",
+      "Map stores key-value pairs.",
+      "HashMap provides hash-based key-value storage.",
+      "LinkedHashMap maintains predictable iteration order.",
+      "TreeMap maintains keys in sorted order.",
+      "List provides index-based operations such as get() and set().",
+      "Set provides set operations such as addAll(), retainAll(), and removeAll().",
+      "Map provides key-value operations such as put(), get(), remove(), and compute().",
+      "entrySet(), keySet(), and values() provide different views of a Map.",
+      "Iterator and ListIterator provide controlled collection traversal.",
+      "The Collections utility class provides additional algorithms for working with collections."
+    ]
+  }
+}

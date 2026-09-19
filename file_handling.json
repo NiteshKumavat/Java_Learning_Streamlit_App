@@ -1,0 +1,209 @@
+{
+  "File Handling": {
+    "explanation": "File handling in Java allows programs to create, read, write, modify, copy, move, and delete files and directories. Java provides classes and APIs such as File, FileReader, FileWriter, BufferedReader, BufferedWriter, Files, and Path for working with files.",
+    "topics": {
+      "Introduction to File Handling": {
+        "explanation": "File handling allows a Java program to store and retrieve data from files on a computer's storage system.",
+        "code": "import java.io.File;\n\npublic class FileDemo {\n    public static void main(String[] args) {\n        File file = new File(\"example.txt\");\n        System.out.println(file.getName());\n    }\n}",
+        "example": "A program can use files to permanently store user information, application settings, logs, or reports.",
+        "points_to_remember": [
+          "Java provides several APIs for file handling.",
+          "Files can store data permanently.",
+          "The java.io and java.nio packages provide file-handling functionality.",
+          "File operations may throw IOException."
+        ]
+      },
+
+      "Creating a File": {
+        "explanation": "Java can create a new file using the File class or the modern Files API.",
+        "code": "import java.io.File;\nimport java.io.IOException;\n\npublic class CreateFileDemo {\n    public static void main(String[] args) throws IOException {\n        File file = new File(\"data.txt\");\n\n        if (file.createNewFile()) {\n            System.out.println(\"File created successfully\");\n        } else {\n            System.out.println(\"File already exists\");\n        }\n    }\n}",
+        "example": "A program can create a data.txt file before saving application data.",
+        "points_to_remember": [
+          "createNewFile() creates a new empty file.",
+          "It returns true if a new file is created.",
+          "It returns false if the file already exists.",
+          "File creation may throw IOException."
+        ]
+      },
+
+      "Writing to a File": {
+        "explanation": "Java provides FileWriter and other writer classes to write character data into files.",
+        "code": "import java.io.FileWriter;\nimport java.io.IOException;\n\npublic class WriteFileDemo {\n    public static void main(String[] args) throws IOException {\n        FileWriter writer = new FileWriter(\"data.txt\");\n        writer.write(\"Hello, Java File Handling!\");\n        writer.close();\n\n        System.out.println(\"Data written successfully\");\n    }\n}",
+        "example": "A program can write a student's name, marks, or other information into a text file.",
+        "points_to_remember": [
+          "FileWriter is commonly used for writing character data.",
+          "write() writes data to the file.",
+          "close() releases the file resource.",
+          "Existing content may be overwritten unless append mode is enabled."
+        ]
+      },
+
+      "Appending Data": {
+        "explanation": "Appending allows new data to be added to the end of an existing file without removing its previous contents.",
+        "code": "import java.io.FileWriter;\nimport java.io.IOException;\n\npublic class AppendDemo {\n    public static void main(String[] args) throws IOException {\n        FileWriter writer = new FileWriter(\"data.txt\", true);\n        writer.write(\"\\nNew data added.\");\n        writer.close();\n    }\n}",
+        "example": "A logging application can append new log messages to an existing log file.",
+        "points_to_remember": [
+          "Passing true to FileWriter enables append mode.",
+          "Existing file content is preserved.",
+          "Appending is useful for logs and records.",
+          "Always close the writer after completing the operation."
+        ]
+      },
+
+      "Reading a File": {
+        "explanation": "Java provides classes such as FileReader and BufferedReader for reading character data from text files.",
+        "code": "import java.io.BufferedReader;\nimport java.io.FileReader;\nimport java.io.IOException;\n\npublic class ReadFileDemo {\n    public static void main(String[] args) throws IOException {\n        BufferedReader reader = new BufferedReader(\n            new FileReader(\"data.txt\")\n        );\n\n        String line;\n        while ((line = reader.readLine()) != null) {\n            System.out.println(line);\n        }\n\n        reader.close();\n    }\n}",
+        "example": "A program can read a configuration file line by line and use its contents.",
+        "points_to_remember": [
+          "FileReader reads character data.",
+          "BufferedReader provides efficient line-based reading.",
+          "readLine() reads one line at a time.",
+          "readLine() returns null when the end of the file is reached."
+        ]
+      },
+
+      "Try-With-Resources": {
+        "explanation": "Try-with-resources automatically closes resources such as readers and writers after the operation is completed.",
+        "code": "import java.io.BufferedReader;\nimport java.io.FileReader;\nimport java.io.IOException;\n\npublic class TryWithResourcesDemo {\n    public static void main(String[] args) throws IOException {\n        try (BufferedReader reader = new BufferedReader(\n                new FileReader(\"data.txt\"))) {\n\n            String line;\n            while ((line = reader.readLine()) != null) {\n                System.out.println(line);\n            }\n        }\n    }\n}",
+        "example": "A program can safely read a file without manually calling close().",
+        "points_to_remember": [
+          "Resources declared inside try parentheses are closed automatically.",
+          "It helps prevent resource leaks.",
+          "It makes file-handling code cleaner.",
+          "The resource must implement AutoCloseable."
+        ]
+      },
+
+      "Buffered Streams": {
+        "explanation": "BufferedReader and BufferedWriter use an internal buffer to improve the efficiency of character-based file operations.",
+        "code": "import java.io.BufferedWriter;\nimport java.io.FileWriter;\nimport java.io.IOException;\n\npublic class BufferedWriterDemo {\n    public static void main(String[] args) throws IOException {\n        try (BufferedWriter writer = new BufferedWriter(\n                new FileWriter(\"output.txt\"))) {\n\n            writer.write(\"First line\");\n            writer.newLine();\n            writer.write(\"Second line\");\n        }\n    }\n}",
+        "example": "BufferedWriter can efficiently write multiple lines to a large text file.",
+        "points_to_remember": [
+          "Buffered classes can reduce the number of direct I/O operations.",
+          "BufferedReader is useful for reading text efficiently.",
+          "BufferedWriter is useful for writing text efficiently.",
+          "newLine() inserts a platform-appropriate line separator."
+        ]
+      },
+
+      "File and Directory Information": {
+        "explanation": "The File class provides methods for checking file properties such as name, path, size, existence, and whether the object represents a file or directory.",
+        "code": "import java.io.File;\n\npublic class FileInfoDemo {\n    public static void main(String[] args) {\n        File file = new File(\"data.txt\");\n\n        System.out.println(\"Name: \" + file.getName());\n        System.out.println(\"Path: \" + file.getAbsolutePath());\n        System.out.println(\"Exists: \" + file.exists());\n        System.out.println(\"Size: \" + file.length());\n        System.out.println(\"Is File: \" + file.isFile());\n    }\n}",
+        "example": "A file manager application can display the name, size, and location of a file.",
+        "points_to_remember": [
+          "exists() checks whether the path exists.",
+          "isFile() checks whether the path represents a file.",
+          "isDirectory() checks whether the path represents a directory.",
+          "length() returns the file size in bytes."
+        ]
+      },
+
+      "Creating Directories": {
+        "explanation": "Java can create directories using methods provided by the File class or the modern Files API.",
+        "code": "import java.io.File;\n\npublic class DirectoryDemo {\n    public static void main(String[] args) {\n        File directory = new File(\"documents\");\n\n        if (directory.mkdir()) {\n            System.out.println(\"Directory created\");\n        } else {\n            System.out.println(\"Directory already exists or could not be created\");\n        }\n    }\n}",
+        "example": "An application can create a documents directory for storing generated reports.",
+        "points_to_remember": [
+          "mkdir() creates a single directory.",
+          "mkdirs() can create parent directories when necessary.",
+          "Directories can be checked using isDirectory().",
+          "Directory creation can fail because of permissions or invalid paths."
+        ]
+      },
+
+      "Deleting Files": {
+        "explanation": "Java allows files and empty directories to be deleted using File.delete() or the Files.delete() API.",
+        "code": "import java.io.File;\n\npublic class DeleteFileDemo {\n    public static void main(String[] args) {\n        File file = new File(\"old-data.txt\");\n\n        if (file.delete()) {\n            System.out.println(\"File deleted\");\n        } else {\n            System.out.println(\"Unable to delete file\");\n        }\n    }\n}",
+        "example": "A cleanup utility can remove temporary files that are no longer needed.",
+        "points_to_remember": [
+          "delete() attempts to remove a file or empty directory.",
+          "The operation may fail due to permissions or other conditions.",
+          "Deleting a directory generally requires it to be empty.",
+          "Important files should be handled carefully before deletion."
+        ]
+      },
+
+      "Java NIO Path and Files": {
+        "explanation": "The java.nio.file package provides modern APIs for file and directory operations. Path represents a file-system path and Files provides operations for working with paths.",
+        "code": "import java.nio.file.Files;\nimport java.nio.file.Path;\nimport java.io.IOException;\n\npublic class NioDemo {\n    public static void main(String[] args) throws IOException {\n        Path path = Path.of(\"data.txt\");\n\n        Files.writeString(path, \"Hello using Java NIO\");\n        String content = Files.readString(path);\n\n        System.out.println(content);\n    }\n}",
+        "example": "A modern Java application can use Path and Files for simple text-file operations.",
+        "points_to_remember": [
+          "Path represents a file-system path.",
+          "Files provides static methods for file operations.",
+          "NIO provides convenient and flexible file APIs.",
+          "Path and Files are commonly preferred for modern Java applications."
+        ]
+      },
+
+      "Copying Files": {
+        "explanation": "Java can copy files using Files.copy() from the java.nio.file package.",
+        "code": "import java.nio.file.Files;\nimport java.nio.file.Path;\nimport java.io.IOException;\n\npublic class CopyFileDemo {\n    public static void main(String[] args) throws IOException {\n        Path source = Path.of(\"data.txt\");\n        Path destination = Path.of(\"backup.txt\");\n\n        Files.copy(source, destination);\n        System.out.println(\"File copied successfully\");\n    }\n}",
+        "example": "A backup application can copy an important file to another location.",
+        "points_to_remember": [
+          "Files.copy() copies a file or directory according to the supplied options.",
+          "The source must exist for a normal copy operation.",
+          "StandardCopyOption.REPLACE_EXISTING can replace an existing destination.",
+          "Copying can throw IOException."
+        ]
+      },
+
+      "Moving and Renaming Files": {
+        "explanation": "Files.move() can move a file or directory to another location and can also be used to rename a file.",
+        "code": "import java.nio.file.Files;\nimport java.nio.file.Path;\nimport java.io.IOException;\n\npublic class MoveFileDemo {\n    public static void main(String[] args) throws IOException {\n        Path source = Path.of(\"old-name.txt\");\n        Path destination = Path.of(\"new-name.txt\");\n\n        Files.move(source, destination);\n        System.out.println(\"File moved or renamed\");\n    }\n}",
+        "example": "A file management application can rename old-name.txt to new-name.txt.",
+        "points_to_remember": [
+          "Files.move() can move files between directories.",
+          "It can also rename files.",
+          "The destination path determines the new location or name.",
+          "Move operations may require appropriate permissions."
+        ]
+      },
+
+      "Byte Streams": {
+        "explanation": "Byte streams are used for reading and writing binary data such as images, audio files, videos, and PDF files. FileInputStream and FileOutputStream are commonly used classes.",
+        "code": "import java.io.FileInputStream;\nimport java.io.FileOutputStream;\nimport java.io.IOException;\n\npublic class ByteStreamDemo {\n    public static void main(String[] args) throws IOException {\n        try (FileInputStream input = new FileInputStream(\"input.jpg\");\n             FileOutputStream output = new FileOutputStream(\"copy.jpg\")) {\n\n            byte[] buffer = new byte[1024];\n            int bytesRead;\n\n            while ((bytesRead = input.read(buffer)) != -1) {\n                output.write(buffer, 0, bytesRead);\n            }\n        }\n    }\n}",
+        "example": "An application can copy an image using byte streams without treating the binary data as text.",
+        "points_to_remember": [
+          "Byte streams work with raw binary data.",
+          "FileInputStream reads bytes from a file.",
+          "FileOutputStream writes bytes to a file.",
+          "Byte streams are suitable for binary files."
+        ]
+      },
+
+      "Character Streams": {
+        "explanation": "Character streams are designed for handling text data. FileReader and FileWriter are commonly used for character-based file operations.",
+        "code": "import java.io.FileReader;\nimport java.io.FileWriter;\nimport java.io.IOException;\n\npublic class CharacterStreamDemo {\n    public static void main(String[] args) throws IOException {\n        try (FileReader reader = new FileReader(\"input.txt\");\n             FileWriter writer = new FileWriter(\"output.txt\")) {\n\n            int character;\n            while ((character = reader.read()) != -1) {\n                writer.write(character);\n            }\n        }\n    }\n}",
+        "example": "A text-processing application can read characters from one text file and write them to another.",
+        "points_to_remember": [
+          "Character streams are intended for text data.",
+          "FileReader reads character data.",
+          "FileWriter writes character data.",
+          "Use suitable character encoding when working with text."
+        ]
+      },
+
+      "Exception Handling in File Operations": {
+        "explanation": "File operations can fail because of missing files, permission problems, invalid paths, or I/O errors. Java provides exceptions such as IOException and FileNotFoundException for handling these situations.",
+        "code": "import java.io.FileReader;\nimport java.io.IOException;\n\npublic class FileExceptionDemo {\n    public static void main(String[] args) {\n        try (FileReader reader = new FileReader(\"missing.txt\")) {\n            System.out.println(\"File opened successfully\");\n        } catch (IOException e) {\n            System.out.println(\"File operation failed: \" + e.getMessage());\n        }\n    }\n}",
+        "example": "A program can catch an IOException when a requested file cannot be opened.",
+        "points_to_remember": [
+          "Many file operations can throw IOException.",
+          "FileNotFoundException is a subclass of IOException.",
+          "Use try-catch when the program needs to recover from file errors.",
+          "Try-with-resources is useful when working with closeable file resources."
+        ]
+      }
+    },
+
+    "summary": [
+      "Java provides multiple APIs for reading, writing, and managing files.",
+      "FileReader and FileWriter are commonly used for character-based text files.",
+      "FileInputStream and FileOutputStream are useful for binary data.",
+      "BufferedReader and BufferedWriter improve the efficiency of text operations.",
+      "Try-with-resources automatically closes file resources.",
+      "The java.nio.file package provides modern Path and Files APIs.",
+      "Files can be created, read, written, copied, moved, and deleted.",
+      "Proper exception handling is important when performing file operations."
+    ]
+  }
+}

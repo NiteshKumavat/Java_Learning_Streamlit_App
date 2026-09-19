@@ -1,0 +1,602 @@
+{
+  "Strings": {
+    "explanation": "A String in Java is an object that represents a sequence of characters. Strings are immutable, meaning their contents cannot be changed after creation. Java provides many built-in String methods for searching, comparing, extracting, replacing, splitting, converting, formatting, and manipulating text.",
+    "topics": {
+      "String Introduction": {
+        "explanation": "String is a class in java.lang used to represent text. String literals can be created using double quotes, while strings can also be created using the String class constructor.",
+        "code": "public class StringDemo {\n    public static void main(String[] args) {\n        String name = \"Java\";\n        String language = new String(\"Programming\");\n\n        System.out.println(name);\n        System.out.println(language);\n    }\n}",
+        "example": "String name = \"Java\" stores the text Java.",
+        "points_to_remember": [
+          "String belongs to the java.lang package.",
+          "String objects are immutable.",
+          "String literals use double quotes.",
+          "String can also be created using new String()."
+        ]
+      },
+
+      "String Immutability": {
+        "explanation": "Strings are immutable in Java. Once a String object is created, its contents cannot be changed. Operations that appear to modify a String actually create a new String.",
+        "code": "public class ImmutabilityDemo {\n    public static void main(String[] args) {\n        String text = \"Hello\";\n\n        text.concat(\" World\");\n\n        System.out.println(text);\n\n        text = text.concat(\" World\");\n        System.out.println(text);\n    }\n}",
+        "example": "The first concat() does not change text because its returned String is not assigned.",
+        "points_to_remember": [
+          "String objects cannot be modified after creation.",
+          "String methods generally return a new String.",
+          "Assign the returned value if you want to keep the modified String.",
+          "String immutability makes strings suitable for safe sharing."
+        ]
+      },
+
+      "String Length": {
+        "explanation": "The length() method returns the number of UTF-16 code units contained in a String.",
+        "code": "public class LengthDemo {\n    public static void main(String[] args) {\n        String text = \"Hello Java\";\n\n        System.out.println(text.length());\n    }\n}",
+        "example": "The length of \"Hello Java\" is 10.",
+        "points_to_remember": [
+          "length() returns an integer.",
+          "Spaces are included in the length.",
+          "String length is accessed using length().",
+          "Arrays use length while Strings use length()."
+        ]
+      },
+
+      "charAt()": {
+        "explanation": "charAt() returns the character located at a specified zero-based index.",
+        "code": "public class CharAtDemo {\n    public static void main(String[] args) {\n        String text = \"Java\";\n\n        char ch = text.charAt(2);\n\n        System.out.println(ch);\n    }\n}",
+        "example": "The result is 'v' because v is at index 2.",
+        "points_to_remember": [
+          "Indexing starts from 0.",
+          "charAt() returns a char.",
+          "An invalid index causes StringIndexOutOfBoundsException."
+        ]
+      },
+
+      "codePointAt()": {
+        "explanation": "codePointAt() returns the Unicode code point at a specified index.",
+        "code": "public class CodePointDemo {\n    public static void main(String[] args) {\n        String text = \"Java\";\n\n        int code = text.codePointAt(0);\n\n        System.out.println(code);\n    }\n}",
+        "example": "The Unicode code point of 'J' is 74.",
+        "points_to_remember": [
+          "Returns an int Unicode code point.",
+          "Useful when working with Unicode characters.",
+          "It differs from charAt(), which returns a UTF-16 char."
+        ]
+      },
+
+      "substring()": {
+        "explanation": "substring() extracts a portion of a String and returns a new String.",
+        "code": "public class SubstringDemo {\n    public static void main(String[] args) {\n        String text = \"Hello Java\";\n\n        String part1 = text.substring(0, 5);\n        String part2 = text.substring(6);\n\n        System.out.println(part1);\n        System.out.println(part2);\n    }\n}",
+        "example": "substring(0, 5) returns Hello and substring(6) returns Java.",
+        "points_to_remember": [
+          "The starting index is inclusive.",
+          "The ending index is exclusive.",
+          "substring(start) extracts from start to the end.",
+          "The original String remains unchanged."
+        ]
+      },
+
+      "equals()": {
+        "explanation": "equals() compares two String objects based on their actual character contents.",
+        "code": "public class EqualsDemo {\n    public static void main(String[] args) {\n        String a = \"Java\";\n        String b = \"Java\";\n\n        System.out.println(a.equals(b));\n    }\n}",
+        "example": "The result is true because both strings contain the same characters.",
+        "points_to_remember": [
+          "equals() compares contents.",
+          "It is case-sensitive.",
+          "Use equals() instead of == when comparing String contents."
+        ]
+      },
+
+      "equalsIgnoreCase()": {
+        "explanation": "equalsIgnoreCase() compares two strings without considering differences in letter case.",
+        "code": "public class EqualsIgnoreCaseDemo {\n    public static void main(String[] args) {\n        String a = \"Java\";\n        String b = \"JAVA\";\n\n        System.out.println(a.equalsIgnoreCase(b));\n    }\n}",
+        "example": "The result is true because case differences are ignored.",
+        "points_to_remember": [
+          "Case differences are ignored.",
+          "Character content is still compared.",
+          "It is useful for case-insensitive comparisons."
+        ]
+      },
+
+      "compareTo()": {
+        "explanation": "compareTo() compares two strings lexicographically and returns a negative, zero, or positive integer.",
+        "code": "public class CompareToDemo {\n    public static void main(String[] args) {\n        String a = \"Apple\";\n        String b = \"Banana\";\n\n        System.out.println(a.compareTo(b));\n    }\n}",
+        "example": "Apple comes before Banana lexicographically, so the result is negative.",
+        "points_to_remember": [
+          "Returns 0 when strings are equal.",
+          "Returns a negative value when the first string comes before the second.",
+          "Returns a positive value when the first string comes after the second.",
+          "Comparison is case-sensitive."
+        ]
+      },
+
+      "compareToIgnoreCase()": {
+        "explanation": "compareToIgnoreCase() performs lexicographical comparison without considering letter-case differences.",
+        "code": "public class CompareIgnoreCaseDemo {\n    public static void main(String[] args) {\n        String a = \"apple\";\n        String b = \"APPLE\";\n\n        System.out.println(a.compareToIgnoreCase(b));\n    }\n}",
+        "example": "The result is 0 because the strings are equivalent when case is ignored.",
+        "points_to_remember": [
+          "Case differences are ignored.",
+          "Returns 0 for equivalent strings.",
+          "Useful for case-insensitive sorting or comparison."
+        ]
+      },
+
+      "contains()": {
+        "explanation": "contains() checks whether a String contains a specified sequence of characters.",
+        "code": "public class ContainsDemo {\n    public static void main(String[] args) {\n        String text = \"Java Programming\";\n\n        System.out.println(text.contains(\"Program\"));\n    }\n}",
+        "example": "The result is true because Program occurs inside the string.",
+        "points_to_remember": [
+          "contains() returns boolean.",
+          "It is case-sensitive.",
+          "It accepts a CharSequence."
+        ]
+      },
+
+      "startsWith()": {
+        "explanation": "startsWith() checks whether a String begins with a specified prefix.",
+        "code": "public class StartsWithDemo {\n    public static void main(String[] args) {\n        String text = \"Java Programming\";\n\n        System.out.println(text.startsWith(\"Java\"));\n    }\n}",
+        "example": "The result is true because the String begins with Java.",
+        "points_to_remember": [
+          "startsWith() returns boolean.",
+          "It is case-sensitive.",
+          "A starting offset can also be supplied."
+        ]
+      },
+
+      "endsWith()": {
+        "explanation": "endsWith() checks whether a String ends with a specified suffix.",
+        "code": "public class EndsWithDemo {\n    public static void main(String[] args) {\n        String file = \"document.pdf\";\n\n        System.out.println(file.endsWith(\".pdf\"));\n    }\n}",
+        "example": "The result is true because the file name ends with .pdf.",
+        "points_to_remember": [
+          "endsWith() returns boolean.",
+          "It is case-sensitive.",
+          "Useful for checking file extensions and suffixes."
+        ]
+      },
+
+      "indexOf()": {
+        "explanation": "indexOf() returns the index of the first occurrence of a specified character or substring.",
+        "code": "public class IndexOfDemo {\n    public static void main(String[] args) {\n        String text = \"Java Programming\";\n\n        System.out.println(text.indexOf(\"Program\"));\n        System.out.println(text.indexOf('a'));\n    }\n}",
+        "example": "indexOf() can find the first position of a character or substring.",
+        "points_to_remember": [
+          "Returns the first matching index.",
+          "Returns -1 when no match is found.",
+          "Overloads exist for char and String.",
+          "A starting index can also be supplied."
+        ]
+      },
+
+      "lastIndexOf()": {
+        "explanation": "lastIndexOf() returns the index of the last occurrence of a specified character or substring.",
+        "code": "public class LastIndexOfDemo {\n    public static void main(String[] args) {\n        String text = \"Java Programming\";\n\n        System.out.println(text.lastIndexOf('a'));\n    }\n}",
+        "example": "The method returns the position of the final occurrence of the specified character.",
+        "points_to_remember": [
+          "Searches from the end of the String.",
+          "Returns -1 when no match is found.",
+          "Can search for characters or substrings."
+        ]
+      },
+
+      "replace()": {
+        "explanation": "replace() replaces occurrences of a character or literal character sequence with another value.",
+        "code": "public class ReplaceDemo {\n    public static void main(String[] args) {\n        String text = \"Java is easy\";\n\n        String result = text.replace(\"easy\", \"powerful\");\n\n        System.out.println(result);\n    }\n}",
+        "example": "The result is Java is powerful.",
+        "points_to_remember": [
+          "replace() performs literal replacement.",
+          "It does not modify the original String.",
+          "It returns a new String."
+        ]
+      },
+
+      "replaceFirst()": {
+        "explanation": "replaceFirst() replaces the first substring that matches a regular expression.",
+        "code": "public class ReplaceFirstDemo {\n    public static void main(String[] args) {\n        String text = \"Java Java Java\";\n\n        String result = text.replaceFirst(\"Java\", \"Python\");\n\n        System.out.println(result);\n    }\n}",
+        "example": "Only the first occurrence is replaced.",
+        "points_to_remember": [
+          "The first matching substring is replaced.",
+          "The first argument is interpreted as a regular expression.",
+          "Use replace() when regular-expression behavior is not required."
+        ]
+      },
+
+      "replaceAll()": {
+        "explanation": "replaceAll() replaces every substring that matches a regular expression.",
+        "code": "public class ReplaceAllDemo {\n    public static void main(String[] args) {\n        String text = \"Java123Programming456\";\n\n        String result = text.replaceAll(\"[0-9]+\", \"\");\n\n        System.out.println(result);\n    }\n}",
+        "example": "All numeric sequences are removed from the String.",
+        "points_to_remember": [
+          "replaceAll() uses regular expressions.",
+          "All matching portions are replaced.",
+          "It returns a new String.",
+          "Use replace() for simple literal replacement."
+        ]
+      },
+
+      "toUpperCase()": {
+        "explanation": "toUpperCase() converts characters in a String to uppercase using the default locale unless a locale is explicitly supplied.",
+        "code": "public class UpperCaseDemo {\n    public static void main(String[] args) {\n        String text = \"hello java\";\n\n        System.out.println(text.toUpperCase());\n    }\n}",
+        "example": "The result is HELLO JAVA.",
+        "points_to_remember": [
+          "Returns a new String.",
+          "The original String is unchanged.",
+          "Locale-sensitive behavior can matter for certain languages."
+        ]
+      },
+
+      "toLowerCase()": {
+        "explanation": "toLowerCase() converts characters in a String to lowercase using the default locale unless a locale is explicitly supplied.",
+        "code": "public class LowerCaseDemo {\n    public static void main(String[] args) {\n        String text = \"HELLO JAVA\";\n\n        System.out.println(text.toLowerCase());\n    }\n}",
+        "example": "The result is hello java.",
+        "points_to_remember": [
+          "Returns a new String.",
+          "The original String is unchanged.",
+          "Locale-sensitive behavior can matter for certain languages."
+        ]
+      },
+
+      "trim()": {
+        "explanation": "trim() removes leading and trailing characters less than or equal to the ASCII space character.",
+        "code": "public class TrimDemo {\n    public static void main(String[] args) {\n        String text = \"   Java   \";\n\n        System.out.println(text.trim());\n    }\n}",
+        "example": "The result is Java without the leading and trailing spaces.",
+        "points_to_remember": [
+          "trim() removes leading and trailing basic space characters.",
+          "It does not remove whitespace from the middle.",
+          "The original String is unchanged."
+        ]
+      },
+
+      "strip()": {
+        "explanation": "strip() removes leading and trailing Unicode whitespace and is generally more Unicode-aware than trim().",
+        "code": "public class StripDemo {\n    public static void main(String[] args) {\n        String text = \"   Java   \";\n\n        System.out.println(text.strip());\n    }\n}",
+        "example": "The leading and trailing whitespace is removed.",
+        "points_to_remember": [
+          "strip() is available in modern Java versions.",
+          "It handles Unicode whitespace.",
+          "stripLeading() removes only leading whitespace.",
+          "stripTrailing() removes only trailing whitespace."
+        ]
+      },
+
+      "isEmpty()": {
+        "explanation": "isEmpty() checks whether a String has zero characters.",
+        "code": "public class IsEmptyDemo {\n    public static void main(String[] args) {\n        String text = \"\";\n\n        System.out.println(text.isEmpty());\n    }\n}",
+        "example": "The result is true because the String contains no characters.",
+        "points_to_remember": [
+          "isEmpty() returns true only when length() is zero.",
+          "A String containing spaces is not empty."
+        ]
+      },
+
+      "isBlank()": {
+        "explanation": "isBlank() checks whether a String is empty or contains only Unicode whitespace characters.",
+        "code": "public class IsBlankDemo {\n    public static void main(String[] args) {\n        String text = \"   \";\n\n        System.out.println(text.isBlank());\n    }\n}",
+        "example": "The result is true because the String contains only whitespace.",
+        "points_to_remember": [
+          "isBlank() is available in modern Java versions.",
+          "An empty String is blank.",
+          "A whitespace-only String is blank.",
+          "isEmpty() and isBlank() are not equivalent."
+        ]
+      },
+
+      "concat()": {
+        "explanation": "concat() joins another String to the end of the current String.",
+        "code": "public class ConcatDemo {\n    public static void main(String[] args) {\n        String first = \"Hello\";\n        String second = \" Java\";\n\n        String result = first.concat(second);\n\n        System.out.println(result);\n    }\n}",
+        "example": "The result is Hello Java.",
+        "points_to_remember": [
+          "concat() returns a new String.",
+          "The original String remains unchanged.",
+          "The + operator can also be used for String concatenation."
+        ]
+      },
+
+      "String.join()": {
+        "explanation": "String.join() combines multiple strings using a specified delimiter.",
+        "code": "public class JoinDemo {\n    public static void main(String[] args) {\n        String result = String.join(\", \", \"Java\", \"Python\", \"C++\");\n\n        System.out.println(result);\n    }\n}",
+        "example": "The result is Java, Python, C++.",
+        "points_to_remember": [
+          "join() inserts the delimiter between elements.",
+          "It is useful for creating comma-separated or delimiter-separated text.",
+          "It can work with multiple CharSequence values or an Iterable."
+        ]
+      },
+
+      "split()": {
+        "explanation": "split() divides a String into an array of substrings using a regular expression as the delimiter.",
+        "code": "public class SplitDemo {\n    public static void main(String[] args) {\n        String text = \"Java,Python,C++\";\n\n        String[] languages = text.split(\",\");\n\n        for (String language : languages) {\n            System.out.println(language);\n        }\n    }\n}",
+        "example": "The String is divided into Java, Python, and C++.",
+        "points_to_remember": [
+          "split() returns a String array.",
+          "The delimiter is treated as a regular expression.",
+          "A limit can be supplied.",
+          "Special regex characters may need escaping."
+        ]
+      },
+
+      "matches()": {
+        "explanation": "matches() checks whether the entire String matches a specified regular expression.",
+        "code": "public class MatchesDemo {\n    public static void main(String[] args) {\n        String number = \"12345\";\n\n        System.out.println(number.matches(\"[0-9]+\"));\n    }\n}",
+        "example": "The result is true because the complete String contains only digits.",
+        "points_to_remember": [
+          "matches() uses regular expressions.",
+          "The entire String must match the pattern.",
+          "It returns a boolean."
+        ]
+      },
+
+      "toCharArray()": {
+        "explanation": "toCharArray() converts a String into a new character array.",
+        "code": "public class ToCharArrayDemo {\n    public static void main(String[] args) {\n        String text = \"Java\";\n\n        char[] chars = text.toCharArray();\n\n        for (char ch : chars) {\n            System.out.println(ch);\n        }\n    }\n}",
+        "example": "The String Java becomes the character array ['J', 'a', 'v', 'a'].",
+        "points_to_remember": [
+          "Returns a new char array.",
+          "Changes to the array do not modify the original String.",
+          "Useful when character-level array processing is required."
+        ]
+      },
+
+      "getBytes()": {
+        "explanation": "getBytes() converts a String into a byte array using a character encoding.",
+        "code": "import java.nio.charset.StandardCharsets;\n\npublic class GetBytesDemo {\n    public static void main(String[] args) {\n        String text = \"Java\";\n\n        byte[] data = text.getBytes(StandardCharsets.UTF_8);\n\n        System.out.println(data.length);\n    }\n}",
+        "example": "The String can be encoded as UTF-8 bytes for file, network, or other byte-based operations.",
+        "points_to_remember": [
+          "Encoding determines how characters are converted to bytes.",
+          "UTF-8 is commonly used.",
+          "Using an explicit charset avoids platform-dependent encoding behavior."
+        ]
+      },
+
+      "String.valueOf()": {
+        "explanation": "String.valueOf() converts primitive values and objects into their String representation.",
+        "code": "public class ValueOfDemo {\n    public static void main(String[] args) {\n        int number = 100;\n        boolean active = true;\n\n        String a = String.valueOf(number);\n        String b = String.valueOf(active);\n\n        System.out.println(a);\n        System.out.println(b);\n    }\n}",
+        "example": "The integer 100 becomes the String \"100\".",
+        "points_to_remember": [
+          "Supports primitive values and objects.",
+          "Useful for explicit conversion to String.",
+          "String concatenation can also perform automatic conversion."
+        ]
+      },
+
+      "String.format()": {
+        "explanation": "String.format() creates a formatted String using format specifiers.",
+        "code": "public class FormatDemo {\n    public static void main(String[] args) {\n        String name = \"Alice\";\n        int age = 20;\n\n        String result = String.format(\"Name: %s, Age: %d\", name, age);\n\n        System.out.println(result);\n    }\n}",
+        "example": "The result is Name: Alice, Age: 20.",
+        "points_to_remember": [
+          "%s is commonly used for strings.",
+          "%d is commonly used for integers.",
+          "%f is commonly used for floating-point values.",
+          "Formatting creates a new String."
+        ]
+      },
+
+      "formatted()": {
+        "explanation": "formatted() formats a String using the String itself as the format string.",
+        "code": "public class FormattedDemo {\n    public static void main(String[] args) {\n        String template = \"Name: %s, Age: %d\";\n\n        String result = template.formatted(\"Alice\", 20);\n\n        System.out.println(result);\n    }\n}",
+        "example": "The result is Name: Alice, Age: 20.",
+        "points_to_remember": [
+          "formatted() provides an instance-style formatting API.",
+          "It uses the same general format specifier rules as String.format().",
+          "It is available in modern Java versions."
+        ]
+      },
+
+      "repeat()": {
+        "explanation": "repeat() returns a String containing the original sequence repeated a specified number of times.",
+        "code": "public class RepeatDemo {\n    public static void main(String[] args) {\n        String text = \"Java \";\n\n        System.out.println(text.repeat(3));\n    }\n}",
+        "example": "The result is Java Java Java.",
+        "points_to_remember": [
+          "The repeat count must not be negative.",
+          "Repeating zero times produces an empty String.",
+          "repeat() is available in modern Java versions."
+        ]
+      },
+
+      "indent()": {
+        "explanation": "indent() adjusts the indentation of each line in a String.",
+        "code": "public class IndentDemo {\n    public static void main(String[] args) {\n        String text = \"Java\\nProgramming\";\n\n        System.out.println(text.indent(4));\n    }\n}",
+        "example": "Each line receives the specified indentation.",
+        "points_to_remember": [
+          "Positive values add indentation.",
+          "Negative values can remove indentation.",
+          "It works line by line."
+        ]
+      },
+
+      "lines()": {
+        "explanation": "lines() returns a Stream of lines from a String.",
+        "code": "public class LinesDemo {\n    public static void main(String[] args) {\n        String text = \"Java\\nPython\\nC++\";\n\n        text.lines().forEach(System.out::println);\n    }\n}",
+        "example": "Each line can be processed individually using the returned Stream.",
+        "points_to_remember": [
+          "lines() returns a Stream<String>.",
+          "It is useful for processing multiline text.",
+          "It is available in modern Java versions."
+        ]
+      },
+
+      "transform()": {
+        "explanation": "transform() applies a function to a String and returns the function's result.",
+        "code": "public class TransformDemo {\n    public static void main(String[] args) {\n        String text = \"java\";\n\n        String result = text.transform(String::toUpperCase);\n\n        System.out.println(result);\n    }\n}",
+        "example": "The String java is transformed into JAVA.",
+        "points_to_remember": [
+          "transform() accepts a Function.",
+          "It can be used to build readable transformation pipelines.",
+          "The returned value can be a type other than String."
+        ]
+      },
+
+      "intern()": {
+        "explanation": "intern() returns the canonical representation of a String from the String pool.",
+        "code": "public class InternDemo {\n    public static void main(String[] args) {\n        String a = new String(\"Java\");\n        String b = a.intern();\n        String c = \"Java\";\n\n        System.out.println(b == c);\n    }\n}",
+        "example": "The result is true because b refers to the pooled representation of Java.",
+        "points_to_remember": [
+          "String literals are stored in the String pool.",
+          "intern() returns a pooled representation.",
+          "Use intern() deliberately because excessive interning can affect memory usage."
+        ]
+      },
+
+      "String Pool": {
+        "explanation": "The String pool is a JVM-managed area that allows identical String literals to share the same String object.",
+        "code": "public class StringPoolDemo {\n    public static void main(String[] args) {\n        String a = \"Java\";\n        String b = \"Java\";\n\n        System.out.println(a == b);\n    }\n}",
+        "example": "Both variables normally refer to the same pooled String literal.",
+        "points_to_remember": [
+          "String literals are pooled.",
+          "String pooling can reduce duplicate String objects.",
+          "== compares references, not String contents.",
+          "Use equals() to compare String contents."
+        ]
+      },
+
+      "StringBuilder": {
+        "explanation": "StringBuilder is a mutable sequence of characters designed for efficient String construction and modification, especially when many changes are required.",
+        "code": "public class StringBuilderDemo {\n    public static void main(String[] args) {\n        StringBuilder builder = new StringBuilder(\"Java\");\n\n        builder.append(\" Programming\");\n        builder.insert(5, \"Core \");\n\n        System.out.println(builder);\n    }\n}",
+        "example": "StringBuilder can efficiently construct a String through multiple modifications.",
+        "points_to_remember": [
+          "StringBuilder is mutable.",
+          "append() adds content.",
+          "insert() inserts content at an index.",
+          "StringBuilder is generally preferred for repeated String modifications in a single thread."
+        ]
+      },
+
+      "StringBuilder Built-in Methods": {
+        "explanation": "StringBuilder provides many mutable text operations such as append, insert, delete, replace, reverse, and setCharAt.",
+        "code": "public class StringBuilderMethods {\n    public static void main(String[] args) {\n        StringBuilder builder = new StringBuilder(\"Java Programming\");\n\n        builder.append(\" Language\");\n        builder.insert(0, \"Core \");\n        builder.delete(0, 5);\n        builder.replace(5, 16, \"Development\");\n        builder.reverse();\n\n        System.out.println(builder);\n    }\n}",
+        "example": "StringBuilder allows multiple modifications without creating a new String for every operation.",
+        "points_to_remember": [
+          "append() adds content.",
+          "insert() adds content at an index.",
+          "delete() removes a range.",
+          "replace() replaces a range.",
+          "reverse() reverses the sequence.",
+          "setCharAt() changes a character.",
+          "capacity() returns the current capacity."
+        ]
+      },
+
+      "StringBuffer": {
+        "explanation": "StringBuffer is a mutable character sequence similar to StringBuilder, with synchronized methods intended for use where thread-safe mutable string operations are required.",
+        "code": "public class StringBufferDemo {\n    public static void main(String[] args) {\n        StringBuffer buffer = new StringBuffer(\"Java\");\n\n        buffer.append(\" Programming\");\n        buffer.reverse();\n\n        System.out.println(buffer);\n    }\n}",
+        "example": "StringBuffer can be used when synchronized mutable text operations are required.",
+        "points_to_remember": [
+          "StringBuffer is mutable.",
+          "Its methods are synchronized.",
+          "StringBuilder is generally preferred when synchronization is unnecessary.",
+          "It provides methods similar to StringBuilder."
+        ]
+      }
+    },
+
+    "built_in_methods": {
+      "String": [
+        "length()",
+        "isEmpty()",
+        "isBlank()",
+        "charAt()",
+        "codePointAt()",
+        "codePointBefore()",
+        "codePointCount()",
+        "offsetByCodePoints()",
+        "substring()",
+        "subSequence()",
+        "equals()",
+        "equalsIgnoreCase()",
+        "compareTo()",
+        "compareToIgnoreCase()",
+        "contains()",
+        "startsWith()",
+        "endsWith()",
+        "indexOf()",
+        "lastIndexOf()",
+        "replace()",
+        "replaceFirst()",
+        "replaceAll()",
+        "matches()",
+        "toUpperCase()",
+        "toLowerCase()",
+        "trim()",
+        "strip()",
+        "stripLeading()",
+        "stripTrailing()",
+        "concat()",
+        "join()",
+        "split()",
+        "toCharArray()",
+        "getBytes()",
+        "getChars()",
+        "String.valueOf()",
+        "String.format()",
+        "formatted()",
+        "repeat()",
+        "indent()",
+        "lines()",
+        "transform()",
+        "intern()",
+        "chars()",
+        "codePoints()"
+      ],
+      "String_static_methods": [
+        "valueOf()",
+        "copyValueOf()",
+        "format()",
+        "join()"
+      ],
+      "StringBuilder": [
+        "append()",
+        "insert()",
+        "delete()",
+        "deleteCharAt()",
+        "replace()",
+        "reverse()",
+        "charAt()",
+        "setCharAt()",
+        "substring()",
+        "subSequence()",
+        "indexOf()",
+        "lastIndexOf()",
+        "length()",
+        "capacity()",
+        "ensureCapacity()",
+        "trimToSize()",
+        "setLength()",
+        "getChars()",
+        "toString()"
+      ],
+      "StringBuffer": [
+        "append()",
+        "insert()",
+        "delete()",
+        "deleteCharAt()",
+        "replace()",
+        "reverse()",
+        "charAt()",
+        "setCharAt()",
+        "substring()",
+        "subSequence()",
+        "indexOf()",
+        "lastIndexOf()",
+        "length()",
+        "capacity()",
+        "ensureCapacity()",
+        "trimToSize()",
+        "setLength()",
+        "getChars()",
+        "toString()"
+      ]
+    },
+
+    "summary": [
+      "String is an immutable sequence of characters.",
+      "String indexing starts from 0.",
+      "length() returns the number of UTF-16 code units in the String.",
+      "equals() should be used to compare String contents.",
+      "== compares String references rather than String contents.",
+      "substring() extracts a portion of a String.",
+      "indexOf() and lastIndexOf() search for characters or substrings.",
+      "replace(), replaceFirst(), and replaceAll() replace String content.",
+      "split() divides a String into an array.",
+      "contains(), startsWith(), and endsWith() perform common searches.",
+      "trim() and strip() remove leading and trailing whitespace with different definitions.",
+      "String.join() combines multiple strings using a delimiter.",
+      "String.format() and formatted() create formatted strings.",
+      "StringBuilder provides efficient mutable String manipulation.",
+      "StringBuffer provides synchronized mutable String manipulation.",
+      "String provides extensive Unicode and code-point APIs."
+    ]
+  }
+}

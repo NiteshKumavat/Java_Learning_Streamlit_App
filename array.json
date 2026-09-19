@@ -1,0 +1,416 @@
+{
+  "Arrays": {
+    "explanation": "An array in Java is a fixed-size collection of elements of the same data type. Java provides built-in array syntax as well as the java.util.Arrays utility class, which contains methods for sorting, searching, comparing, filling, copying, converting, and manipulating arrays.",
+    "topics": {
+      "Array Introduction": {
+        "explanation": "An array stores multiple values of the same type in a single variable. Array indexes start from 0 and the size of an array is fixed after creation.",
+        "code": "public class ArrayDemo {\n    public static void main(String[] args) {\n        int[] numbers = {10, 20, 30, 40, 50};\n\n        System.out.println(numbers[0]);\n        System.out.println(numbers[2]);\n        System.out.println(\"Length: \" + numbers.length);\n    }\n}",
+        "example": "An int array can store marks of multiple students.",
+        "points_to_remember": [
+          "Array indexing starts from 0.",
+          "Array size is fixed after creation.",
+          "All elements normally have the same data type.",
+          "Use length to get the number of elements.",
+          "The last index is length - 1."
+        ]
+      },
+
+      "Array Declaration and Initialization": {
+        "explanation": "Java supports several ways to declare and initialize arrays.",
+        "code": "public class ArrayInitialization {\n    public static void main(String[] args) {\n        int[] a = new int[5];\n        int[] b = {10, 20, 30, 40, 50};\n        int[] c = new int[]{1, 2, 3, 4};\n\n        System.out.println(b[2]);\n    }\n}",
+        "example": "new int[5] creates an integer array containing five default values.",
+        "points_to_remember": [
+          "new int[5] creates an array of size 5.",
+          "Integer arrays are initialized with 0.",
+          "Boolean arrays are initialized with false.",
+          "Reference-type arrays are initialized with null.",
+          "Array literals can be used during declaration and initialization."
+        ]
+      },
+
+      "Array Traversal": {
+        "explanation": "Array elements can be accessed using traditional for loops, enhanced for loops, or other iteration mechanisms.",
+        "code": "public class ArrayTraversal {\n    public static void main(String[] args) {\n        int[] numbers = {10, 20, 30, 40};\n\n        for (int i = 0; i < numbers.length; i++) {\n            System.out.println(numbers[i]);\n        }\n\n        for (int number : numbers) {\n            System.out.println(number);\n        }\n    }\n}",
+        "example": "A loop can be used to calculate the total of all elements in an array.",
+        "points_to_remember": [
+          "Use index-based loops when the index is required.",
+          "Enhanced for loops are useful when only values are required.",
+          "Array length is accessed using the length field.",
+          "Do not access an index outside the valid range."
+        ]
+      },
+
+      "Arrays.toString()": {
+        "explanation": "Arrays.toString() converts a one-dimensional array into a readable string representation.",
+        "code": "import java.util.Arrays;\n\npublic class ToStringDemo {\n    public static void main(String[] args) {\n        int[] numbers = {10, 20, 30, 40};\n\n        System.out.println(Arrays.toString(numbers));\n    }\n}",
+        "example": "The output is [10, 20, 30, 40].",
+        "points_to_remember": [
+          "toString() is useful for displaying one-dimensional arrays.",
+          "It returns a String representation.",
+          "Use deepToString() for nested arrays."
+        ]
+      },
+
+      "Arrays.deepToString()": {
+        "explanation": "deepToString() converts multidimensional or nested arrays into a readable string representation.",
+        "code": "import java.util.Arrays;\n\npublic class DeepToStringDemo {\n    public static void main(String[] args) {\n        int[][] matrix = {\n            {1, 2},\n            {3, 4}\n        };\n\n        System.out.println(Arrays.deepToString(matrix));\n    }\n}",
+        "example": "The output is [[1, 2], [3, 4]].",
+        "points_to_remember": [
+          "deepToString() is designed for nested arrays.",
+          "It is useful for displaying multidimensional arrays.",
+          "Regular toString() does not provide the same readable output for nested arrays."
+        ]
+      },
+
+      "Arrays.sort()": {
+        "explanation": "Arrays.sort() sorts the elements of an array into ascending order.",
+        "code": "import java.util.Arrays;\n\npublic class SortDemo {\n    public static void main(String[] args) {\n        int[] numbers = {50, 10, 40, 20, 30};\n\n        Arrays.sort(numbers);\n\n        System.out.println(Arrays.toString(numbers));\n    }\n}",
+        "example": "The array becomes [10, 20, 30, 40, 50].",
+        "points_to_remember": [
+          "sort() modifies the original array.",
+          "Primitive arrays are sorted in ascending order.",
+          "sort() can also sort a specified range.",
+          "Objects can be sorted according to their natural ordering or a comparator."
+        ]
+      },
+
+      "Arrays.parallelSort()": {
+        "explanation": "parallelSort() sorts array elements using parallel processing when appropriate. It is useful for larger arrays where parallel execution can provide performance benefits.",
+        "code": "import java.util.Arrays;\n\npublic class ParallelSortDemo {\n    public static void main(String[] args) {\n        int[] numbers = {50, 10, 40, 20, 30};\n\n        Arrays.parallelSort(numbers);\n\n        System.out.println(Arrays.toString(numbers));\n    }\n}",
+        "example": "The array is sorted into ascending order using the parallel sorting implementation.",
+        "points_to_remember": [
+          "parallelSort() sorts arrays in ascending order by default.",
+          "It may use multiple threads internally.",
+          "It is particularly intended for larger arrays.",
+          "It modifies the original array."
+        ]
+      },
+
+      "Arrays.sort() with Range": {
+        "explanation": "Arrays.sort() can sort only a selected range of an array. The starting index is inclusive and the ending index is exclusive.",
+        "code": "import java.util.Arrays;\n\npublic class RangeSortDemo {\n    public static void main(String[] args) {\n        int[] numbers = {50, 40, 30, 20, 10};\n\n        Arrays.sort(numbers, 1, 4);\n\n        System.out.println(Arrays.toString(numbers));\n    }\n}",
+        "example": "Only indexes 1, 2, and 3 are sorted.",
+        "points_to_remember": [
+          "The from-index is inclusive.",
+          "The to-index is exclusive.",
+          "Elements outside the range remain unchanged.",
+          "The specified range must be valid."
+        ]
+      },
+
+      "Arrays.binarySearch()": {
+        "explanation": "binarySearch() searches for an element in a sorted array using binary search and returns its index when found.",
+        "code": "import java.util.Arrays;\n\npublic class BinarySearchDemo {\n    public static void main(String[] args) {\n        int[] numbers = {10, 20, 30, 40, 50};\n\n        int index = Arrays.binarySearch(numbers, 30);\n\n        System.out.println(\"Index: \" + index);\n    }\n}",
+        "example": "The method returns 2 because 30 is located at index 2.",
+        "points_to_remember": [
+          "The array should be sorted before binarySearch() is used.",
+          "The method returns the index when the element is found.",
+          "If the element is not found, it returns a negative value.",
+          "binarySearch() is generally faster than linear search for sorted arrays."
+        ]
+      },
+
+      "Arrays.binarySearch() with Range": {
+        "explanation": "binarySearch() can search within a specific range of a sorted array.",
+        "code": "import java.util.Arrays;\n\npublic class RangeBinarySearchDemo {\n    public static void main(String[] args) {\n        int[] numbers = {10, 20, 30, 40, 50};\n\n        int index = Arrays.binarySearch(numbers, 1, 4, 30);\n\n        System.out.println(index);\n    }\n}",
+        "example": "The search is performed only between indexes 1 and 3.",
+        "points_to_remember": [
+          "The start index is inclusive.",
+          "The end index is exclusive.",
+          "The specified range must be sorted for reliable results."
+        ]
+      },
+
+      "Arrays.equals()": {
+        "explanation": "Arrays.equals() compares two one-dimensional arrays and returns true when they contain the same elements in the same order.",
+        "code": "import java.util.Arrays;\n\npublic class EqualsDemo {\n    public static void main(String[] args) {\n        int[] a = {1, 2, 3};\n        int[] b = {1, 2, 3};\n\n        System.out.println(Arrays.equals(a, b));\n    }\n}",
+        "example": "The result is true because both arrays contain the same elements in the same order.",
+        "points_to_remember": [
+          "equals() compares array contents.",
+          "Order matters.",
+          "Arrays with different lengths are not equal.",
+          "Use deepEquals() for nested arrays."
+        ]
+      },
+
+      "Arrays.deepEquals()": {
+        "explanation": "deepEquals() compares nested or multidimensional arrays based on their contents.",
+        "code": "import java.util.Arrays;\n\npublic class DeepEqualsDemo {\n    public static void main(String[] args) {\n        int[][] a = {{1, 2}, {3, 4}};\n        int[][] b = {{1, 2}, {3, 4}};\n\n        System.out.println(Arrays.deepEquals(a, b));\n    }\n}",
+        "example": "The result is true because both nested arrays contain equivalent elements.",
+        "points_to_remember": [
+          "deepEquals() supports nested arrays.",
+          "It compares nested contents recursively.",
+          "It is useful for multidimensional arrays."
+        ]
+      },
+
+      "Arrays.fill()": {
+        "explanation": "Arrays.fill() assigns the same value to every element of an array.",
+        "code": "import java.util.Arrays;\n\npublic class FillDemo {\n    public static void main(String[] args) {\n        int[] numbers = new int[5];\n\n        Arrays.fill(numbers, 100);\n\n        System.out.println(Arrays.toString(numbers));\n    }\n}",
+        "example": "The array becomes [100, 100, 100, 100, 100].",
+        "points_to_remember": [
+          "fill() replaces every element with the specified value.",
+          "It modifies the original array.",
+          "A range can also be supplied."
+        ]
+      },
+
+      "Arrays.fill() with Range": {
+        "explanation": "The range version of fill() assigns a value only to the specified portion of an array.",
+        "code": "import java.util.Arrays;\n\npublic class RangeFillDemo {\n    public static void main(String[] args) {\n        int[] numbers = {1, 2, 3, 4, 5};\n\n        Arrays.fill(numbers, 1, 4, 99);\n\n        System.out.println(Arrays.toString(numbers));\n    }\n}",
+        "example": "The result is [1, 99, 99, 99, 5].",
+        "points_to_remember": [
+          "The starting index is inclusive.",
+          "The ending index is exclusive.",
+          "Only the specified range is modified."
+        ]
+      },
+
+      "Arrays.copyOf()": {
+        "explanation": "copyOf() creates a new array with the specified length and copies elements from the original array.",
+        "code": "import java.util.Arrays;\n\npublic class CopyOfDemo {\n    public static void main(String[] args) {\n        int[] original = {10, 20, 30};\n\n        int[] copy = Arrays.copyOf(original, 5);\n\n        System.out.println(Arrays.toString(copy));\n    }\n}",
+        "example": "The result is [10, 20, 30, 0, 0].",
+        "points_to_remember": [
+          "copyOf() creates a new array.",
+          "The original array is not modified.",
+          "If the new length is larger, remaining primitive elements get default values.",
+          "If the new length is smaller, extra elements are removed."
+        ]
+      },
+
+      "Arrays.copyOfRange()": {
+        "explanation": "copyOfRange() copies a selected range of an array into a new array.",
+        "code": "import java.util.Arrays;\n\npublic class CopyRangeDemo {\n    public static void main(String[] args) {\n        int[] original = {10, 20, 30, 40, 50};\n\n        int[] copy = Arrays.copyOfRange(original, 1, 4);\n\n        System.out.println(Arrays.toString(copy));\n    }\n}",
+        "example": "The result is [20, 30, 40].",
+        "points_to_remember": [
+          "The start index is inclusive.",
+          "The end index is exclusive.",
+          "The result is a new array.",
+          "The original array remains unchanged."
+        ]
+      },
+
+      "Arrays.mismatch()": {
+        "explanation": "mismatch() finds the index of the first position where two arrays differ. If they are equal, it returns -1.",
+        "code": "import java.util.Arrays;\n\npublic class MismatchDemo {\n    public static void main(String[] args) {\n        int[] a = {10, 20, 30, 40};\n        int[] b = {10, 20, 99, 40};\n\n        int index = Arrays.mismatch(a, b);\n\n        System.out.println(\"First mismatch: \" + index);\n    }\n}",
+        "example": "The result is 2 because the first difference occurs at index 2.",
+        "points_to_remember": [
+          "Returns the first mismatching index.",
+          "Returns -1 when arrays are equal.",
+          "Useful for comparing arrays efficiently."
+        ]
+      },
+
+      "Arrays.compare()": {
+        "explanation": "compare() performs a lexicographical comparison between two arrays and returns a negative, zero, or positive integer.",
+        "code": "import java.util.Arrays;\n\npublic class CompareDemo {\n    public static void main(String[] args) {\n        int[] a = {1, 2, 3};\n        int[] b = {1, 2, 4};\n\n        int result = Arrays.compare(a, b);\n\n        System.out.println(result);\n    }\n}",
+        "example": "Because 3 is smaller than 4 at the first differing position, the result is negative.",
+        "points_to_remember": [
+          "Returns 0 when arrays are equal.",
+          "Returns a negative value when the first array is lexicographically smaller.",
+          "Returns a positive value when the first array is lexicographically larger.",
+          "Comparison is based on the first differing element."
+        ]
+      },
+
+      "Arrays.compareUnsigned()": {
+        "explanation": "compareUnsigned() compares arrays lexicographically while treating integral values as unsigned.",
+        "code": "import java.util.Arrays;\n\npublic class CompareUnsignedDemo {\n    public static void main(String[] args) {\n        int[] a = {-1};\n        int[] b = {1};\n\n        int result = Arrays.compareUnsigned(a, b);\n\n        System.out.println(result);\n    }\n}",
+        "example": "The comparison treats integer values using unsigned semantics rather than normal signed comparison.",
+        "points_to_remember": [
+          "Useful for unsigned comparison of supported integral array types.",
+          "The result follows lexicographical comparison rules.",
+          "It differs from normal signed comparison."
+        ]
+      },
+
+      "Arrays.stream()": {
+        "explanation": "Arrays.stream() creates a Java Stream from an array, allowing functional-style operations such as filter, map, sum, average, min, and max.",
+        "code": "import java.util.Arrays;\n\npublic class StreamDemo {\n    public static void main(String[] args) {\n        int[] numbers = {10, 20, 30, 40};\n\n        int sum = Arrays.stream(numbers).sum();\n\n        System.out.println(\"Sum: \" + sum);\n    }\n}",
+        "example": "A stream can calculate the sum of all integer elements.",
+        "points_to_remember": [
+          "stream() creates a stream from an array.",
+          "Streams support functional-style processing.",
+          "Primitive arrays can create IntStream, LongStream, or DoubleStream.",
+          "Stream operations do not normally modify the original array."
+        ]
+      },
+
+      "Arrays.asList()": {
+        "explanation": "Arrays.asList() converts an object array into a fixed-size List backed by the original array.",
+        "code": "import java.util.Arrays;\nimport java.util.List;\n\npublic class AsListDemo {\n    public static void main(String[] args) {\n        String[] names = {\"Alice\", \"Bob\", \"Charlie\"};\n\n        List<String> list = Arrays.asList(names);\n\n        System.out.println(list);\n    }\n}",
+        "example": "A String array can be viewed as a List for convenient list-style operations.",
+        "points_to_remember": [
+          "asList() works with object arrays.",
+          "The resulting list has fixed size.",
+          "set() can modify an existing position and affects the backing array.",
+          "add() and remove() are not supported.",
+          "For a fully modifiable ArrayList, create a new ArrayList from the result."
+        ]
+      },
+
+      "Arrays.hashCode()": {
+        "explanation": "hashCode() calculates a hash code based on the contents of a one-dimensional array.",
+        "code": "import java.util.Arrays;\n\npublic class HashCodeDemo {\n    public static void main(String[] args) {\n        int[] numbers = {10, 20, 30};\n\n        int hash = Arrays.hashCode(numbers);\n\n        System.out.println(hash);\n    }\n}",
+        "example": "The method generates a content-based hash code for the array.",
+        "points_to_remember": [
+          "hashCode() is based on array contents.",
+          "Two equal arrays produce the same content-based hash code.",
+          "Use deepHashCode() for nested arrays."
+        ]
+      },
+
+      "Arrays.deepHashCode()": {
+        "explanation": "deepHashCode() generates a hash code based on the contents of nested arrays.",
+        "code": "import java.util.Arrays;\n\npublic class DeepHashCodeDemo {\n    public static void main(String[] args) {\n        int[][] matrix = {{1, 2}, {3, 4}};\n\n        int hash = Arrays.deepHashCode(matrix);\n\n        System.out.println(hash);\n    }\n}",
+        "example": "The method generates a content-based hash code for a multidimensional array.",
+        "points_to_remember": [
+          "deepHashCode() supports nested arrays.",
+          "It recursively calculates hash values.",
+          "Equal nested arrays have the same deep hash code."
+        ]
+      },
+
+      "Arrays.setAll()": {
+        "explanation": "setAll() sets every element of an array using a generator function based on the element's index.",
+        "code": "import java.util.Arrays;\n\npublic class SetAllDemo {\n    public static void main(String[] args) {\n        int[] numbers = new int[5];\n\n        Arrays.setAll(numbers, i -> i * 10);\n\n        System.out.println(Arrays.toString(numbers));\n    }\n}",
+        "example": "The result is [0, 10, 20, 30, 40].",
+        "points_to_remember": [
+          "setAll() uses an index-based generator.",
+          "The original array is modified.",
+          "It accepts an IntUnaryOperator for int arrays.",
+          "It is useful for generating calculated array values."
+        ]
+      },
+
+      "Arrays.parallelSetAll()": {
+        "explanation": "parallelSetAll() sets all elements using a generator function and may perform the operation in parallel.",
+        "code": "import java.util.Arrays;\n\npublic class ParallelSetAllDemo {\n    public static void main(String[] args) {\n        int[] numbers = new int[5];\n\n        Arrays.parallelSetAll(numbers, i -> i * i);\n\n        System.out.println(Arrays.toString(numbers));\n    }\n}",
+        "example": "The result is [0, 1, 4, 9, 16].",
+        "points_to_remember": [
+          "parallelSetAll() can use parallel execution.",
+          "The generator receives the array index.",
+          "The original array is modified.",
+          "The generator should be safe for concurrent execution."
+        ]
+      },
+
+      "Arrays.parallelPrefix()": {
+        "explanation": "parallelPrefix() cumulatively applies an operation to array elements and can perform the computation in parallel.",
+        "code": "import java.util.Arrays;\n\npublic class ParallelPrefixDemo {\n    public static void main(String[] args) {\n        int[] numbers = {1, 2, 3, 4};\n\n        Arrays.parallelPrefix(numbers, (a, b) -> a + b);\n\n        System.out.println(Arrays.toString(numbers));\n    }\n}",
+        "example": "The result is [1, 3, 6, 10].",
+        "points_to_remember": [
+          "parallelPrefix() computes cumulative results.",
+          "The operation is applied from left to right.",
+          "It modifies the original array.",
+          "It can use parallel execution."
+        ]
+      },
+
+      "Arrays.compare() with Range": {
+        "explanation": "Arrays.compare() also provides overloads that compare selected ranges of two arrays.",
+        "code": "import java.util.Arrays;\n\npublic class CompareRangeDemo {\n    public static void main(String[] args) {\n        int[] a = {10, 20, 30, 40};\n        int[] b = {5, 20, 30, 50};\n\n        int result = Arrays.compare(a, 1, 3, b, 1, 3);\n\n        System.out.println(result);\n    }\n}",
+        "example": "Only the selected ranges are compared.",
+        "points_to_remember": [
+          "Range comparison uses inclusive start and exclusive end indexes.",
+          "Only the selected portions are compared.",
+          "The result follows lexicographical comparison rules."
+        ]
+      },
+
+      "Multidimensional Arrays": {
+        "explanation": "Java supports arrays of arrays, commonly used to represent matrices and other multidimensional structures.",
+        "code": "public class MultiDimensionalArray {\n    public static void main(String[] args) {\n        int[][] matrix = {\n            {1, 2, 3},\n            {4, 5, 6},\n            {7, 8, 9}\n        };\n\n        for (int i = 0; i < matrix.length; i++) {\n            for (int j = 0; j < matrix[i].length; j++) {\n                System.out.print(matrix[i][j] + \" \");\n            }\n            System.out.println();\n        }\n    }\n}",
+        "example": "A two-dimensional array can represent rows and columns of a matrix.",
+        "points_to_remember": [
+          "Java multidimensional arrays are arrays of arrays.",
+          "Rows can have different lengths.",
+          "Use deepToString() to print nested arrays.",
+          "Use deepEquals() to compare nested arrays."
+        ]
+      },
+
+      "Object Arrays": {
+        "explanation": "Arrays can store references to objects, including String and custom class objects.",
+        "code": "public class ObjectArrayDemo {\n    public static void main(String[] args) {\n        String[] names = {\"Alice\", \"Bob\", \"Charlie\"};\n\n        for (String name : names) {\n            System.out.println(name);\n        }\n    }\n}",
+        "example": "A String array can store names of multiple users.",
+        "points_to_remember": [
+          "Arrays can contain objects.",
+          "Reference arrays store references to objects.",
+          "Object arrays can be sorted using suitable ordering or comparators.",
+          "The array type determines which references can be stored."
+        ]
+      },
+
+      "Array to ArrayList": {
+        "explanation": "An object array can be converted into a mutable ArrayList using Arrays.asList() together with the ArrayList constructor.",
+        "code": "import java.util.ArrayList;\nimport java.util.Arrays;\n\npublic class ArrayListConversion {\n    public static void main(String[] args) {\n        String[] names = {\"Alice\", \"Bob\", \"Charlie\"};\n\n        ArrayList<String> list = new ArrayList<>(Arrays.asList(names));\n        list.add(\"David\");\n\n        System.out.println(list);\n    }\n}",
+        "example": "A fixed-size array can be converted into a resizable ArrayList.",
+        "points_to_remember": [
+          "Arrays.asList() alone returns a fixed-size list.",
+          "new ArrayList<>(Arrays.asList(array)) creates a resizable list.",
+          "Changes to the new ArrayList do not modify the original array."
+        ]
+      },
+
+      "Array Index Validation": {
+        "explanation": "Java provides methods in the Arrays class for checking ranges and indexes in certain APIs. Invalid indexes can also cause exceptions such as ArrayIndexOutOfBoundsException.",
+        "code": "public class IndexDemo {\n    public static void main(String[] args) {\n        int[] numbers = {10, 20, 30};\n\n        System.out.println(numbers[0]);\n        System.out.println(numbers[2]);\n    }\n}",
+        "example": "Accessing numbers[3] would cause an ArrayIndexOutOfBoundsException because the valid indexes are 0 through 2.",
+        "points_to_remember": [
+          "Valid indexes range from 0 to length - 1.",
+          "Accessing an invalid index throws an exception.",
+          "Always check array boundaries when using indexes."
+        ]
+      }
+    },
+
+    "built_in_methods": {
+      "java.util.Arrays": [
+        "sort()",
+        "parallelSort()",
+        "binarySearch()",
+        "equals()",
+        "deepEquals()",
+        "fill()",
+        "copyOf()",
+        "copyOfRange()",
+        "toString()",
+        "deepToString()",
+        "hashCode()",
+        "deepHashCode()",
+        "compare()",
+        "compareUnsigned()",
+        "mismatch()",
+        "stream()",
+        "asList()",
+        "setAll()",
+        "parallelSetAll()",
+        "parallelPrefix()"
+      ],
+      "array_properties": [
+        "length"
+      ]
+    },
+
+    "summary": [
+      "Arrays store multiple values of the same type.",
+      "Array indexes start from 0.",
+      "The length field gives the number of elements.",
+      "Arrays.sort() sorts array elements.",
+      "Arrays.binarySearch() searches a sorted array.",
+      "Arrays.equals() compares one-dimensional arrays.",
+      "Arrays.deepEquals() compares nested arrays.",
+      "Arrays.fill() fills an array with a specified value.",
+      "Arrays.copyOf() and copyOfRange() create new arrays from existing arrays.",
+      "Arrays.toString() and deepToString() provide readable array representations.",
+      "Arrays.compare() performs lexicographical comparison.",
+      "Arrays.mismatch() finds the first differing position.",
+      "Arrays.stream() converts arrays into streams.",
+      "Arrays.asList() provides a fixed-size list view for object arrays.",
+      "Arrays.setAll() generates values using indexes.",
+      "Arrays.parallelSetAll() and parallelPrefix() support parallel array operations.",
+      "The java.util.Arrays class contains most commonly used utility methods for arrays."
+    ]
+  }
+}

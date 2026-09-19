@@ -1,0 +1,174 @@
+{
+  "Multithreading and Concurrency": {
+    "explanation": "Multithreading allows a Java program to execute multiple tasks concurrently by using multiple threads. Concurrency helps improve responsiveness, resource utilization, and performance when tasks can be performed independently or overlap in execution.",
+    "topics": {
+      "Introduction to Threads": {
+        "explanation": "A thread is a lightweight unit of execution within a program. Java allows multiple threads to run concurrently, enabling different tasks to execute independently.",
+        "code": "public class ThreadDemo {\n    public static void main(String[] args) {\n        Thread thread = new Thread(() -> {\n            System.out.println(\"Thread is running...\");\n        });\n\n        thread.start();\n    }\n}",
+        "example": "A web application can use separate threads to handle multiple client requests.",
+        "points_to_remember": [
+          "A thread represents an independent path of execution.",
+          "Every Java program starts with at least one main thread.",
+          "Threads can execute tasks concurrently.",
+          "Use start() to begin a new thread."
+        ]
+      },
+
+      "Creating Threads": {
+        "explanation": "Java provides multiple ways to create threads. The common approaches are extending the Thread class and implementing the Runnable interface.",
+        "code": "class MyThread extends Thread {\n    public void run() {\n        System.out.println(\"Thread is executing\");\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        MyThread t = new MyThread();\n        t.start();\n    }\n}",
+        "example": "A background task such as file processing can be executed in a separate thread.",
+        "points_to_remember": [
+          "Override the run() method to define thread behavior.",
+          "Call start() instead of directly calling run().",
+          "Calling start() creates a new execution path.",
+          "Runnable is generally more flexible than extending Thread."
+        ]
+      },
+
+      "Thread Lifecycle": {
+        "explanation": "A thread moves through different states during its lifetime. Java defines states such as NEW, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING, and TERMINATED.",
+        "code": "public class ThreadStateDemo {\n    public static void main(String[] args) throws InterruptedException {\n        Thread t = new Thread(() -> {\n            System.out.println(\"Running...\");\n        });\n\n        System.out.println(t.getState());\n        t.start();\n        t.join();\n        System.out.println(t.getState());\n    }\n}",
+        "example": "A thread is NEW before start(), RUNNABLE while executing, and TERMINATED after completing execution.",
+        "points_to_remember": [
+          "NEW means the thread has been created but not started.",
+          "RUNNABLE means the thread is ready or running.",
+          "WAITING means the thread is waiting indefinitely.",
+          "TERMINATED means the thread has completed execution."
+        ]
+      },
+
+      "Thread Methods": {
+        "explanation": "The Thread class provides methods for controlling and monitoring thread execution.",
+        "code": "public class ThreadMethodsDemo {\n    public static void main(String[] args) throws InterruptedException {\n        Thread t = new Thread(() -> {\n            System.out.println(\"Task running\");\n        });\n\n        t.start();\n        t.join();\n\n        System.out.println(\"Thread completed\");\n    }\n}",
+        "example": "join() can be used when one thread must wait for another thread to finish.",
+        "points_to_remember": [
+          "start() starts a thread.",
+          "run() contains the task performed by the thread.",
+          "join() waits for another thread to finish.",
+          "sleep() pauses the current thread for a specified duration.",
+          "isAlive() checks whether a thread is still running."
+        ]
+      },
+
+      "Thread Priority": {
+        "explanation": "Thread priority provides a scheduling hint to the JVM about the relative importance of threads. Java priorities range from 1 to 10.",
+        "code": "public class PriorityDemo {\n    public static void main(String[] args) {\n        Thread t1 = new Thread(() -> {\n            System.out.println(\"Low priority thread\");\n        });\n\n        Thread t2 = new Thread(() -> {\n            System.out.println(\"High priority thread\");\n        });\n\n        t1.setPriority(Thread.MIN_PRIORITY);\n        t2.setPriority(Thread.MAX_PRIORITY);\n\n        t1.start();\n        t2.start();\n    }\n}",
+        "example": "A developer may assign different priorities as scheduling hints, although execution order should not be assumed.",
+        "points_to_remember": [
+          "Minimum priority is 1.",
+          "Normal priority is 5.",
+          "Maximum priority is 10.",
+          "Thread priority does not guarantee execution order."
+        ]
+      },
+
+      "Synchronization": {
+        "explanation": "Synchronization controls access to shared resources so that multiple threads do not modify shared data at the same time in an unsafe way.",
+        "code": "class Counter {\n    private int count = 0;\n\n    public synchronized void increment() {\n        count++;\n    }\n\n    public int getCount() {\n        return count;\n    }\n}\n\npublic class SyncDemo {\n    public static void main(String[] args) throws InterruptedException {\n        Counter counter = new Counter();\n\n        Thread t1 = new Thread(() -> {\n            for (int i = 0; i < 1000; i++) {\n                counter.increment();\n            }\n        });\n\n        Thread t2 = new Thread(() -> {\n            for (int i = 0; i < 1000; i++) {\n                counter.increment();\n            }\n        });\n\n        t1.start();\n        t2.start();\n\n        t1.join();\n        t2.join();\n\n        System.out.println(counter.getCount());\n    }\n}",
+        "example": "Synchronization can protect a shared counter from simultaneous modifications by multiple threads.",
+        "points_to_remember": [
+          "Synchronization helps protect shared mutable data.",
+          "The synchronized keyword provides mutual exclusion.",
+          "Only one thread can execute a synchronized method on the same object at a time.",
+          "Excessive synchronization can reduce concurrency."
+        ]
+      },
+
+      "Race Condition": {
+        "explanation": "A race condition occurs when multiple threads access shared data concurrently and the program result depends on the timing or order of thread execution.",
+        "code": "class Counter {\n    int count = 0;\n\n    void increment() {\n        count++;\n    }\n}\n\npublic class RaceConditionDemo {\n    public static void main(String[] args) throws InterruptedException {\n        Counter counter = new Counter();\n\n        Thread t1 = new Thread(() -> {\n            for (int i = 0; i < 1000; i++) counter.increment();\n        });\n\n        Thread t2 = new Thread(() -> {\n            for (int i = 0; i < 1000; i++) counter.increment();\n        });\n\n        t1.start();\n        t2.start();\n        t1.join();\n        t2.join();\n\n        System.out.println(counter.count);\n    }\n}",
+        "example": "Two threads incrementing the same counter without synchronization can produce an unexpected result.",
+        "points_to_remember": [
+          "Race conditions involve shared mutable state.",
+          "The result can depend on thread timing.",
+          "Synchronization or concurrency utilities can help prevent race conditions.",
+          "Race conditions can be difficult to reproduce and debug."
+        ]
+      },
+
+      "Inter-Thread Communication": {
+        "explanation": "Inter-thread communication allows threads to coordinate their work. Java provides wait(), notify(), and notifyAll() for communication between threads using an object's monitor.",
+        "code": "class SharedData {\n    private boolean ready = false;\n\n    synchronized void waitForData() throws InterruptedException {\n        while (!ready) {\n            wait();\n        }\n        System.out.println(\"Data is ready\");\n    }\n\n    synchronized void makeDataReady() {\n        ready = true;\n        notifyAll();\n    }\n}",
+        "example": "A consumer thread can wait until a producer thread has made data available.",
+        "points_to_remember": [
+          "wait() releases the object's monitor while waiting.",
+          "notify() wakes one waiting thread.",
+          "notifyAll() wakes all waiting threads.",
+          "wait(), notify(), and notifyAll() must be used while holding the object's monitor."
+        ]
+      },
+
+      "Executor Framework": {
+        "explanation": "The Executor Framework provides higher-level APIs for managing and executing tasks using thread pools instead of manually creating individual threads.",
+        "code": "import java.util.concurrent.ExecutorService;\nimport java.util.concurrent.Executors;\n\npublic class ExecutorDemo {\n    public static void main(String[] args) {\n        ExecutorService executor = Executors.newFixedThreadPool(2);\n\n        executor.submit(() -> System.out.println(\"Task 1\"));\n        executor.submit(() -> System.out.println(\"Task 2\"));\n        executor.submit(() -> System.out.println(\"Task 3\"));\n\n        executor.shutdown();\n    }\n}",
+        "example": "A server can use a thread pool to process multiple tasks without creating a new thread for every request.",
+        "points_to_remember": [
+          "ExecutorService manages a pool of threads.",
+          "submit() schedules tasks for execution.",
+          "Thread pools can reduce thread creation overhead.",
+          "Call shutdown() when the executor is no longer needed."
+        ]
+      },
+
+      "Callable and Future": {
+        "explanation": "Callable represents a task that can return a result and throw an exception. Future represents the result of an asynchronous computation.",
+        "code": "import java.util.concurrent.*;\n\npublic class FutureDemo {\n    public static void main(String[] args) throws Exception {\n        ExecutorService executor = Executors.newSingleThreadExecutor();\n\n        Callable<Integer> task = () -> 10 + 20;\n        Future<Integer> result = executor.submit(task);\n\n        System.out.println(result.get());\n        executor.shutdown();\n    }\n}",
+        "example": "A background calculation can return its result later through a Future.",
+        "points_to_remember": [
+          "Callable can return a value.",
+          "Callable can throw checked exceptions.",
+          "Future represents a pending or completed result.",
+          "get() retrieves the result and may block until completion."
+        ]
+      },
+
+      "Concurrent Collections": {
+        "explanation": "Concurrent collections are designed to support safe and efficient access by multiple threads.",
+        "code": "import java.util.concurrent.ConcurrentHashMap;\n\npublic class ConcurrentCollectionDemo {\n    public static void main(String[] args) {\n        ConcurrentHashMap<Integer, String> map = new ConcurrentHashMap<>();\n\n        map.put(1, \"Java\");\n        map.put(2, \"Concurrency\");\n\n        System.out.println(map);\n    }\n}",
+        "example": "ConcurrentHashMap can be used when multiple threads need to access and modify a map concurrently.",
+        "points_to_remember": [
+          "ConcurrentHashMap supports concurrent access.",
+          "Concurrent collections are designed for multithreaded programs.",
+          "They can be preferable to manually synchronizing an entire collection.",
+          "Other examples include CopyOnWriteArrayList and BlockingQueue."
+        ]
+      },
+
+      "Deadlock": {
+        "explanation": "A deadlock occurs when two or more threads wait indefinitely for resources held by each other, preventing all involved threads from continuing.",
+        "code": "class Resource {\n    synchronized void use(Resource other) {\n        synchronized (other) {\n            System.out.println(\"Using resources\");\n        }\n    }\n}",
+        "example": "Thread A holds Resource 1 and waits for Resource 2, while Thread B holds Resource 2 and waits for Resource 1.",
+        "points_to_remember": [
+          "Deadlocks can cause threads to wait indefinitely.",
+          "Consistent lock ordering can help prevent deadlocks.",
+          "Avoid unnecessary nested locks.",
+          "Careful synchronization design is important in concurrent programs."
+        ]
+      },
+
+      "Atomic Variables": {
+        "explanation": "Atomic classes provide thread-safe operations on individual variables without requiring traditional synchronized blocks for many common operations.",
+        "code": "import java.util.concurrent.atomic.AtomicInteger;\n\npublic class AtomicDemo {\n    public static void main(String[] args) {\n        AtomicInteger counter = new AtomicInteger(0);\n\n        counter.incrementAndGet();\n        counter.incrementAndGet();\n\n        System.out.println(counter.get());\n    }\n}",
+        "example": "AtomicInteger can be used for safely incrementing a shared counter across multiple threads.",
+        "points_to_remember": [
+          "Atomic classes support thread-safe operations.",
+          "AtomicInteger is useful for shared counters.",
+          "Atomic operations are designed for concurrent access.",
+          "Common classes include AtomicInteger, AtomicLong, and AtomicBoolean."
+        ]
+      }
+    },
+
+    "summary": [
+      "Multithreading allows multiple threads to execute concurrently.",
+      "Threads can be created using Thread, Runnable, and higher-level concurrency APIs.",
+      "Synchronization helps protect shared mutable data.",
+      "Race conditions occur when concurrent access produces timing-dependent results.",
+      "ExecutorService simplifies thread and task management.",
+      "Concurrent collections provide thread-safe data structures.",
+      "Deadlocks occur when threads wait indefinitely for each other's resources.",
+      "Atomic classes provide thread-safe operations for common shared variables."
+    ]
+  }
+}

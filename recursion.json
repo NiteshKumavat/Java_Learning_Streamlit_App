@@ -1,0 +1,859 @@
+{
+  "Recursion": {
+    "explanation": "Recursion is a programming technique in which a method calls itself to solve a smaller version of the same problem. A recursive solution must have a base case that stops the recursion and a recursive case that moves the problem toward the base case.",
+
+    "learning_path": [
+      "Understand what recursion is",
+      "Understand recursive calls",
+      "Learn base cases",
+      "Learn recursive cases",
+      "Understand the call stack",
+      "Trace recursive programs",
+      "Learn direct and indirect recursion",
+      "Solve mathematical recursion problems",
+      "Solve array and string recursion problems",
+      "Learn recursion on trees",
+      "Learn divide and conquer",
+      "Learn backtracking",
+      "Solve permutations and combinations",
+      "Solve subset and subsequence problems",
+      "Learn advanced recursion patterns"
+    ],
+
+    "fundamentals": {
+      "What is Recursion": {
+        "explanation": "Recursion occurs when a method calls itself directly or indirectly. Each call works on a smaller or simpler version of the original problem.",
+        "basic_structure": "method() -> method() -> method() -> base case",
+        "code": "static void countdown(int n) {\n    if (n == 0) {\n        return;\n    }\n\n    System.out.println(n);\n    countdown(n - 1);\n}",
+        "example": "countdown(3) produces 3, 2, 1.",
+        "points_to_remember": [
+          "A recursive method calls itself.",
+          "Every recursion needs a stopping condition.",
+          "The stopping condition is called the base case.",
+          "The recursive call should move toward the base case."
+        ]
+      },
+
+      "Base Case": {
+        "explanation": "The base case is the condition that stops further recursive calls. Without a correct base case, recursion may continue indefinitely and eventually cause StackOverflowError in Java.",
+        "code": "static int factorial(int n) {\n    if (n == 0) {\n        return 1;\n    }\n\n    return n * factorial(n - 1);\n}",
+        "base_case": "n == 0",
+        "points_to_remember": [
+          "Every recursive algorithm needs one or more stopping conditions.",
+          "The base case should return a known result.",
+          "The recursive case must eventually reach the base case."
+        ]
+      },
+
+      "Recursive Case": {
+        "explanation": "The recursive case is the part of the method that calls itself with a smaller, simpler, or modified input.",
+        "code": "static int sum(int n) {\n    if (n == 0) {\n        return 0;\n    }\n\n    return n + sum(n - 1);\n}",
+        "breakdown": {
+          "base_case": "n == 0",
+          "recursive_case": "n + sum(n - 1)"
+        },
+        "example": "sum(4) = 4 + sum(3) = 4 + 3 + 2 + 1 + 0 = 10."
+      },
+
+      "Call Stack": {
+        "explanation": "Every recursive method call creates a new stack frame containing local variables, parameters, and return information. The frames remain on the stack until the base case is reached and calls begin returning.",
+        "code": "static void print(int n) {\n    if (n == 0) {\n        return;\n    }\n\n    System.out.println(\"Call: \" + n);\n    print(n - 1);\n    System.out.println(\"Return: \" + n);\n}",
+        "example": "print(3) first creates calls for 3, 2, and 1. After reaching 0, the calls return in reverse order.",
+        "execution_order": [
+          "Call 3",
+          "Call 2",
+          "Call 1",
+          "Reach base case",
+          "Return 1",
+          "Return 2",
+          "Return 3"
+        ],
+        "points_to_remember": [
+          "Recursive calls are stored on the call stack.",
+          "The deepest call executes before earlier calls continue.",
+          "Large recursion depth can cause StackOverflowError."
+        ]
+      },
+
+      "Tracing Recursion": {
+        "explanation": "Tracing recursion means manually following every recursive call and return. This is one of the most important skills for understanding recursive algorithms.",
+        "code": "static int factorial(int n) {\n    if (n <= 1) {\n        return 1;\n    }\n\n    return n * factorial(n - 1);\n}",
+        "trace": [
+          "factorial(4)",
+          "4 * factorial(3)",
+          "4 * 3 * factorial(2)",
+          "4 * 3 * 2 * factorial(1)",
+          "4 * 3 * 2 * 1",
+          "24"
+        ],
+        "practice_tip": "When tracing recursion, separate the downward calls from the upward returns."
+      }
+    },
+
+    "types_of_recursion": {
+      "Direct Recursion": {
+        "explanation": "A method directly calls itself.",
+        "code": "static void fun(int n) {\n    if (n == 0) {\n        return;\n    }\n\n    fun(n - 1);\n}"
+      },
+
+      "Indirect Recursion": {
+        "explanation": "A method calls another method, which eventually calls the original method.",
+        "code": "static void methodA(int n) {\n    if (n <= 0) {\n        return;\n    }\n\n    System.out.println(n);\n    methodB(n - 1);\n}\n\nstatic void methodB(int n) {\n    if (n <= 0) {\n        return;\n    }\n\n    System.out.println(n);\n    methodA(n - 1);\n}",
+        "points_to_remember": [
+          "The recursion can involve multiple methods.",
+          "At least one path must eventually reach a stopping condition."
+        ]
+      },
+
+      "Tail Recursion": {
+        "explanation": "A recursive call is tail-recursive when it is the final operation performed by the method.",
+        "code": "static void printDescending(int n) {\n    if (n == 0) {\n        return;\n    }\n\n    System.out.println(n);\n    printDescending(n - 1);\n}",
+        "important_note": "Java does not generally perform tail-call optimization, so tail recursion can still consume stack space."
+      },
+
+      "Head Recursion": {
+        "explanation": "In head recursion, the recursive call happens before the main processing of the current call.",
+        "code": "static void printAscending(int n) {\n    if (n == 0) {\n        return;\n    }\n\n    printAscending(n - 1);\n    System.out.println(n);\n}",
+        "example": "printAscending(3) prints 1, 2, 3."
+      },
+
+      "Tree Recursion": {
+        "explanation": "Tree recursion occurs when a recursive method makes more than one recursive call, creating a tree-shaped call structure.",
+        "code": "static int fibonacci(int n) {\n    if (n <= 1) {\n        return n;\n    }\n\n    return fibonacci(n - 1) + fibonacci(n - 2);\n}",
+        "points_to_remember": [
+          "Tree recursion can generate many repeated calls.",
+          "Naive Fibonacci recursion has exponential time complexity.",
+          "Memoization can remove repeated calculations."
+        ]
+      },
+
+      "Nested Recursion": {
+        "explanation": "Nested recursion occurs when the argument of a recursive call itself contains another recursive call.",
+        "code": "static int nested(int n) {\n    if (n > 100) {\n        return n - 10;\n    }\n\n    return nested(nested(n + 11));\n}",
+        "points_to_remember": [
+          "Nested recursion can be difficult to trace.",
+          "The inner recursive call must complete before the outer call proceeds."
+        ]
+      }
+    },
+
+    "mathematical_problems": {
+      "Factorial": {
+        "explanation": "The factorial of n is n * (n-1) * ... * 1. By definition, 0! = 1.",
+        "code": "static long factorial(int n) {\n    if (n < 0) {\n        throw new IllegalArgumentException(\"Negative input\");\n    }\n\n    if (n == 0) {\n        return 1;\n    }\n\n    return n * factorial(n - 1);\n}",
+        "formula": "n! = n × (n - 1)!",
+        "complexity": {
+          "time": "O(n)",
+          "space": "O(n)"
+        }
+      },
+
+      "Sum of First N Numbers": {
+        "explanation": "Recursion can calculate the sum of integers from 1 to n.",
+        "code": "static int sum(int n) {\n    if (n <= 0) {\n        return 0;\n    }\n\n    return n + sum(n - 1);\n}",
+        "complexity": {
+          "time": "O(n)",
+          "space": "O(n)"
+        }
+      },
+
+      "Power": {
+        "explanation": "Calculate x raised to the power n recursively.",
+        "code": "static long power(long x, int n) {\n    if (n == 0) {\n        return 1;\n    }\n\n    return x * power(x, n - 1);\n}",
+        "complexity": {
+          "time": "O(n)",
+          "space": "O(n)"
+        }
+      },
+
+      "Fast Power": {
+        "explanation": "Exponentiation by squaring reduces the number of recursive calls by dividing the exponent approximately in half at each step.",
+        "code": "static long fastPower(long x, long n) {\n    if (n == 0) {\n        return 1;\n    }\n\n    long half = fastPower(x, n / 2);\n\n    if (n % 2 == 0) {\n        return half * half;\n    }\n\n    return x * half * half;\n}",
+        "complexity": {
+          "time": "O(log n)",
+          "space": "O(log n)"
+        },
+        "points_to_remember": [
+          "Divide the exponent by 2.",
+          "This is much faster than multiplying x n times."
+        ]
+      },
+
+      "Fibonacci": {
+        "explanation": "The Fibonacci sequence is defined by F(n) = F(n-1) + F(n-2), with F(0) = 0 and F(1) = 1.",
+        "code": "static int fibonacci(int n) {\n    if (n <= 1) {\n        return n;\n    }\n\n    return fibonacci(n - 1) + fibonacci(n - 2);\n}",
+        "complexity": {
+          "time": "O(2^n) approximately",
+          "space": "O(n)"
+        },
+        "warning": "Naive recursive Fibonacci repeatedly solves the same subproblems and is inefficient for large n."
+      },
+
+      "GCD": {
+        "explanation": "Euclid's algorithm calculates the greatest common divisor recursively.",
+        "code": "static int gcd(int a, int b) {\n    if (b == 0) {\n        return Math.abs(a);\n    }\n\n    return gcd(b, a % b);\n}",
+        "formula": "gcd(a, b) = gcd(b, a mod b)",
+        "complexity": {
+          "time": "O(log(min(a,b)))",
+          "space": "O(log(min(a,b)))"
+        }
+      },
+
+      "Decimal To Binary": {
+        "explanation": "A decimal number can be converted to binary recursively by processing the quotient and then printing the remainder.",
+        "code": "static void decimalToBinary(int n) {\n    if (n == 0) {\n        return;\n    }\n\n    decimalToBinary(n / 2);\n    System.out.print(n % 2);\n}",
+        "example": "decimalToBinary(10) prints 1010.",
+        "points_to_remember": [
+          "The recursive call processes the higher-order bits first.",
+          "The remainder gives the current binary digit."
+        ]
+      }
+    },
+
+    "array_problems": {
+      "Sum Of Array": {
+        "explanation": "Recursively calculate the sum of all elements in an array.",
+        "code": "static int arraySum(int[] arr, int index) {\n    if (index == arr.length) {\n        return 0;\n    }\n\n    return arr[index] + arraySum(arr, index + 1);\n}",
+        "complexity": {
+          "time": "O(n)",
+          "space": "O(n)"
+        }
+      },
+
+      "Maximum Element": {
+        "explanation": "Recursively find the maximum element of an array.",
+        "code": "static int max(int[] arr, int index) {\n    if (index == arr.length - 1) {\n        return arr[index];\n    }\n\n    return Math.max(arr[index], max(arr, index + 1));\n}",
+        "complexity": {
+          "time": "O(n)",
+          "space": "O(n)"
+        }
+      },
+
+      "Linear Search": {
+        "explanation": "Recursively search for a target value in an array.",
+        "code": "static int search(int[] arr, int index, int target) {\n    if (index == arr.length) {\n        return -1;\n    }\n\n    if (arr[index] == target) {\n        return index;\n    }\n\n    return search(arr, index + 1, target);\n}",
+        "complexity": {
+          "time": "O(n)",
+          "space": "O(n)"
+        }
+      },
+
+      "Binary Search": {
+        "explanation": "Recursive binary search repeatedly divides a sorted array into two halves.",
+        "code": "static int binarySearch(int[] arr, int left, int right, int target) {\n    if (left > right) {\n        return -1;\n    }\n\n    int mid = left + (right - left) / 2;\n\n    if (arr[mid] == target) {\n        return mid;\n    }\n\n    if (target < arr[mid]) {\n        return binarySearch(arr, left, mid - 1, target);\n    }\n\n    return binarySearch(arr, mid + 1, right, target);\n}",
+        "complexity": {
+          "time": "O(log n)",
+          "space": "O(log n)"
+        },
+        "condition": "The array must be sorted."
+      },
+
+      "Check Sorted Array": {
+        "explanation": "Recursively determine whether an array is sorted in non-decreasing order.",
+        "code": "static boolean isSorted(int[] arr, int index) {\n    if (index >= arr.length - 1) {\n        return true;\n    }\n\n    if (arr[index] > arr[index + 1]) {\n        return false;\n    }\n\n    return isSorted(arr, index + 1);\n}",
+        "complexity": {
+          "time": "O(n)",
+          "space": "O(n)"
+        }
+      },
+
+      "Reverse Array": {
+        "explanation": "Recursively reverse an array using two pointers.",
+        "code": "static void reverse(int[] arr, int left, int right) {\n    if (left >= right) {\n        return;\n    }\n\n    int temp = arr[left];\n    arr[left] = arr[right];\n    arr[right] = temp;\n\n    reverse(arr, left + 1, right - 1);\n}",
+        "complexity": {
+          "time": "O(n)",
+          "space": "O(n)"
+        }
+      }
+    },
+
+    "string_problems": {
+      "Reverse String": {
+        "explanation": "A string can be reversed recursively by taking the last character and recursively processing the remaining string.",
+        "code": "static String reverse(String s) {\n    if (s.length() <= 1) {\n        return s;\n    }\n\n    return s.charAt(s.length() - 1) +\n           reverse(s.substring(0, s.length() - 1));\n}",
+        "complexity_note": "Using substring and repeated string concatenation can cause additional overhead in Java. For production code, a character array or StringBuilder may be preferable."
+      },
+
+      "Palindrome Check": {
+        "explanation": "A string is a palindrome if it reads the same from both directions. Recursion can compare characters at both ends.",
+        "code": "static boolean isPalindrome(String s, int left, int right) {\n    if (left >= right) {\n        return true;\n    }\n\n    if (s.charAt(left) != s.charAt(right)) {\n        return false;\n    }\n\n    return isPalindrome(s, left + 1, right - 1);\n}",
+        "complexity": {
+          "time": "O(n)",
+          "space": "O(n)"
+        }
+      },
+
+      "Remove Character": {
+        "explanation": "Recursively create a string while skipping a specified character.",
+        "code": "static String removeChar(String s, char target, int index) {\n    if (index == s.length()) {\n        return \"\";\n    }\n\n    char current = s.charAt(index);\n\n    if (current == target) {\n        return removeChar(s, target, index + 1);\n    }\n\n    return current + removeChar(s, target, index + 1);\n}",
+        "complexity": {
+          "time": "O(n^2) in the worst case due to immutable String concatenation",
+          "space": "O(n)"
+        }
+      },
+
+      "Count Character": {
+        "explanation": "Recursively count how many times a character occurs in a string.",
+        "code": "static int countChar(String s, char target, int index) {\n    if (index == s.length()) {\n        return 0;\n    }\n\n    int count = s.charAt(index) == target ? 1 : 0;\n    return count + countChar(s, target, index + 1);\n}",
+        "complexity": {
+          "time": "O(n)",
+          "space": "O(n)"
+        }
+      }
+    },
+
+    "classic_recursion_problems": {
+      "Tower of Hanoi": {
+        "explanation": "Tower of Hanoi moves n disks from a source peg to a destination peg using an auxiliary peg. A disk can only be placed on a larger disk.",
+        "code": "static void towerOfHanoi(int n, char source, char auxiliary, char destination) {\n    if (n == 0) {\n        return;\n    }\n\n    towerOfHanoi(n - 1, source, destination, auxiliary);\n    System.out.println(\"Move disk \" + n + \" from \" + source + \" to \" + destination);\n    towerOfHanoi(n - 1, auxiliary, source, destination);\n}",
+        "formula": "Minimum moves = 2^n - 1",
+        "complexity": {
+          "time": "O(2^n)",
+          "space": "O(n)"
+        }
+      },
+
+      "Josephus Problem": {
+        "explanation": "The Josephus problem asks for the survivor when people arranged in a circle are eliminated at a fixed interval. It has a useful recursive formulation.",
+        "code": "static int josephus(int n, int k) {\n    if (n == 1) {\n        return 0;\n    }\n\n    return (josephus(n - 1, k) + k) % n;\n}",
+        "note": "The returned index is zero-based.",
+        "complexity": {
+          "time": "O(n)",
+          "space": "O(n)"
+        }
+      }
+    },
+
+    "divide_and_conquer": {
+      "explanation": "Divide and conquer recursively divides a problem into smaller subproblems, solves them, and combines their results.",
+
+      "Binary Search": {
+        "pattern": [
+          "Divide the search range into two parts.",
+          "Choose the relevant half.",
+          "Recursively continue."
+        ]
+      },
+
+      "Merge Sort": {
+        "explanation": "Merge sort recursively divides an array into halves, sorts each half, and merges the sorted halves.",
+        "code": "static void mergeSort(int[] arr, int left, int right) {\n    if (left >= right) {\n        return;\n    }\n\n    int mid = left + (right - left) / 2;\n\n    mergeSort(arr, left, mid);\n    mergeSort(arr, mid + 1, right);\n    merge(arr, left, mid, right);\n}\n\nstatic void merge(int[] arr, int left, int mid, int right) {\n    int[] temp = new int[right - left + 1];\n    int i = left;\n    int j = mid + 1;\n    int k = 0;\n\n    while (i <= mid && j <= right) {\n        if (arr[i] <= arr[j]) {\n            temp[k++] = arr[i++];\n        } else {\n            temp[k++] = arr[j++];\n        }\n    }\n\n    while (i <= mid) {\n        temp[k++] = arr[i++];\n    }\n\n    while (j <= right) {\n        temp[k++] = arr[j++];\n    }\n\n    System.arraycopy(temp, 0, arr, left, temp.length);\n}",
+        "complexity": {
+          "time": "O(n log n)",
+          "space": "O(n)"
+        }
+      },
+
+      "Quick Sort": {
+        "explanation": "Quick sort recursively partitions an array around a pivot and sorts the resulting partitions.",
+        "code": "static void quickSort(int[] arr, int low, int high) {\n    if (low >= high) {\n        return;\n    }\n\n    int pivotIndex = partition(arr, low, high);\n    quickSort(arr, low, pivotIndex - 1);\n    quickSort(arr, pivotIndex + 1, high);\n}\n\nstatic int partition(int[] arr, int low, int high) {\n    int pivot = arr[high];\n    int i = low;\n\n    for (int j = low; j < high; j++) {\n        if (arr[j] <= pivot) {\n            int temp = arr[i];\n            arr[i] = arr[j];\n            arr[j] = temp;\n            i++;\n        }\n    }\n\n    int temp = arr[i];\n    arr[i] = arr[high];\n    arr[high] = temp;\n\n    return i;\n}",
+        "complexity": {
+          "average_time": "O(n log n)",
+          "worst_time": "O(n^2)",
+          "space": "O(log n) average recursion depth; O(n) worst case"
+        }
+      }
+    },
+
+    "recursion_on_linked_lists": {
+      "Reverse Linked List": {
+        "explanation": "A linked list can be reversed recursively by reversing the remainder of the list and then attaching the current node after the next node.",
+        "code": "static class Node {\n    int data;\n    Node next;\n\n    Node(int data) {\n        this.data = data;\n    }\n}\n\nstatic Node reverse(Node head) {\n    if (head == null || head.next == null) {\n        return head;\n    }\n\n    Node newHead = reverse(head.next);\n    head.next.next = head;\n    head.next = null;\n\n    return newHead;\n}",
+        "complexity": {
+          "time": "O(n)",
+          "space": "O(n)"
+        }
+      },
+
+      "Find Length": {
+        "explanation": "Recursively count nodes in a linked list.",
+        "code": "static int length(Node head) {\n    if (head == null) {\n        return 0;\n    }\n\n    return 1 + length(head.next);\n}",
+        "complexity": {
+          "time": "O(n)",
+          "space": "O(n)"
+        }
+      }
+    },
+
+    "recursion_on_trees": {
+      "Tree Node": {
+        "code": "static class TreeNode {\n    int value;\n    TreeNode left;\n    TreeNode right;\n\n    TreeNode(int value) {\n        this.value = value;\n    }\n}"
+      },
+
+      "Tree Traversal - Preorder": {
+        "explanation": "Preorder visits root, left subtree, and right subtree.",
+        "code": "static void preorder(TreeNode root) {\n    if (root == null) {\n        return;\n    }\n\n    System.out.print(root.value + \" \");\n    preorder(root.left);\n    preorder(root.right);\n}",
+        "order": "Root -> Left -> Right"
+      },
+
+      "Tree Traversal - Inorder": {
+        "explanation": "Inorder visits the left subtree, root, and right subtree.",
+        "code": "static void inorder(TreeNode root) {\n    if (root == null) {\n        return;\n    }\n\n    inorder(root.left);\n    System.out.print(root.value + \" \");\n    inorder(root.right);\n}",
+        "order": "Left -> Root -> Right",
+        "important_note": "Inorder traversal of a binary search tree produces values in sorted order."
+      },
+
+      "Tree Traversal - Postorder": {
+        "explanation": "Postorder visits the left subtree, right subtree, and root.",
+        "code": "static void postorder(TreeNode root) {\n    if (root == null) {\n        return;\n    }\n\n    postorder(root.left);\n    postorder(root.right);\n    System.out.print(root.value + \" \");\n}",
+        "order": "Left -> Right -> Root"
+      },
+
+      "Tree Height": {
+        "explanation": "The height of a binary tree can be calculated recursively by finding the larger height of the two subtrees.",
+        "code": "static int height(TreeNode root) {\n    if (root == null) {\n        return 0;\n    }\n\n    return 1 + Math.max(\n        height(root.left),\n        height(root.right)\n    );\n}",
+        "complexity": {
+          "time": "O(n)",
+          "space": "O(h), where h is tree height"
+        }
+      },
+
+      "Count Nodes": {
+        "explanation": "Recursively count nodes in a binary tree.",
+        "code": "static int countNodes(TreeNode root) {\n    if (root == null) {\n        return 0;\n    }\n\n    return 1 + countNodes(root.left) + countNodes(root.right);\n}",
+        "complexity": {
+          "time": "O(n)",
+          "space": "O(h)"
+        }
+      }
+    },
+
+    "backtracking": {
+      "explanation": "Backtracking is a recursive technique that builds a solution step by step. When a choice leads to an invalid or unwanted state, the algorithm undoes the choice and tries another option.",
+
+      "general_pattern": {
+        "steps": [
+          "Choose an option.",
+          "Make the choice.",
+          "Recursively explore.",
+          "Undo the choice.",
+          "Try the next option."
+        ],
+        "template": "choose -> explore -> unchoose"
+      },
+
+      "Generate Subsets": {
+        "explanation": "Every element has two choices: include it or exclude it. Recursion explores both choices.",
+        "code": "static void generateSubsets(\n        int[] arr,\n        int index,\n        List<Integer> current,\n        List<List<Integer>> result) {\n\n    if (index == arr.length) {\n        result.add(new ArrayList<>(current));\n        return;\n    }\n\n    current.add(arr[index]);\n    generateSubsets(arr, index + 1, current, result);\n\n    current.remove(current.size() - 1);\n    generateSubsets(arr, index + 1, current, result);\n}",
+        "complexity": {
+          "time": "O(2^n) excluding output-copy details",
+          "space": "O(n) recursion depth plus output"
+        }
+      },
+
+      "Generate Subsequences": {
+        "explanation": "A subsequence is created by maintaining relative order while choosing whether to include each character.",
+        "code": "static void subsequences(\n        String s,\n        int index,\n        String current) {\n\n    if (index == s.length()) {\n        System.out.println(current);\n        return;\n    }\n\n    subsequences(s, index + 1, current + s.charAt(index));\n    subsequences(s, index + 1, current);\n}",
+        "complexity": {
+          "time": "O(2^n) outputs, with Java String construction adding overhead",
+          "space": "O(n) recursion depth"
+        }
+      },
+
+      "Permutations": {
+        "explanation": "Permutations generate every possible ordering of elements. Backtracking swaps or chooses elements while recursively constructing the permutation.",
+        "code": "static void permutations(int[] arr, int index) {\n    if (index == arr.length) {\n        System.out.println(Arrays.toString(arr));\n        return;\n    }\n\n    for (int i = index; i < arr.length; i++) {\n        swap(arr, index, i);\n        permutations(arr, index + 1);\n        swap(arr, index, i);\n    }\n}\n\nstatic void swap(int[] arr, int i, int j) {\n    int temp = arr[i];\n    arr[i] = arr[j];\n    arr[j] = temp;\n}",
+        "complexity": {
+          "time": "O(n × n!) including output work",
+          "space": "O(n) recursion depth"
+        }
+      },
+
+      "Combination Sum": {
+        "explanation": "Backtracking can find combinations of numbers that satisfy a target sum.",
+        "code": "static void combinationSum(\n        int[] candidates,\n        int index,\n        int target,\n        List<Integer> current) {\n\n    if (target == 0) {\n        System.out.println(current);\n        return;\n    }\n\n    if (target < 0 || index == candidates.length) {\n        return;\n    }\n\n    current.add(candidates[index]);\n    combinationSum(candidates, index, target - candidates[index], current);\n\n    current.remove(current.size() - 1);\n    combinationSum(candidates, index + 1, target, current);\n}",
+        "points_to_remember": [
+          "Backtracking changes state before recursion.",
+          "The state must be restored after recursion.",
+          "Incorrect undo operations can produce incorrect results."
+        ]
+      },
+
+      "N Queens": {
+        "explanation": "The N-Queens problem places N queens on an N×N chessboard so that no two queens attack each other. Backtracking tries possible positions row by row.",
+        "code": "static boolean solveNQueens(\n        int[][] board,\n        int row) {\n\n    int n = board.length;\n\n    if (row == n) {\n        return true;\n    }\n\n    for (int col = 0; col < n; col++) {\n        if (isSafe(board, row, col)) {\n            board[row][col] = 1;\n\n            if (solveNQueens(board, row + 1)) {\n                return true;\n            }\n\n            board[row][col] = 0;\n        }\n    }\n\n    return false;\n}\n\nstatic boolean isSafe(int[][] board, int row, int col) {\n    int n = board.length;\n\n    for (int i = 0; i < row; i++) {\n        if (board[i][col] == 1) {\n            return false;\n        }\n    }\n\n    for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {\n        if (board[i][j] == 1) {\n            return false;\n        }\n    }\n\n    for (int i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++) {\n        if (board[i][j] == 1) {\n            return false;\n        }\n    }\n\n    return true;\n}",
+        "complexity": "Exponential in the general case.",
+        "pattern": [
+          "Choose a column.",
+          "Check whether the position is safe.",
+          "Place the queen.",
+          "Recursively solve the next row.",
+          "Remove the queen if the choice fails."
+        ]
+      },
+
+      "Maze Backtracking": {
+        "explanation": "A maze can be solved recursively by moving to valid neighboring cells and backtracking when a path does not lead to the destination.",
+        "code": "static boolean solveMaze(\n        int[][] maze,\n        int row,\n        int col,\n        boolean[][] visited) {\n\n    int n = maze.length;\n    int m = maze[0].length;\n\n    if (row < 0 || row >= n || col < 0 || col >= m) {\n        return false;\n    }\n\n    if (maze[row][col] == 0 || visited[row][col]) {\n        return false;\n    }\n\n    if (row == n - 1 && col == m - 1) {\n        return true;\n    }\n\n    visited[row][col] = true;\n\n    if (solveMaze(maze, row + 1, col, visited) ||\n        solveMaze(maze, row - 1, col, visited) ||\n        solveMaze(maze, row, col + 1, visited) ||\n        solveMaze(maze, row, col - 1, visited)) {\n        return true;\n    }\n\n    return false;\n}",
+        "points_to_remember": [
+          "Mark visited cells.",
+          "Try possible directions.",
+          "Backtrack when no direction works."
+        ]
+      }
+    },
+
+    "dynamic_programming_connection": {
+      "explanation": "Many recursive problems contain overlapping subproblems. Dynamic programming improves these solutions by storing previously computed results.",
+      "example": {
+        "problem": "Fibonacci",
+        "naive_recursion": "O(2^n) approximately",
+        "memoization": "O(n)",
+        "tabulation": "O(n)"
+      },
+      "important_concept": "Before converting recursion to dynamic programming, identify repeated subproblems and define the state."
+    },
+
+    "recursion_vs_iteration": {
+      "recursion": {
+        "advantages": [
+          "Natural for tree and graph structures.",
+          "Useful for divide-and-conquer algorithms.",
+          "Useful for backtracking.",
+          "Often produces concise code.",
+          "Matches mathematical recursive definitions."
+        ],
+        "disadvantages": [
+          "Uses call stack memory.",
+          "Deep recursion can cause StackOverflowError.",
+          "May perform repeated calculations.",
+          "Can be harder to debug.",
+          "Function-call overhead can matter in performance-sensitive code."
+        ]
+      },
+      "iteration": {
+        "advantages": [
+          "Usually avoids recursion stack growth.",
+          "Can be more memory efficient.",
+          "Often easier to optimize for simple loops."
+        ],
+        "disadvantages": [
+          "Some problems are less natural to express iteratively.",
+          "Backtracking and tree algorithms may require explicit stacks and additional state."
+        ]
+      }
+    },
+
+    "complexity_table": [
+      {
+        "problem": "Factorial",
+        "time": "O(n)",
+        "space": "O(n)"
+      },
+      {
+        "problem": "Sum of N numbers",
+        "time": "O(n)",
+        "space": "O(n)"
+      },
+      {
+        "problem": "Naive Fibonacci",
+        "time": "O(2^n) approximately",
+        "space": "O(n)"
+      },
+      {
+        "problem": "Fast Power",
+        "time": "O(log n)",
+        "space": "O(log n)"
+      },
+      {
+        "problem": "Binary Search",
+        "time": "O(log n)",
+        "space": "O(log n)"
+      },
+      {
+        "problem": "Merge Sort",
+        "time": "O(n log n)",
+        "space": "O(n)"
+      },
+      {
+        "problem": "Quick Sort Average",
+        "time": "O(n log n)",
+        "space": "O(log n) average recursion depth"
+      },
+      {
+        "problem": "Generate Subsets",
+        "time": "O(2^n) excluding output-copy details",
+        "space": "O(n) recursion depth plus output"
+      },
+      {
+        "problem": "Generate Permutations",
+        "time": "O(n × n!) including output work",
+        "space": "O(n) recursion depth"
+      },
+      {
+        "problem": "Tower of Hanoi",
+        "time": "O(2^n)",
+        "space": "O(n)"
+      },
+      {
+        "problem": "Tree Traversal",
+        "time": "O(n)",
+        "space": "O(h)"
+      }
+    ],
+
+    "problem_solving_template": {
+      "step_1": "Identify whether the problem can be reduced to a smaller version of itself.",
+      "step_2": "Define the smallest valid input.",
+      "step_3": "Write the base case.",
+      "step_4": "Determine how the current problem depends on a smaller problem.",
+      "step_5": "Write the recursive call.",
+      "step_6": "Ensure every recursive call moves toward the base case.",
+      "step_7": "Trace the recursion with a small input.",
+      "step_8": "Calculate time and space complexity.",
+      "step_9": "Check whether repeated subproblems suggest memoization.",
+      "step_10": "If choices are being explored, consider backtracking."
+    },
+
+    "important_patterns": [
+      {
+        "pattern": "Reduce by One",
+        "example": "factorial(n) = n * factorial(n - 1)"
+      },
+      {
+        "pattern": "Reduce by Two",
+        "example": "fibonacci(n) = fibonacci(n - 1) + fibonacci(n - 2)"
+      },
+      {
+        "pattern": "Divide in Half",
+        "example": "binary search and fast power"
+      },
+      {
+        "pattern": "Two Pointers",
+        "example": "recursive palindrome and array reversal"
+      },
+      {
+        "pattern": "Choose or Skip",
+        "example": "subsets and subsequences"
+      },
+      {
+        "pattern": "Choose, Explore, Undo",
+        "example": "permutations, N-Queens, maze solving"
+      },
+      {
+        "pattern": "Recursive Tree Processing",
+        "example": "tree traversal and tree height"
+      },
+      {
+        "pattern": "Memoization",
+        "example": "optimized Fibonacci and other overlapping-subproblem problems"
+      }
+    ],
+
+    "common_mistakes": [
+      "Forgetting the base case.",
+      "Writing a base case that can never be reached.",
+      "Not changing the input in the recursive call.",
+      "Using recursion when iteration would be significantly simpler.",
+      "Forgetting to return the recursive result.",
+      "Confusing the order of operations before and after the recursive call.",
+      "Not understanding how values return through the call stack.",
+      "Using naive recursion for problems with overlapping subproblems.",
+      "Forgetting to undo state during backtracking.",
+      "Ignoring recursion depth for large inputs.",
+      "Assuming Java performs tail-call optimization.",
+      "Using string concatenation heavily inside recursive loops."
+    ],
+
+    "practice_problems": {
+      "beginner": [
+        "Print numbers from 1 to N.",
+        "Print numbers from N to 1.",
+        "Print numbers from 1 to N using head recursion.",
+        "Print numbers from N to 1 using tail recursion.",
+        "Find the sum of the first N numbers.",
+        "Find factorial of N.",
+        "Calculate x^n.",
+        "Find the nth Fibonacci number.",
+        "Find GCD using recursion.",
+        "Count the digits of a number.",
+        "Find the sum of digits.",
+        "Reverse a number.",
+        "Convert decimal to binary."
+      ],
+      "array_and_string": [
+        "Find the maximum element in an array.",
+        "Find the minimum element in an array.",
+        "Calculate the sum of an array.",
+        "Perform recursive linear search.",
+        "Perform recursive binary search.",
+        "Check whether an array is sorted.",
+        "Reverse an array recursively.",
+        "Check whether a string is a palindrome.",
+        "Reverse a string recursively.",
+        "Count occurrences of a character.",
+        "Remove a character from a string.",
+        "Replace characters recursively."
+      ],
+      "intermediate": [
+        "Implement merge sort.",
+        "Implement quick sort.",
+        "Implement fast exponentiation.",
+        "Solve Tower of Hanoi.",
+        "Reverse a linked list recursively.",
+        "Find linked-list length recursively.",
+        "Traverse a binary tree recursively.",
+        "Find tree height.",
+        "Count tree nodes.",
+        "Generate all subsets.",
+        "Generate all subsequences.",
+        "Generate all permutations."
+      ],
+      "advanced": [
+        "Solve N-Queens.",
+        "Solve a maze using backtracking.",
+        "Generate combinations.",
+        "Solve Combination Sum.",
+        "Solve Sudoku using backtracking.",
+        "Find a Hamiltonian path.",
+        "Find a Hamiltonian cycle.",
+        "Generate balanced parentheses.",
+        "Solve word search using backtracking.",
+        "Implement recursive graph traversal.",
+        "Implement recursive tree algorithms.",
+        "Optimize recursive Fibonacci using memoization.",
+        "Convert recursive dynamic programming into tabulation."
+      ]
+    },
+
+    "interview_questions": [
+      "What is recursion?",
+      "What is a base case?",
+      "What happens if there is no base case?",
+      "What is the call stack?",
+      "What is direct recursion?",
+      "What is indirect recursion?",
+      "What is tail recursion?",
+      "Does Java support tail-call optimization?",
+      "What is head recursion?",
+      "What is tree recursion?",
+      "How do you calculate recursion time complexity?",
+      "How do you calculate recursion space complexity?",
+      "What is the difference between recursion and iteration?",
+      "When should recursion be preferred?",
+      "How can recursion cause StackOverflowError?",
+      "How can memoization optimize recursion?",
+      "What is backtracking?",
+      "What is the difference between recursion and backtracking?",
+      "How does merge sort use recursion?",
+      "How does quick sort use recursion?",
+      "How does binary search use recursion?",
+      "Why is naive recursive Fibonacci inefficient?",
+      "How does recursion work with binary trees?"
+    ],
+
+    "mini_projects": [
+      {
+        "project": "Recursive Calculator",
+        "features": [
+          "Factorial",
+          "Power",
+          "GCD",
+          "Fibonacci",
+          "Sum of digits"
+        ]
+      },
+      {
+        "project": "Maze Solver",
+        "features": [
+          "Grid representation",
+          "Recursive search",
+          "Backtracking",
+          "Path tracking"
+        ]
+      },
+      {
+        "project": "Sudoku Solver",
+        "features": [
+          "Backtracking",
+          "Constraint checking",
+          "Recursive search"
+        ]
+      },
+      {
+        "project": "Permutation and Combination Generator",
+        "features": [
+          "Subsets",
+          "Subsequences",
+          "Permutations",
+          "Combinations"
+        ]
+      },
+      {
+        "project": "Expression Generator",
+        "features": [
+          "Recursive construction",
+          "Backtracking",
+          "Operator combinations"
+        ]
+      }
+    ],
+
+    "learning_order": {
+      "stage_1": [
+        "What is recursion",
+        "Base case",
+        "Recursive case",
+        "Call stack",
+        "Tracing recursion"
+      ],
+      "stage_2": [
+        "Factorial",
+        "Sum",
+        "Power",
+        "Fibonacci",
+        "GCD"
+      ],
+      "stage_3": [
+        "Array recursion",
+        "String recursion",
+        "Binary search",
+        "Array reversal",
+        "Palindrome"
+      ],
+      "stage_4": [
+        "Merge sort",
+        "Quick sort",
+        "Fast power",
+        "Tower of Hanoi"
+      ],
+      "stage_5": [
+        "Linked-list recursion",
+        "Binary-tree recursion",
+        "Tree traversals",
+        "Tree height"
+      ],
+      "stage_6": [
+        "Subsets",
+        "Subsequences",
+        "Permutations",
+        "Combinations"
+      ],
+      "stage_7": [
+        "Backtracking",
+        "N-Queens",
+        "Maze solving",
+        "Sudoku",
+        "Word search"
+      ],
+      "stage_8": [
+        "Memoization",
+        "Dynamic programming",
+        "Advanced recursive problems"
+      ]
+    },
+
+    "final_summary": [
+      "Recursion means solving a problem by calling the same method on a smaller problem.",
+      "Every recursive algorithm needs a base case.",
+      "The recursive case must move toward the base case.",
+      "The Java call stack stores active recursive calls.",
+      "BFS, DFS, tree traversal, divide-and-conquer, and backtracking all use recursive ideas in different ways.",
+      "Memoization can optimize recursion when subproblems overlap.",
+      "Backtracking follows the choose, explore, and undo pattern.",
+      "Always analyze both time complexity and recursion-stack space.",
+      "Practice tracing recursive calls before attempting advanced recursive problems.",
+      "For Java, be aware that very deep recursion can cause StackOverflowError."
+    ]
+  }
+}

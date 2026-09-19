@@ -1,0 +1,851 @@
+{
+  "Graph": {
+    "explanation": "A graph is a non-linear data structure consisting of vertices (nodes) and edges (connections). Graphs are used to represent relationships such as roads between cities, friendships in social networks, computer networks, dependencies between tasks, and links between web pages.",
+    "learning_path": [
+      "Learn graph terminology",
+      "Understand directed and undirected graphs",
+      "Learn weighted and unweighted graphs",
+      "Implement adjacency matrix",
+      "Implement adjacency list",
+      "Implement edge list",
+      "Learn BFS and DFS",
+      "Learn graph traversal applications",
+      "Learn cycle detection",
+      "Learn connected components",
+      "Learn bipartite graph checking",
+      "Learn topological sorting",
+      "Learn shortest path algorithms",
+      "Learn minimum spanning tree algorithms",
+      "Learn Disjoint Set Union",
+      "Learn strongly connected components",
+      "Learn bridges and articulation points",
+      "Study advanced graph problems"
+    ],
+    "topics": {
+      "Graph Terminology": {
+        "explanation": "A graph contains vertices and edges. Vertices represent objects and edges represent relationships or connections between those objects.",
+        "concepts": {
+          "vertex": "A node or object in the graph.",
+          "edge": "A connection between two vertices.",
+          "degree": "Number of edges connected to a vertex in an undirected graph.",
+          "in_degree": "Number of incoming edges to a vertex in a directed graph.",
+          "out_degree": "Number of outgoing edges from a vertex in a directed graph.",
+          "path": "A sequence of vertices connected by edges.",
+          "cycle": "A path that starts and ends at the same vertex.",
+          "connected_graph": "An undirected graph where every vertex is reachable from every other vertex.",
+          "component": "A maximal connected portion of a graph.",
+          "weight": "A numerical value associated with an edge.",
+          "source": "The starting vertex of an edge or traversal.",
+          "destination": "The ending vertex of an edge."
+        },
+        "code": "class Edge {\n    int from;\n    int to;\n    int weight;\n\n    Edge(int from, int to, int weight) {\n        this.from = from;\n        this.to = to;\n        this.weight = weight;\n    }\n}",
+        "example": "For a road network, cities are vertices and roads are edges. The distance or travel cost of a road can be represented as its edge weight.",
+        "points_to_remember": [
+          "Vertices are also called nodes.",
+          "Edges represent relationships.",
+          "Edges may be directed or undirected.",
+          "Edges may have weights.",
+          "Graphs can contain cycles.",
+          "A graph can be connected or disconnected."
+        ]
+      },
+
+      "Types of Graphs": {
+        "explanation": "Graphs can be classified according to edge direction, weights, connectivity, cycles, and other structural properties.",
+        "types": {
+          "undirected": "Edges have no direction. If A is connected to B, B is also connected to A.",
+          "directed": "Edges have a specific direction from one vertex to another.",
+          "weighted": "Each edge has an associated numerical weight.",
+          "unweighted": "Edges do not have meaningful weights.",
+          "connected": "Every vertex is reachable from every other vertex in an undirected graph.",
+          "disconnected": "The graph contains multiple disconnected components.",
+          "cyclic": "The graph contains at least one cycle.",
+          "acyclic": "The graph contains no cycles.",
+          "DAG": "Directed Acyclic Graph. It is a directed graph with no cycles.",
+          "complete": "Every pair of distinct vertices has an edge between them.",
+          "bipartite": "Vertices can be divided into two sets such that every edge connects vertices from different sets."
+        },
+        "points_to_remember": [
+          "BFS and DFS can work on both directed and undirected graphs.",
+          "Dijkstra requires non-negative edge weights.",
+          "Bellman-Ford can handle negative edge weights.",
+          "Topological sorting requires a DAG.",
+          "MST algorithms are normally applied to connected, undirected, weighted graphs."
+        ]
+      },
+
+      "Adjacency Matrix": {
+        "explanation": "An adjacency matrix represents a graph using a two-dimensional array. matrix[u][v] indicates whether an edge exists between u and v. For weighted graphs, the matrix can store edge weights.",
+        "code": "class GraphMatrix {\n    private final int[][] matrix;\n\n    GraphMatrix(int vertices) {\n        matrix = new int[vertices][vertices];\n    }\n\n    void addEdge(int u, int v) {\n        matrix[u][v] = 1;\n        matrix[v][u] = 1;\n    }\n\n    boolean hasEdge(int u, int v) {\n        return matrix[u][v] == 1;\n    }\n}",
+        "example": "For 4 vertices, matrix[1][3] = 1 means that an edge exists between vertex 1 and vertex 3.",
+        "complexity": {
+          "space": "O(V^2)",
+          "add_edge": "O(1)",
+          "check_edge": "O(1)",
+          "iterate_neighbors": "O(V)"
+        },
+        "when_to_use": [
+          "Dense graphs",
+          "When constant-time edge lookup is important",
+          "Graphs with a relatively small number of vertices"
+        ]
+      },
+
+      "Adjacency List": {
+        "explanation": "An adjacency list stores the neighbors of each vertex. It is generally the preferred representation for sparse graphs.",
+        "code": "import java.util.*;\n\nclass GraphList {\n    private final List<List<Integer>> graph;\n\n    GraphList(int vertices) {\n        graph = new ArrayList<>();\n        for (int i = 0; i < vertices; i++) {\n            graph.add(new ArrayList<>());\n        }\n    }\n\n    void addEdge(int u, int v) {\n        graph.get(u).add(v);\n        graph.get(v).add(u);\n    }\n\n    List<Integer> neighbors(int vertex) {\n        return graph.get(vertex);\n    }\n}",
+        "example": "If vertex 0 is connected to 1 and 2, its adjacency list can be [1, 2].",
+        "complexity": {
+          "space": "O(V + E)",
+          "add_edge": "O(1) amortized",
+          "iterate_neighbors": "O(degree of vertex)",
+          "check_edge": "O(degree of vertex)"
+        },
+        "points_to_remember": [
+          "Most graph algorithms use adjacency lists.",
+          "Adjacency lists are memory efficient for sparse graphs.",
+          "BFS and DFS are commonly implemented using adjacency lists."
+        ]
+      },
+
+      "Weighted Adjacency List": {
+        "explanation": "A weighted graph adjacency list stores both the destination vertex and the edge weight.",
+        "code": "import java.util.*;\n\nclass Edge {\n    int to;\n    int weight;\n\n    Edge(int to, int weight) {\n        this.to = to;\n        this.weight = weight;\n    }\n}\n\nclass WeightedGraph {\n    List<List<Edge>> graph;\n\n    WeightedGraph(int vertices) {\n        graph = new ArrayList<>();\n        for (int i = 0; i < vertices; i++) {\n            graph.add(new ArrayList<>());\n        }\n    }\n\n    void addEdge(int u, int v, int weight) {\n        graph.get(u).add(new Edge(v, weight));\n        graph.get(v).add(new Edge(u, weight));\n    }\n}",
+        "example": "If city 0 is connected to city 1 with distance 50, store Edge(1, 50) in city 0's list.",
+        "points_to_remember": [
+          "Use an Edge class for weighted graphs.",
+          "Dijkstra and Prim commonly use weighted adjacency lists.",
+          "For directed graphs, add only the required direction."
+        ]
+      },
+
+      "Edge List": {
+        "explanation": "An edge list stores all edges in a collection. Each edge contains its source, destination, and optionally its weight.",
+        "code": "class Edge {\n    int from;\n    int to;\n    int weight;\n\n    Edge(int from, int to, int weight) {\n        this.from = from;\n        this.to = to;\n        this.weight = weight;\n    }\n}\n\nList<Edge> edges = new ArrayList<>();\nedges.add(new Edge(0, 1, 10));\nedges.add(new Edge(1, 2, 20));",
+        "example": "The edge list [(0,1,10), (1,2,20)] represents two weighted edges.",
+        "common_algorithms": [
+          "Bellman-Ford",
+          "Kruskal"
+        ],
+        "complexity": {
+          "space": "O(E)"
+        }
+      },
+
+      "Graph Class - Undirected": {
+        "explanation": "A reusable Java graph class can hide the implementation details and provide methods for adding edges and retrieving neighbors.",
+        "code": "import java.util.*;\n\nclass Graph {\n    private final int vertices;\n    private final List<List<Integer>> adjacencyList;\n\n    Graph(int vertices) {\n        this.vertices = vertices;\n        adjacencyList = new ArrayList<>();\n\n        for (int i = 0; i < vertices; i++) {\n            adjacencyList.add(new ArrayList<>());\n        }\n    }\n\n    void addEdge(int u, int v) {\n        adjacencyList.get(u).add(v);\n        adjacencyList.get(v).add(u);\n    }\n\n    List<Integer> getNeighbors(int vertex) {\n        return adjacencyList.get(vertex);\n    }\n\n    int size() {\n        return vertices;\n    }\n}",
+        "example": "Graph graph = new Graph(5); graph.addEdge(0, 1); graph.addEdge(0, 2);",
+        "points_to_remember": [
+          "Keep graph construction separate from algorithms.",
+          "For a directed graph, only add v to u's list.",
+          "For an undirected graph, add both directions."
+        ]
+      },
+
+      "BFS - Breadth First Search": {
+        "explanation": "BFS explores a graph level by level using a queue. It is useful for traversal, shortest paths in unweighted graphs, connected components, and bipartite checking.",
+        "code": "import java.util.*;\n\nstatic void bfs(List<List<Integer>> graph, int start) {\n    boolean[] visited = new boolean[graph.size()];\n    Queue<Integer> queue = new ArrayDeque<>();\n\n    visited[start] = true;\n    queue.offer(start);\n\n    while (!queue.isEmpty()) {\n        int u = queue.poll();\n        System.out.println(u);\n\n        for (int v : graph.get(u)) {\n            if (!visited[v]) {\n                visited[v] = true;\n                queue.offer(v);\n            }\n        }\n    }\n}",
+        "example": "For edges 0-1, 0-2, 1-3, BFS from 0 visits vertices level by level: 0, 1, 2, 3.",
+        "complexity": {
+          "time": "O(V + E)",
+          "space": "O(V)"
+        },
+        "uses": [
+          "Graph traversal",
+          "Shortest path in unweighted graphs",
+          "Connected components",
+          "Bipartite graph checking",
+          "Level-order processing"
+        ]
+      },
+
+      "DFS - Recursive": {
+        "explanation": "DFS explores as deeply as possible before backtracking. Recursive DFS uses the Java call stack.",
+        "code": "static void dfs(List<List<Integer>> graph, int u, boolean[] visited) {\n    visited[u] = true;\n    System.out.println(u);\n\n    for (int v : graph.get(u)) {\n        if (!visited[v]) {\n            dfs(graph, v, visited);\n        }\n    }\n}",
+        "example": "DFS can follow one complete path before returning and exploring another path.",
+        "complexity": {
+          "time": "O(V + E)",
+          "space": "O(V) including recursion stack"
+        },
+        "uses": [
+          "Traversal",
+          "Cycle detection",
+          "Connected components",
+          "Topological sorting",
+          "SCC algorithms",
+          "Bridges",
+          "Articulation points"
+        ]
+      },
+
+      "DFS - Iterative": {
+        "explanation": "Iterative DFS replaces recursion with an explicit stack. It is useful when recursion depth may become large.",
+        "code": "static void dfsIterative(List<List<Integer>> graph, int start) {\n    boolean[] visited = new boolean[graph.size()];\n    Deque<Integer> stack = new ArrayDeque<>();\n\n    stack.push(start);\n\n    while (!stack.isEmpty()) {\n        int u = stack.pop();\n\n        if (visited[u]) {\n            continue;\n        }\n\n        visited[u] = true;\n        System.out.println(u);\n\n        for (int v : graph.get(u)) {\n            if (!visited[v]) {\n                stack.push(v);\n            }\n        }\n    }\n}",
+        "complexity": {
+          "time": "O(V + E)",
+          "space": "O(V)"
+        }
+      },
+
+      "BFS Shortest Path": {
+        "explanation": "In an unweighted graph, BFS finds the shortest path measured by the number of edges.",
+        "code": "import java.util.*;\n\nstatic int[] bfsShortestPath(List<List<Integer>> graph, int source) {\n    int[] distance = new int[graph.size()];\n    Arrays.fill(distance, -1);\n\n    Queue<Integer> queue = new ArrayDeque<>();\n    distance[source] = 0;\n    queue.offer(source);\n\n    while (!queue.isEmpty()) {\n        int u = queue.poll();\n\n        for (int v : graph.get(u)) {\n            if (distance[v] == -1) {\n                distance[v] = distance[u] + 1;\n                queue.offer(v);\n            }\n        }\n    }\n\n    return distance;\n}",
+        "example": "If source is 0 and the shortest route to vertex 4 contains 3 edges, distance[4] will be 3.",
+        "complexity": {
+          "time": "O(V + E)",
+          "space": "O(V)"
+        }
+      },
+
+      "Path Reconstruction with BFS": {
+        "explanation": "A parent array can store how each vertex was reached. After BFS, the path can be reconstructed by following parent pointers backwards.",
+        "code": "static List<Integer> shortestPath(List<List<Integer>> graph, int source, int target) {\n    int n = graph.size();\n    int[] parent = new int[n];\n    Arrays.fill(parent, -1);\n    boolean[] visited = new boolean[n];\n\n    Queue<Integer> queue = new ArrayDeque<>();\n    queue.offer(source);\n    visited[source] = true;\n\n    while (!queue.isEmpty()) {\n        int u = queue.poll();\n\n        if (u == target) {\n            break;\n        }\n\n        for (int v : graph.get(u)) {\n            if (!visited[v]) {\n                visited[v] = true;\n                parent[v] = u;\n                queue.offer(v);\n            }\n        }\n    }\n\n    if (!visited[target]) {\n        return Collections.emptyList();\n    }\n\n    List<Integer> path = new ArrayList<>();\n    for (int current = target; current != -1; current = parent[current]) {\n        path.add(current);\n    }\n\n    Collections.reverse(path);\n    return path;\n}",
+        "points_to_remember": [
+          "BFS gives a shortest path in an unweighted graph.",
+          "The parent array allows the actual path to be reconstructed.",
+          "For weighted graphs, use an appropriate weighted shortest-path algorithm."
+        ]
+      },
+
+      "Cycle Detection - Undirected Graph": {
+        "explanation": "In an undirected graph, DFS can detect a cycle by checking whether a visited neighbor is different from the current vertex's parent.",
+        "code": "static boolean hasCycleUndirected(List<List<Integer>> graph) {\n    boolean[] visited = new boolean[graph.size()];\n\n    for (int i = 0; i < graph.size(); i++) {\n        if (!visited[i] && dfsCycle(graph, i, -1, visited)) {\n            return true;\n        }\n    }\n\n    return false;\n}\n\nstatic boolean dfsCycle(List<List<Integer>> graph, int u, int parent, boolean[] visited) {\n    visited[u] = true;\n\n    for (int v : graph.get(u)) {\n        if (!visited[v]) {\n            if (dfsCycle(graph, v, u, visited)) {\n                return true;\n            }\n        } else if (v != parent) {\n            return true;\n        }\n    }\n\n    return false;\n}",
+        "complexity": {
+          "time": "O(V + E)",
+          "space": "O(V)"
+        }
+      },
+
+      "Cycle Detection - Directed Graph": {
+        "explanation": "For directed graphs, DFS can detect a cycle using two states: visited and currently-in-recursion-path.",
+        "code": "static boolean hasCycleDirected(List<List<Integer>> graph) {\n    int n = graph.size();\n    boolean[] visited = new boolean[n];\n    boolean[] inPath = new boolean[n];\n\n    for (int i = 0; i < n; i++) {\n        if (!visited[i] && dfsDirectedCycle(graph, i, visited, inPath)) {\n            return true;\n        }\n    }\n\n    return false;\n}\n\nstatic boolean dfsDirectedCycle(\n        List<List<Integer>> graph,\n        int u,\n        boolean[] visited,\n        boolean[] inPath) {\n\n    visited[u] = true;\n    inPath[u] = true;\n\n    for (int v : graph.get(u)) {\n        if (!visited[v]) {\n            if (dfsDirectedCycle(graph, v, visited, inPath)) {\n                return true;\n            }\n        } else if (inPath[v]) {\n            return true;\n        }\n    }\n\n    inPath[u] = false;\n    return false;\n}",
+        "complexity": {
+          "time": "O(V + E)",
+          "space": "O(V)"
+        }
+      },
+
+      "Connected Components": {
+        "explanation": "Connected components are maximal groups of vertices where every vertex can reach every other vertex within the same group in an undirected graph.",
+        "code": "static int countComponents(List<List<Integer>> graph) {\n    boolean[] visited = new boolean[graph.size()];\n    int components = 0;\n\n    for (int i = 0; i < graph.size(); i++) {\n        if (!visited[i]) {\n            components++;\n            bfsComponent(graph, i, visited);\n        }\n    }\n\n    return components;\n}\n\nstatic void bfsComponent(\n        List<List<Integer>> graph,\n        int start,\n        boolean[] visited) {\n\n    Queue<Integer> queue = new ArrayDeque<>();\n    queue.offer(start);\n    visited[start] = true;\n\n    while (!queue.isEmpty()) {\n        int u = queue.poll();\n\n        for (int v : graph.get(u)) {\n            if (!visited[v]) {\n                visited[v] = true;\n                queue.offer(v);\n            }\n        }\n    }\n}",
+        "complexity": {
+          "time": "O(V + E)",
+          "space": "O(V)"
+        }
+      },
+
+      "Bipartite Graph Check": {
+        "explanation": "A graph is bipartite if its vertices can be divided into two groups so that every edge connects vertices belonging to different groups. BFS or DFS can check this using two colors.",
+        "code": "static boolean isBipartite(List<List<Integer>> graph) {\n    int n = graph.size();\n    int[] color = new int[n];\n    Arrays.fill(color, -1);\n\n    for (int start = 0; start < n; start++) {\n        if (color[start] != -1) {\n            continue;\n        }\n\n        Queue<Integer> queue = new ArrayDeque<>();\n        queue.offer(start);\n        color[start] = 0;\n\n        while (!queue.isEmpty()) {\n            int u = queue.poll();\n\n            for (int v : graph.get(u)) {\n                if (color[v] == -1) {\n                    color[v] = 1 - color[u];\n                    queue.offer(v);\n                } else if (color[v] == color[u]) {\n                    return false;\n                }\n            }\n        }\n    }\n\n    return true;\n}",
+        "complexity": {
+          "time": "O(V + E)",
+          "space": "O(V)"
+        }
+      },
+
+      "Topological Sort - Kahn BFS": {
+        "explanation": "Topological sorting produces an ordering of vertices in a directed acyclic graph such that every directed edge u -> v places u before v. Kahn's algorithm repeatedly processes vertices with indegree zero.",
+        "code": "static List<Integer> topologicalSortKahn(List<List<Integer>> graph) {\n    int n = graph.size();\n    int[] indegree = new int[n];\n\n    for (int u = 0; u < n; u++) {\n        for (int v : graph.get(u)) {\n            indegree[v]++;\n        }\n    }\n\n    Queue<Integer> queue = new ArrayDeque<>();\n    for (int i = 0; i < n; i++) {\n        if (indegree[i] == 0) {\n            queue.offer(i);\n        }\n    }\n\n    List<Integer> order = new ArrayList<>();\n\n    while (!queue.isEmpty()) {\n        int u = queue.poll();\n        order.add(u);\n\n        for (int v : graph.get(u)) {\n            indegree[v]--;\n            if (indegree[v] == 0) {\n                queue.offer(v);\n            }\n        }\n    }\n\n    if (order.size() != n) {\n        throw new IllegalArgumentException(\"Graph contains a cycle\");\n    }\n\n    return order;\n}",
+        "complexity": {
+          "time": "O(V + E)",
+          "space": "O(V)"
+        },
+        "applications": [
+          "Course scheduling",
+          "Build systems",
+          "Task dependencies",
+          "Package dependencies"
+        ]
+      },
+
+      "Topological Sort - DFS": {
+        "explanation": "DFS-based topological sorting adds a vertex to a stack after all of its outgoing neighbors have been processed.",
+        "code": "static List<Integer> topologicalSortDFS(List<List<Integer>> graph) {\n    int n = graph.size();\n    int[] state = new int[n];\n    Deque<Integer> stack = new ArrayDeque<>();\n\n    for (int i = 0; i < n; i++) {\n        if (state[i] == 0 && !topoDFS(graph, i, state, stack)) {\n            throw new IllegalArgumentException(\"Graph contains a cycle\");\n        }\n    }\n\n    return new ArrayList<>(stack);\n}\n\nstatic boolean topoDFS(\n        List<List<Integer>> graph,\n        int u,\n        int[] state,\n        Deque<Integer> stack) {\n\n    state[u] = 1;\n\n    for (int v : graph.get(u)) {\n        if (state[v] == 1) {\n            return false;\n        }\n\n        if (state[v] == 0 && !topoDFS(graph, v, state, stack)) {\n            return false;\n        }\n    }\n\n    state[u] = 2;\n    stack.push(u);\n    return true;\n}",
+        "states": {
+          "0": "Unvisited",
+          "1": "Currently being processed",
+          "2": "Completely processed"
+        },
+        "complexity": {
+          "time": "O(V + E)",
+          "space": "O(V)"
+        }
+      },
+
+      "Dijkstra Shortest Path": {
+        "explanation": "Dijkstra's algorithm finds shortest distances from one source to all reachable vertices in a graph with non-negative edge weights.",
+        "code": "import java.util.*;\n\nstatic long[] dijkstra(List<List<Edge>> graph, int source) {\n    int n = graph.size();\n    long[] distance = new long[n];\n    Arrays.fill(distance, Long.MAX_VALUE);\n    distance[source] = 0;\n\n    PriorityQueue<long[]> pq = new PriorityQueue<>(Comparator.comparingLong(a -> a[1]));\n    pq.offer(new long[]{source, 0});\n\n    while (!pq.isEmpty()) {\n        long[] current = pq.poll();\n        int u = (int) current[0];\n        long dist = current[1];\n\n        if (dist != distance[u]) {\n            continue;\n        }\n\n        for (Edge edge : graph.get(u)) {\n            int v = edge.to;\n            long newDistance = dist + edge.weight;\n\n            if (newDistance < distance[v]) {\n                distance[v] = newDistance;\n                pq.offer(new long[]{v, newDistance});\n            }\n        }\n    }\n\n    return distance;\n}",
+        "important_condition": "All edge weights must be non-negative.",
+        "complexity": {
+          "time": "O((V + E) log V) with adjacency list and binary heap",
+          "space": "O(V + E)"
+        },
+        "common_mistake": "Do not use Dijkstra when negative edge weights are present."
+      },
+
+      "Bellman-Ford": {
+        "explanation": "Bellman-Ford computes single-source shortest paths and can handle negative edge weights. It can also detect reachable negative-weight cycles.",
+        "code": "static long[] bellmanFord(int vertices, List<Edge> edges, int source) {\n    long[] distance = new long[vertices];\n    Arrays.fill(distance, Long.MAX_VALUE / 4);\n    distance[source] = 0;\n\n    for (int i = 1; i < vertices; i++) {\n        boolean changed = false;\n\n        for (Edge edge : edges) {\n            if (distance[edge.from] == Long.MAX_VALUE / 4) {\n                continue;\n            }\n\n            long candidate = distance[edge.from] + edge.weight;\n            if (candidate < distance[edge.to]) {\n                distance[edge.to] = candidate;\n                changed = true;\n            }\n        }\n\n        if (!changed) {\n            break;\n        }\n    }\n\n    for (Edge edge : edges) {\n        if (distance[edge.from] != Long.MAX_VALUE / 4 &&\n            distance[edge.from] + edge.weight < distance[edge.to]) {\n            throw new IllegalArgumentException(\"Reachable negative cycle detected\");\n        }\n    }\n\n    return distance;\n}",
+        "complexity": {
+          "time": "O(VE)",
+          "space": "O(V)"
+        },
+        "advantages": [
+          "Supports negative edge weights.",
+          "Can detect negative cycles reachable from the source."
+        ]
+      },
+
+      "Floyd-Warshall": {
+        "explanation": "Floyd-Warshall computes shortest paths between every pair of vertices using dynamic programming.",
+        "code": "static void floydWarshall(long[][] distance) {\n    int n = distance.length;\n\n    for (int k = 0; k < n; k++) {\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < n; j++) {\n                if (distance[i][k] == Long.MAX_VALUE ||\n                    distance[k][j] == Long.MAX_VALUE) {\n                    continue;\n                }\n\n                distance[i][j] = Math.min(\n                    distance[i][j],\n                    distance[i][k] + distance[k][j]\n                );\n            }\n        }\n    }\n}",
+        "initialization": "distance[i][i] = 0; direct edges contain their weights; unreachable pairs contain a large infinity value.",
+        "complexity": {
+          "time": "O(V^3)",
+          "space": "O(V^2)"
+        },
+        "uses": [
+          "All-pairs shortest paths",
+          "Small or medium dense graphs",
+          "Graphs where a simple dynamic programming solution is preferred"
+        ]
+      },
+
+      "0-1 BFS": {
+        "explanation": "0-1 BFS finds shortest paths in graphs whose edge weights are only 0 or 1. It uses a deque instead of a priority queue.",
+        "code": "static int[] zeroOneBFS(List<List<Edge>> graph, int source) {\n    int n = graph.size();\n    int[] distance = new int[n];\n    Arrays.fill(distance, Integer.MAX_VALUE);\n    distance[source] = 0;\n\n    Deque<Integer> deque = new ArrayDeque<>();\n    deque.addFirst(source);\n\n    while (!deque.isEmpty()) {\n        int u = deque.removeFirst();\n\n        for (Edge edge : graph.get(u)) {\n            int v = edge.to;\n            int newDistance = distance[u] + edge.weight;\n\n            if (newDistance < distance[v]) {\n                distance[v] = newDistance;\n\n                if (edge.weight == 0) {\n                    deque.addFirst(v);\n                } else {\n                    deque.addLast(v);\n                }\n            }\n        }\n    }\n\n    return distance;\n}",
+        "condition": "Every edge weight must be either 0 or 1.",
+        "complexity": {
+          "time": "O(V + E)",
+          "space": "O(V)"
+        }
+      },
+
+      "Minimum Spanning Tree": {
+        "explanation": "A minimum spanning tree of a connected, weighted, undirected graph is a spanning tree whose total edge weight is minimum.",
+        "properties": [
+          "Contains all vertices.",
+          "Contains exactly V - 1 edges.",
+          "Contains no cycle.",
+          "Has minimum possible total weight among spanning trees."
+        ],
+        "algorithms": [
+          "Kruskal",
+          "Prim"
+        ],
+        "important_difference": "MST algorithms minimize total tree weight. Shortest-path algorithms minimize distance from a source or between specified vertices."
+      },
+
+      "Kruskal MST": {
+        "explanation": "Kruskal's algorithm sorts all edges by weight and repeatedly chooses the smallest edge that does not create a cycle. Disjoint Set Union is commonly used to detect cycles efficiently.",
+        "code": "import java.util.*;\n\nstatic class DSU {\n    int[] parent;\n    int[] rank;\n\n    DSU(int n) {\n        parent = new int[n];\n        rank = new int[n];\n        for (int i = 0; i < n; i++) {\n            parent[i] = i;\n        }\n    }\n\n    int find(int x) {\n        if (parent[x] != x) {\n            parent[x] = find(parent[x]);\n        }\n        return parent[x];\n    }\n\n    boolean union(int a, int b) {\n        int rootA = find(a);\n        int rootB = find(b);\n\n        if (rootA == rootB) {\n            return false;\n        }\n\n        if (rank[rootA] < rank[rootB]) {\n            parent[rootA] = rootB;\n        } else if (rank[rootA] > rank[rootB]) {\n            parent[rootB] = rootA;\n        } else {\n            parent[rootB] = rootA;\n            rank[rootA]++;\n        }\n\n        return true;\n    }\n}\n\nstatic long kruskal(int vertices, List<Edge> edges) {\n    edges.sort(Comparator.comparingInt(e -> e.weight));\n    DSU dsu = new DSU(vertices);\n    long totalWeight = 0;\n    int edgesUsed = 0;\n\n    for (Edge edge : edges) {\n        if (dsu.union(edge.from, edge.to)) {\n            totalWeight += edge.weight;\n            edgesUsed++;\n\n            if (edgesUsed == vertices - 1) {\n                break;\n            }\n        }\n    }\n\n    if (edgesUsed != vertices - 1) {\n        throw new IllegalArgumentException(\"Graph is disconnected\");\n    }\n\n    return totalWeight;\n}",
+        "complexity": {
+          "time": "O(E log E)",
+          "space": "O(V)"
+        },
+        "key_idea": "Sort edges and use DSU to avoid cycles."
+      },
+
+      "Prim MST": {
+        "explanation": "Prim's algorithm grows a minimum spanning tree from a starting vertex by repeatedly selecting the minimum-weight edge that connects the current tree to an unvisited vertex.",
+        "code": "import java.util.*;\n\nstatic long prim(List<List<Edge>> graph, int start) {\n    int n = graph.size();\n    boolean[] visited = new boolean[n];\n\n    PriorityQueue<long[]> pq = new PriorityQueue<>(Comparator.comparingLong(a -> a[0]));\n    pq.offer(new long[]{0, start});\n\n    long totalWeight = 0;\n    int visitedCount = 0;\n\n    while (!pq.isEmpty()) {\n        long[] current = pq.poll();\n        long weight = current[0];\n        int u = (int) current[1];\n\n        if (visited[u]) {\n            continue;\n        }\n\n        visited[u] = true;\n        visitedCount++;\n        totalWeight += weight;\n\n        for (Edge edge : graph.get(u)) {\n            if (!visited[edge.to]) {\n                pq.offer(new long[]{edge.weight, edge.to});\n            }\n        }\n    }\n\n    if (visitedCount != n) {\n        throw new IllegalArgumentException(\"Graph is disconnected\");\n    }\n\n    return totalWeight;\n}",
+        "complexity": {
+          "time": "O(E log V)",
+          "space": "O(V + E)"
+        },
+        "key_idea": "Grow the MST one vertex at a time."
+      },
+
+      "Disjoint Set Union": {
+        "explanation": "Disjoint Set Union, also called Union-Find, maintains a collection of non-overlapping sets. It efficiently supports finding which set an element belongs to and merging two sets.",
+        "code": "class DSU {\n    private final int[] parent;\n    private final int[] size;\n\n    DSU(int n) {\n        parent = new int[n];\n        size = new int[n];\n\n        for (int i = 0; i < n; i++) {\n            parent[i] = i;\n            size[i] = 1;\n        }\n    }\n\n    int find(int x) {\n        if (parent[x] != x) {\n            parent[x] = find(parent[x]);\n        }\n        return parent[x];\n    }\n\n    boolean union(int a, int b) {\n        a = find(a);\n        b = find(b);\n\n        if (a == b) {\n            return false;\n        }\n\n        if (size[a] < size[b]) {\n            int temp = a;\n            a = b;\n            b = temp;\n        }\n\n        parent[b] = a;\n        size[a] += size[b];\n        return true;\n    }\n}",
+        "techniques": [
+          "Path compression",
+          "Union by size",
+          "Union by rank"
+        ],
+        "uses": [
+          "Kruskal MST",
+          "Dynamic connectivity",
+          "Cycle detection",
+          "Grouping components"
+        ],
+        "complexity": "Amortized nearly O(1) per operation."
+      },
+
+      "Strongly Connected Components - Kosaraju": {
+        "explanation": "In a directed graph, a strongly connected component is a maximal set of vertices where every vertex can reach every other vertex. Kosaraju's algorithm uses DFS twice: once on the original graph and once on the reversed graph.",
+        "code": "import java.util.*;\n\nstatic void dfsOrder(\n        List<List<Integer>> graph,\n        int u,\n        boolean[] visited,\n        Deque<Integer> stack) {\n\n    visited[u] = true;\n\n    for (int v : graph.get(u)) {\n        if (!visited[v]) {\n            dfsOrder(graph, v, visited, stack);\n        }\n    }\n\n    stack.push(u);\n}\n\nstatic void dfsCollect(\n        List<List<Integer>> reversed,\n        int u,\n        boolean[] visited,\n        List<Integer> component) {\n\n    visited[u] = true;\n    component.add(u);\n\n    for (int v : reversed.get(u)) {\n        if (!visited[v]) {\n            dfsCollect(reversed, v, visited, component);\n        }\n    }\n}\n\nstatic List<List<Integer>> kosaraju(List<List<Integer>> graph) {\n    int n = graph.size();\n    boolean[] visited = new boolean[n];\n    Deque<Integer> stack = new ArrayDeque<>();\n\n    for (int i = 0; i < n; i++) {\n        if (!visited[i]) {\n            dfsOrder(graph, i, visited, stack);\n        }\n    }\n\n    List<List<Integer>> reversed = new ArrayList<>();\n    for (int i = 0; i < n; i++) {\n        reversed.add(new ArrayList<>());\n    }\n\n    for (int u = 0; u < n; u++) {\n        for (int v : graph.get(u)) {\n            reversed.get(v).add(u);\n        }\n    }\n\n    Arrays.fill(visited, false);\n    List<List<Integer>> components = new ArrayList<>();\n\n    while (!stack.isEmpty()) {\n        int u = stack.pop();\n\n        if (!visited[u]) {\n            List<Integer> component = new ArrayList<>();\n            dfsCollect(reversed, u, visited, component);\n            components.add(component);\n        }\n    }\n\n    return components;\n}",
+        "complexity": {
+          "time": "O(V + E)",
+          "space": "O(V + E)"
+        }
+      },
+
+      "Bridges - Tarjan DFS": {
+        "explanation": "A bridge is an edge whose removal increases the number of connected components. Tarjan's DFS algorithm uses discovery times and low-link values to identify bridges.",
+        "code": "static int timer = 0;\n\nstatic void findBridges(\n        List<List<Integer>> graph,\n        int u,\n        int parent,\n        int[] discovery,\n        int[] low,\n        List<int[]> bridges) {\n\n    discovery[u] = low[u] = ++timer;\n\n    for (int v : graph.get(u)) {\n        if (v == parent) {\n            continue;\n        }\n\n        if (discovery[v] == 0) {\n            findBridges(graph, v, u, discovery, low, bridges);\n            low[u] = Math.min(low[u], low[v]);\n\n            if (low[v] > discovery[u]) {\n                bridges.add(new int[]{u, v});\n            }\n        } else {\n            low[u] = Math.min(low[u], discovery[v]);\n        }\n    }\n}",
+        "important_condition": "This implementation is for an undirected graph.",
+        "bridge_condition": "For DFS edge u -> v, if low[v] > discovery[u], then u-v is a bridge.",
+        "complexity": {
+          "time": "O(V + E)",
+          "space": "O(V)"
+        }
+      },
+
+      "Articulation Points": {
+        "explanation": "An articulation point, or cut vertex, is a vertex whose removal increases the number of connected components. Tarjan-style DFS can identify articulation points using discovery and low-link values.",
+        "code": "static int articulationTimer = 0;\n\nstatic void findArticulationPoints(\n        List<List<Integer>> graph,\n        int u,\n        int parent,\n        int[] discovery,\n        int[] low,\n        boolean[] articulation) {\n\n    discovery[u] = low[u] = ++articulationTimer;\n    int children = 0;\n\n    for (int v : graph.get(u)) {\n        if (v == parent) {\n            continue;\n        }\n\n        if (discovery[v] == 0) {\n            children++;\n            findArticulationPoints(\n                graph, v, u, discovery, low, articulation\n            );\n\n            low[u] = Math.min(low[u], low[v]);\n\n            if (parent != -1 && low[v] >= discovery[u]) {\n                articulation[u] = true;\n            }\n        } else {\n            low[u] = Math.min(low[u], discovery[v]);\n        }\n    }\n\n    if (parent == -1 && children > 1) {\n        articulation[u] = true;\n    }\n}",
+        "conditions": [
+          "For a non-root vertex u, if low[v] >= discovery[u], u is an articulation point.",
+          "For a DFS root, it is an articulation point if it has more than one DFS child."
+        ],
+        "complexity": {
+          "time": "O(V + E)",
+          "space": "O(V)"
+        }
+      },
+
+      "Graph Coloring": {
+        "explanation": "Graph coloring assigns colors to vertices so that adjacent vertices have different colors. The basic backtracking approach can determine whether a graph can be colored using at most k colors.",
+        "code": "static boolean colorGraph(\n        boolean[][] graph,\n        int k,\n        int[] colors,\n        int vertex) {\n\n    if (vertex == graph.length) {\n        return true;\n    }\n\n    for (int color = 1; color <= k; color++) {\n        if (canUseColor(graph, colors, vertex, color)) {\n            colors[vertex] = color;\n\n            if (colorGraph(graph, k, colors, vertex + 1)) {\n                return true;\n            }\n\n            colors[vertex] = 0;\n        }\n    }\n\n    return false;\n}\n\nstatic boolean canUseColor(\n        boolean[][] graph,\n        int[] colors,\n        int vertex,\n        int color) {\n\n    for (int i = 0; i < graph.length; i++) {\n        if (graph[vertex][i] && colors[i] == color) {\n            return false;\n        }\n    }\n\n    return true;\n}",
+        "complexity": "Exponential in the general case.",
+        "applications": [
+          "Scheduling",
+          "Register allocation",
+          "Frequency assignment",
+          "Constraint satisfaction"
+        ]
+      },
+
+      "Hamiltonian Path": {
+        "explanation": "A Hamiltonian path visits every vertex exactly once. A Hamiltonian cycle visits every vertex exactly once and returns to the starting vertex.",
+        "code": "static boolean hamiltonianPath(\n        boolean[][] graph,\n        int[] path,\n        boolean[] used,\n        int position) {\n\n    if (position == graph.length) {\n        return true;\n    }\n\n    for (int vertex = 0; vertex < graph.length; vertex++) {\n        if (used[vertex]) {\n            continue;\n        }\n\n        if (position == 0 || graph[path[position - 1]][vertex]) {\n            path[position] = vertex;\n            used[vertex] = true;\n\n            if (hamiltonianPath(graph, path, used, position + 1)) {\n                return true;\n            }\n\n            used[vertex] = false;\n        }\n    }\n\n    return false;\n}",
+        "complexity": "Exponential in the general case.",
+        "points_to_remember": [
+          "Hamiltonian problems focus on vertices.",
+          "Eulerian problems focus on edges.",
+          "Do not confuse Hamiltonian paths with shortest paths."
+        ]
+      },
+
+      "Eulerian Path and Circuit": {
+        "explanation": "An Eulerian path uses every edge exactly once. An Eulerian circuit uses every edge exactly once and returns to the starting vertex.",
+        "undirected_conditions": {
+          "eulerian_circuit": "Every non-isolated vertex has even degree and all non-isolated vertices belong to one connected component.",
+          "eulerian_path": "Exactly zero or two vertices have odd degree, with the non-isolated vertices connected."
+        },
+        "algorithm": "Hierholzer's algorithm is commonly used to construct Eulerian paths and circuits efficiently.",
+        "complexity": "O(V + E)",
+        "points_to_remember": [
+          "Eulerian focuses on edges.",
+          "Hamiltonian focuses on vertices.",
+          "Degree parity is important for undirected Eulerian graphs."
+        ]
+      },
+
+      "Transitive Closure - Warshall": {
+        "explanation": "Transitive closure determines whether every vertex can reach every other vertex in a directed graph.",
+        "code": "static boolean[][] transitiveClosure(boolean[][] graph) {\n    int n = graph.length;\n    boolean[][] reach = new boolean[n][n];\n\n    for (int i = 0; i < n; i++) {\n        for (int j = 0; j < n; j++) {\n            reach[i][j] = graph[i][j];\n        }\n        reach[i][i] = true;\n    }\n\n    for (int k = 0; k < n; k++) {\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < n; j++) {\n                reach[i][j] = reach[i][j] ||\n                              (reach[i][k] && reach[k][j]);\n            }\n        }\n    }\n\n    return reach;\n}",
+        "complexity": {
+          "time": "O(V^3)",
+          "space": "O(V^2)"
+        }
+      }
+    },
+
+    "algorithm_selection_guide": {
+      "traversal": {
+        "BFS": "Use for level-order traversal and shortest path in unweighted graphs.",
+        "DFS": "Use for deep exploration, cycle detection, components, topological sorting, SCC, bridges, and articulation points."
+      },
+      "shortest_path": {
+        "BFS": "Unweighted graph or equal edge costs.",
+        "0-1 BFS": "Edge weights are only 0 or 1.",
+        "Dijkstra": "Non-negative edge weights.",
+        "Bellman-Ford": "Negative edge weights may exist and negative-cycle detection is required.",
+        "Floyd-Warshall": "Need shortest paths between every pair and V is small enough for O(V^3)."
+      },
+      "minimum_spanning_tree": {
+        "Kruskal": "Sort edges and use DSU.",
+        "Prim": "Grow the tree from a starting vertex using a priority queue."
+      },
+      "ordering": {
+        "Kahn": "Topological ordering using indegrees and BFS.",
+        "DFS_topological_sort": "Topological ordering using DFS postorder."
+      },
+      "connectivity": {
+        "DSU": "Repeatedly merge sets and query whether vertices belong to the same component.",
+        "Kosaraju": "Strongly connected components in directed graphs.",
+        "Tarjan_bridges": "Find bridges in undirected graphs.",
+        "Tarjan_articulation": "Find articulation points in undirected graphs."
+      }
+    },
+
+    "complexity_table": [
+      {
+        "algorithm": "BFS",
+        "time": "O(V + E)",
+        "space": "O(V)",
+        "main_use": "Traversal and unweighted shortest path"
+      },
+      {
+        "algorithm": "DFS",
+        "time": "O(V + E)",
+        "space": "O(V)",
+        "main_use": "Traversal and structural analysis"
+      },
+      {
+        "algorithm": "Topological Sort",
+        "time": "O(V + E)",
+        "space": "O(V)",
+        "main_use": "Ordering dependencies in DAGs"
+      },
+      {
+        "algorithm": "Dijkstra",
+        "time": "O((V + E) log V)",
+        "space": "O(V + E)",
+        "main_use": "Single-source shortest path with non-negative weights"
+      },
+      {
+        "algorithm": "Bellman-Ford",
+        "time": "O(VE)",
+        "space": "O(V)",
+        "main_use": "Shortest paths with negative edges"
+      },
+      {
+        "algorithm": "Floyd-Warshall",
+        "time": "O(V^3)",
+        "space": "O(V^2)",
+        "main_use": "All-pairs shortest paths"
+      },
+      {
+        "algorithm": "0-1 BFS",
+        "time": "O(V + E)",
+        "space": "O(V)",
+        "main_use": "Shortest paths with 0/1 weights"
+      },
+      {
+        "algorithm": "Kruskal",
+        "time": "O(E log E)",
+        "space": "O(V)",
+        "main_use": "Minimum spanning tree"
+      },
+      {
+        "algorithm": "Prim",
+        "time": "O(E log V)",
+        "space": "O(V + E)",
+        "main_use": "Minimum spanning tree"
+      },
+      {
+        "algorithm": "DSU",
+        "time": "Nearly O(1) amortized per operation",
+        "space": "O(V)",
+        "main_use": "Dynamic connectivity and cycle detection"
+      },
+      {
+        "algorithm": "Kosaraju",
+        "time": "O(V + E)",
+        "space": "O(V + E)",
+        "main_use": "Strongly connected components"
+      },
+      {
+        "algorithm": "Bridge Detection",
+        "time": "O(V + E)",
+        "space": "O(V)",
+        "main_use": "Find critical edges"
+      },
+      {
+        "algorithm": "Articulation Points",
+        "time": "O(V + E)",
+        "space": "O(V)",
+        "main_use": "Find critical vertices"
+      },
+      {
+        "algorithm": "Floyd-Warshall Transitive Closure",
+        "time": "O(V^3)",
+        "space": "O(V^2)",
+        "main_use": "Reachability between every pair"
+      }
+    ],
+
+    "practice_problems": {
+      "beginner": [
+        "Create an undirected graph using an adjacency matrix.",
+        "Create an undirected graph using an adjacency list.",
+        "Create a directed graph using an adjacency list.",
+        "Print all neighbors of a vertex.",
+        "Implement BFS.",
+        "Implement recursive DFS.",
+        "Implement iterative DFS.",
+        "Count the number of vertices and edges.",
+        "Calculate the degree of every vertex.",
+        "Check whether a path exists between two vertices."
+      ],
+      "intermediate": [
+        "Find the shortest path in an unweighted graph.",
+        "Reconstruct the actual shortest path using a parent array.",
+        "Count connected components.",
+        "Detect a cycle in an undirected graph.",
+        "Detect a cycle in a directed graph.",
+        "Check whether a graph is bipartite.",
+        "Perform topological sorting using Kahn's algorithm.",
+        "Perform topological sorting using DFS.",
+        "Solve a course-scheduling dependency problem.",
+        "Find the shortest path using Dijkstra.",
+        "Implement Bellman-Ford.",
+        "Implement Floyd-Warshall.",
+        "Implement 0-1 BFS."
+      ],
+      "advanced": [
+        "Implement DSU with path compression.",
+        "Implement DSU with union by rank.",
+        "Implement Kruskal's MST.",
+        "Implement Prim's MST.",
+        "Find strongly connected components using Kosaraju.",
+        "Find bridges using Tarjan's algorithm.",
+        "Find articulation points using Tarjan's algorithm.",
+        "Solve graph coloring using backtracking.",
+        "Find a Hamiltonian path.",
+        "Find a Hamiltonian cycle.",
+        "Construct an Eulerian path using Hierholzer's algorithm.",
+        "Construct an Eulerian circuit.",
+        "Find all-pairs shortest paths.",
+        "Detect negative cycles.",
+        "Solve dependency ordering problems using topological sorting."
+      ]
+    },
+
+    "interview_checklist": [
+      "Know the difference between directed and undirected graphs.",
+      "Know the difference between weighted and unweighted graphs.",
+      "Understand adjacency matrix versus adjacency list.",
+      "Know when BFS should be used.",
+      "Know when DFS should be used.",
+      "Know BFS shortest-path behavior in unweighted graphs.",
+      "Know how to reconstruct a path.",
+      "Know cycle detection for directed and undirected graphs.",
+      "Know how to count connected components.",
+      "Know how to check bipartite graphs.",
+      "Understand why topological sorting requires a DAG.",
+      "Know Kahn's topological sorting algorithm.",
+      "Know DFS-based topological sorting.",
+      "Know Dijkstra's restrictions.",
+      "Know when Bellman-Ford is required.",
+      "Understand Floyd-Warshall.",
+      "Understand 0-1 BFS.",
+      "Understand minimum spanning trees.",
+      "Know the difference between Prim and Kruskal.",
+      "Understand DSU.",
+      "Know strongly connected components.",
+      "Understand bridges.",
+      "Understand articulation points.",
+      "Know the difference between Eulerian and Hamiltonian paths."
+    ],
+
+    "learning_order": {
+      "stage_1": [
+        "Graph terminology",
+        "Graph types",
+        "Directed versus undirected graphs",
+        "Weighted versus unweighted graphs"
+      ],
+      "stage_2": [
+        "Adjacency matrix",
+        "Adjacency list",
+        "Weighted adjacency list",
+        "Edge list"
+      ],
+      "stage_3": [
+        "BFS",
+        "DFS recursive",
+        "DFS iterative"
+      ],
+      "stage_4": [
+        "BFS shortest path",
+        "Path reconstruction",
+        "Connected components",
+        "Cycle detection",
+        "Bipartite graph"
+      ],
+      "stage_5": [
+        "Topological sorting",
+        "DAG problems",
+        "Course scheduling"
+      ],
+      "stage_6": [
+        "Dijkstra",
+        "Bellman-Ford",
+        "Floyd-Warshall",
+        "0-1 BFS"
+      ],
+      "stage_7": [
+        "Minimum spanning tree",
+        "Kruskal",
+        "Prim",
+        "DSU"
+      ],
+      "stage_8": [
+        "Kosaraju",
+        "Bridges",
+        "Articulation points"
+      ],
+      "stage_9": [
+        "Graph coloring",
+        "Hamiltonian path",
+        "Hamiltonian cycle",
+        "Eulerian path",
+        "Eulerian circuit",
+        "Advanced graph problems"
+      ]
+    },
+
+    "java_data_structures_to_master": [
+      {
+        "structure": "ArrayList",
+        "graph_usage": "Adjacency lists and edge collections"
+      },
+      {
+        "structure": "ArrayDeque",
+        "graph_usage": "BFS queues and DFS stacks"
+      },
+      {
+        "structure": "Queue",
+        "graph_usage": "BFS"
+      },
+      {
+        "structure": "PriorityQueue",
+        "graph_usage": "Dijkstra and Prim"
+      },
+      {
+        "structure": "HashSet",
+        "graph_usage": "Visited sets and unique edges"
+      },
+      {
+        "structure": "HashMap",
+        "graph_usage": "Mapping arbitrary node labels to indices"
+      },
+      {
+        "structure": "Arrays",
+        "graph_usage": "Distance, visited, parent, indegree, and color arrays"
+      }
+    ],
+
+    "important_patterns": [
+      {
+        "pattern": "Visited Array",
+        "explanation": "Prevents repeatedly processing the same vertex."
+      },
+      {
+        "pattern": "Parent Array",
+        "explanation": "Stores how a vertex was reached and enables path reconstruction."
+      },
+      {
+        "pattern": "Distance Array",
+        "explanation": "Stores shortest known distance from a source."
+      },
+      {
+        "pattern": "Indegree Array",
+        "explanation": "Used by Kahn's topological sorting algorithm."
+      },
+      {
+        "pattern": "Color Array",
+        "explanation": "Used to check whether a graph is bipartite."
+      },
+      {
+        "pattern": "Discovery and Low Arrays",
+        "explanation": "Used by Tarjan-style algorithms for bridges and articulation points."
+      },
+      {
+        "pattern": "Priority Queue",
+        "explanation": "Efficiently selects the next minimum-distance or minimum-weight candidate."
+      },
+      {
+        "pattern": "Disjoint Set Union",
+        "explanation": "Efficiently tracks connected groups and is central to Kruskal's algorithm."
+      }
+    ],
+
+    "common_mistakes": [
+      "Forgetting to mark vertices as visited.",
+      "Using Dijkstra when negative edge weights exist.",
+      "Using topological sorting on a graph containing cycles.",
+      "Forgetting to process every connected component.",
+      "Confusing directed and undirected cycle detection.",
+      "Forgetting to add both directions for an undirected adjacency list.",
+      "Using an adjacency matrix for a very large sparse graph without considering memory.",
+      "Confusing shortest path with minimum spanning tree.",
+      "Forgetting that MST algorithms normally require undirected graphs.",
+      "Using int when path distances can exceed the int range.",
+      "Forgetting to detect negative cycles in Bellman-Ford when they matter.",
+      "Confusing Eulerian problems, which focus on edges, with Hamiltonian problems, which focus on vertices."
+    ],
+
+    "mini_project_ideas": [
+      {
+        "project": "City Route Finder",
+        "concepts": [
+          "Weighted graph",
+          "Adjacency list",
+          "Dijkstra",
+          "Path reconstruction"
+        ]
+      },
+      {
+        "project": "Course Dependency Planner",
+        "concepts": [
+          "Directed graph",
+          "DAG",
+          "Topological sorting",
+          "Cycle detection"
+        ]
+      },
+      {
+        "project": "Social Network Analyzer",
+        "concepts": [
+          "BFS",
+          "DFS",
+          "Connected components",
+          "Shortest path",
+          "Bipartite checking"
+        ]
+      },
+      {
+        "project": "Network Infrastructure Planner",
+        "concepts": [
+          "Weighted graph",
+          "MST",
+          "Kruskal",
+          "Prim",
+          "DSU"
+        ]
+      },
+      {
+        "project": "Dependency Graph Analyzer",
+        "concepts": [
+          "Directed graph",
+          "SCC",
+          "Topological sorting",
+          "Cycle detection"
+        ]
+      }
+    ],
+
+    "summary": [
+      "Represent graphs using adjacency lists, matrices, or edge lists.",
+      "Use BFS for level-order traversal and unweighted shortest paths.",
+      "Use DFS for deep traversal and structural graph analysis.",
+      "Use Dijkstra for non-negative weighted shortest paths.",
+      "Use Bellman-Ford when negative edges are possible.",
+      "Use Floyd-Warshall for all-pairs shortest paths on smaller graphs.",
+      "Use 0-1 BFS when edge weights are only 0 or 1.",
+      "Use Kahn or DFS for topological sorting of DAGs.",
+      "Use Kruskal or Prim for minimum spanning trees.",
+      "Use DSU for efficient component merging and cycle detection.",
+      "Use Kosaraju for strongly connected components.",
+      "Use Tarjan techniques for bridges and articulation points.",
+      "Practice graph problems progressively because graph algorithms combine many data structures and patterns."
+    ]
+  }
+}

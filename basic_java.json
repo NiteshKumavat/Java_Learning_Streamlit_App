@@ -1,0 +1,498 @@
+{
+  "name": "Basic Java",
+  "description": "A structured learning dataset covering the fundamentals of Java programming for beginners.",
+  "language": "Java",
+  "level": "Beginner",
+  "topics": {
+    "Introduction to Java": {
+      "explanation": "Java is a high-level, object-oriented, class-based programming language designed to be platform-independent. Java programs are compiled into bytecode that runs on the Java Virtual Machine (JVM).",
+      "key_points": [
+        "Java is object-oriented.",
+        "Java is platform-independent because of the JVM.",
+        "Java source files normally use the .java extension.",
+        "Java programs are compiled into bytecode.",
+        "The Java compiler is called javac.",
+        "The Java Virtual Machine executes Java bytecode."
+      ],
+      "code": "public class HelloWorld {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, Java!\");\n    }\n}",
+      "example": {
+        "input": "No input",
+        "output": "Hello, Java!"
+      }
+    },
+
+    "JDK, JRE and JVM": {
+      "explanation": "JDK, JRE, and JVM are important components of the Java platform. The JDK is used to develop Java applications, the JRE provides the environment needed to run Java applications, and the JVM executes Java bytecode.",
+      "key_points": [
+        "JDK stands for Java Development Kit.",
+        "JRE stands for Java Runtime Environment.",
+        "JVM stands for Java Virtual Machine.",
+        "JDK contains development tools such as javac.",
+        "JRE provides libraries and the JVM needed to run applications.",
+        "JVM executes compiled Java bytecode."
+      ],
+      "code": "javac HelloWorld.java\njava HelloWorld"
+    },
+
+    "Java Program Structure": {
+      "explanation": "A basic Java program contains a class and usually a main method. Program execution begins from the main method when the class is run.",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Java Program\");\n    }\n}",
+      "points_to_remember": [
+        "Class names usually follow PascalCase.",
+        "The main method is the entry point of a standard Java application.",
+        "Statements normally end with a semicolon.",
+        "Curly braces define blocks of code."
+      ]
+    },
+
+    "Comments": {
+      "explanation": "Comments are notes written inside source code. They are ignored by the Java compiler and are useful for explaining code.",
+      "types": [
+        "Single-line comment",
+        "Multi-line comment",
+        "Documentation comment"
+      ],
+      "code": "// This is a single-line comment\n\n/*\n   This is a multi-line comment\n*/\n\n/**\n * This is a documentation comment.\n */\npublic class CommentDemo {\n    public static void main(String[] args) {\n        System.out.println(\"Comments example\");\n    }\n}"
+    },
+
+    "Variables": {
+      "explanation": "A variable is a named memory location used to store a value. Every variable has a data type and a name.",
+      "syntax": "dataType variableName = value;",
+      "code": "int age = 20;\ndouble salary = 45000.50;\nchar grade = 'A';\nboolean active = true;\nString name = \"Nitesh\";",
+      "points_to_remember": [
+        "Variables must have a declared type.",
+        "Variable names should be meaningful.",
+        "A variable can be reassigned unless declared final.",
+        "Local variables must be initialized before use."
+      ]
+    },
+
+    "Constants": {
+      "explanation": "A constant is a variable whose value cannot be changed after initialization. The final keyword is used to create constants.",
+      "code": "final double PI = 3.14159;\nfinal int MAX_USERS = 100;",
+      "points_to_remember": [
+        "Use final to prevent reassignment.",
+        "Constants are commonly written using uppercase letters.",
+        "A final variable can be initialized only once."
+      ]
+    },
+
+    "Primitive Data Types": {
+      "explanation": "Java has eight primitive data types used to store simple values directly.",
+      "types": {
+        "byte": {
+          "size": "8-bit",
+          "example": "byte age = 25;"
+        },
+        "short": {
+          "size": "16-bit",
+          "example": "short year = 2026;"
+        },
+        "int": {
+          "size": "32-bit",
+          "example": "int number = 100;"
+        },
+        "long": {
+          "size": "64-bit",
+          "example": "long population = 8000000000L;"
+        },
+        "float": {
+          "size": "32-bit",
+          "example": "float price = 99.5f;"
+        },
+        "double": {
+          "size": "64-bit",
+          "example": "double salary = 45000.75;"
+        },
+        "char": {
+          "size": "16-bit",
+          "example": "char grade = 'A';"
+        },
+        "boolean": {
+          "size": "true or false",
+          "example": "boolean passed = true;"
+        }
+      }
+    },
+
+    "Non-Primitive Data Types": {
+      "explanation": "Non-primitive types store references to objects rather than simple primitive values.",
+      "examples": [
+        "String",
+        "Arrays",
+        "Classes",
+        "Interfaces",
+        "Objects",
+        "Enums"
+      ],
+      "code": "String name = \"Java\";\nint[] numbers = {10, 20, 30};"
+    },
+
+    "Type Casting": {
+      "explanation": "Type casting converts a value from one data type to another. Widening conversion happens automatically when converting a smaller compatible numeric type to a larger one. Narrowing conversion requires explicit casting.",
+      "code": "int number = 10;\ndouble value = number;\n\nSystem.out.println(value);\n\nDouble price = 99.99;\nint rounded = (int) price.doubleValue();\nSystem.out.println(rounded);",
+      "types": [
+        "Widening casting",
+        "Narrowing casting"
+      ]
+    },
+
+    "Arithmetic Operators": {
+      "explanation": "Arithmetic operators are used to perform mathematical calculations.",
+      "operators": {
+        "+": "Addition",
+        "-": "Subtraction",
+        "*": "Multiplication",
+        "/": "Division",
+        "%": "Modulus",
+        "++": "Increment",
+        "--": "Decrement"
+      },
+      "code": "int a = 10;\nint b = 3;\n\nSystem.out.println(a + b);\nSystem.out.println(a - b);\nSystem.out.println(a * b);\nSystem.out.println(a / b);\nSystem.out.println(a % b);"
+    },
+
+    "Assignment Operators": {
+      "explanation": "Assignment operators assign values to variables and can combine assignment with arithmetic operations.",
+      "operators": [
+        "=",
+        "+=",
+        "-=",
+        "*=",
+        "/=",
+        "%="
+      ],
+      "code": "int number = 10;\nnumber += 5;\nnumber -= 2;\nnumber *= 2;\nnumber /= 2;\nSystem.out.println(number);"
+    },
+
+    "Relational Operators": {
+      "explanation": "Relational operators compare two values and return a boolean result.",
+      "operators": [
+        "==",
+        "!=",
+        ">",
+        "<",
+        ">=",
+        "<="
+      ],
+      "code": "int a = 10;\nint b = 20;\n\nSystem.out.println(a == b);\nSystem.out.println(a != b);\nSystem.out.println(a < b);\nSystem.out.println(a >= b);"
+    },
+
+    "Logical Operators": {
+      "explanation": "Logical operators combine boolean expressions.",
+      "operators": {
+        "&&": "Logical AND",
+        "||": "Logical OR",
+        "!": "Logical NOT"
+      },
+      "code": "int age = 25;\nboolean citizen = true;\n\nif (age >= 18 && citizen) {\n    System.out.println(\"Eligible\");\n}"
+    },
+
+    "Ternary Operator": {
+      "explanation": "The ternary operator is a short form of an if-else expression.",
+      "syntax": "condition ? valueIfTrue : valueIfFalse;",
+      "code": "int age = 20;\nString result = age >= 18 ? \"Adult\" : \"Minor\";\nSystem.out.println(result);"
+    },
+
+    "String Concatenation": {
+      "explanation": "The + operator can be used to combine strings and other values.",
+      "code": "String name = \"Java\";\nint version = 21;\n\nSystem.out.println(name + \" version \" + version);"
+    },
+
+    "Input using Scanner": {
+      "explanation": "The Scanner class can be used to read input from the keyboard.",
+      "code": "import java.util.Scanner;\n\npublic class InputDemo {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n\n        System.out.print(\"Enter your name: \");\n        String name = scanner.nextLine();\n\n        System.out.print(\"Enter your age: \");\n        int age = scanner.nextInt();\n\n        System.out.println(\"Name: \" + name);\n        System.out.println(\"Age: \" + age);\n\n        scanner.close();\n    }\n}",
+      "methods": [
+        "next()",
+        "nextLine()",
+        "nextInt()",
+        "nextDouble()",
+        "nextFloat()",
+        "nextLong()",
+        "nextBoolean()"
+      ]
+    },
+
+    "If Statement": {
+      "explanation": "The if statement executes a block of code when a condition evaluates to true.",
+      "code": "int age = 20;\n\nif (age >= 18) {\n    System.out.println(\"Adult\");\n}"
+    },
+
+    "If Else Statement": {
+      "explanation": "The if-else statement chooses between two blocks of code based on a condition.",
+      "code": "int number = 7;\n\nif (number % 2 == 0) {\n    System.out.println(\"Even\");\n} else {\n    System.out.println(\"Odd\");\n}"
+    },
+
+    "Else If Ladder": {
+      "explanation": "An else-if ladder checks multiple conditions in sequence.",
+      "code": "int marks = 82;\n\nif (marks >= 90) {\n    System.out.println(\"A+\");\n} else if (marks >= 80) {\n    System.out.println(\"A\");\n} else if (marks >= 70) {\n    System.out.println(\"B\");\n} else {\n    System.out.println(\"C\");\n}"
+    },
+
+    "Switch Statement": {
+      "explanation": "The switch statement selects one block of code based on the value of an expression.",
+      "code": "int day = 2;\n\nswitch (day) {\n    case 1:\n        System.out.println(\"Monday\");\n        break;\n    case 2:\n        System.out.println(\"Tuesday\");\n        break;\n    case 3:\n        System.out.println(\"Wednesday\");\n        break;\n    default:\n        System.out.println(\"Invalid day\");\n}"
+    },
+
+    "For Loop": {
+      "explanation": "A for loop repeats a block of code when the number of iterations is known or controlled by a loop condition.",
+      "code": "for (int i = 1; i <= 5; i++) {\n    System.out.println(i);\n}"
+    },
+
+    "While Loop": {
+      "explanation": "A while loop repeatedly executes code while its condition remains true.",
+      "code": "int i = 1;\n\nwhile (i <= 5) {\n    System.out.println(i);\n    i++;\n}"
+    },
+
+    "Do While Loop": {
+      "explanation": "A do-while loop executes its body at least once before checking the condition.",
+      "code": "int i = 1;\n\ndo {\n    System.out.println(i);\n    i++;\n} while (i <= 5);"
+    },
+
+    "Break Statement": {
+      "explanation": "The break statement immediately terminates the nearest loop or switch statement.",
+      "code": "for (int i = 1; i <= 10; i++) {\n    if (i == 5) {\n        break;\n    }\n    System.out.println(i);\n}"
+    },
+
+    "Continue Statement": {
+      "explanation": "The continue statement skips the current iteration and moves to the next iteration of a loop.",
+      "code": "for (int i = 1; i <= 5; i++) {\n    if (i == 3) {\n        continue;\n    }\n    System.out.println(i);\n}"
+    },
+
+    "Methods": {
+      "explanation": "A method is a reusable block of code designed to perform a specific task.",
+      "syntax": "returnType methodName(parameters) { }",
+      "code": "public class MethodDemo {\n    static int add(int a, int b) {\n        return a + b;\n    }\n\n    public static void main(String[] args) {\n        int result = add(10, 20);\n        System.out.println(result);\n    }\n}",
+      "types": [
+        "Method with no parameters",
+        "Method with parameters",
+        "Method with return value",
+        "Void method",
+        "Static method",
+        "Instance method"
+      ]
+    },
+
+    "Method Overloading": {
+      "explanation": "Method overloading allows multiple methods with the same name but different parameter lists.",
+      "code": "class Calculator {\n    int add(int a, int b) {\n        return a + b;\n    }\n\n    int add(int a, int b, int c) {\n        return a + b + c;\n    }\n\n    double add(double a, double b) {\n        return a + b;\n    }\n}"
+    },
+
+    "Arrays": {
+      "explanation": "An array stores multiple values of the same type in a fixed-size structure.",
+      "code": "int[] numbers = {10, 20, 30, 40, 50};\n\nSystem.out.println(numbers[0]);\nSystem.out.println(numbers.length);",
+      "important_points": [
+        "Array indexing starts at 0.",
+        "Arrays have a fixed length.",
+        "All elements normally have the same data type.",
+        "The length property gives the number of elements."
+      ]
+    },
+
+    "Array Traversal": {
+      "explanation": "Array elements can be accessed using traditional loops or enhanced for loops.",
+      "code": "int[] numbers = {10, 20, 30, 40};\n\nfor (int i = 0; i < numbers.length; i++) {\n    System.out.println(numbers[i]);\n}\n\nfor (int number : numbers) {\n    System.out.println(number);\n}"
+    },
+
+    "Two Dimensional Arrays": {
+      "explanation": "A two-dimensional array can represent data in rows and columns.",
+      "code": "int[][] matrix = {\n    {1, 2, 3},\n    {4, 5, 6},\n    {7, 8, 9}\n};\n\nfor (int i = 0; i < matrix.length; i++) {\n    for (int j = 0; j < matrix[i].length; j++) {\n        System.out.print(matrix[i][j] + \" \");\n    }\n    System.out.println();\n}"
+    },
+
+    "String Basics": {
+      "explanation": "String represents a sequence of characters. Strings are objects in Java and are immutable.",
+      "code": "String name = \"Java\";\n\nSystem.out.println(name);\nSystem.out.println(name.length());\nSystem.out.println(name.charAt(0));"
+    },
+
+    "Object Oriented Programming": {
+      "explanation": "Object-oriented programming organizes software around objects and classes. Java supports major OOP concepts including encapsulation, inheritance, polymorphism, and abstraction.",
+      "concepts": [
+        "Class",
+        "Object",
+        "Encapsulation",
+        "Inheritance",
+        "Polymorphism",
+        "Abstraction"
+      ]
+    },
+
+    "Class": {
+      "explanation": "A class is a blueprint for creating objects. It defines fields and methods that objects created from the class can have.",
+      "code": "class Student {\n    String name;\n    int age;\n\n    void display() {\n        System.out.println(name);\n        System.out.println(age);\n    }\n}"
+    },
+
+    "Object": {
+      "explanation": "An object is an instance of a class. Objects contain state through fields and behavior through methods.",
+      "code": "class Student {\n    String name;\n\n    void display() {\n        System.out.println(name);\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Student student = new Student();\n        student.name = \"Rahul\";\n        student.display();\n    }\n}"
+    },
+
+    "Constructor": {
+      "explanation": "A constructor is a special member used to initialize objects. It has the same name as the class and does not have a return type.",
+      "code": "class Student {\n    String name;\n    int age;\n\n    Student(String name, int age) {\n        this.name = name;\n        this.age = age;\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Student student = new Student(\"Rahul\", 21);\n        System.out.println(student.name);\n    }\n}"
+    },
+
+    "this Keyword": {
+      "explanation": "The this keyword refers to the current object.",
+      "code": "class Student {\n    String name;\n\n    Student(String name) {\n        this.name = name;\n    }\n}"
+    },
+
+    "Encapsulation": {
+      "explanation": "Encapsulation means restricting direct access to an object's internal state and providing controlled access through methods.",
+      "code": "class Account {\n    private double balance;\n\n    public void deposit(double amount) {\n        if (amount > 0) {\n            balance += amount;\n        }\n    }\n\n    public double getBalance() {\n        return balance;\n    }\n}"
+    },
+
+    "Inheritance": {
+      "explanation": "Inheritance allows one class to acquire fields and methods from another class.",
+      "code": "class Animal {\n    void eat() {\n        System.out.println(\"Eating\");\n    }\n}\n\nclass Dog extends Animal {\n    void bark() {\n        System.out.println(\"Barking\");\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Dog dog = new Dog();\n        dog.eat();\n        dog.bark();\n    }\n}"
+    },
+
+    "Method Overriding": {
+      "explanation": "Method overriding occurs when a subclass provides its own implementation of a method inherited from its parent class.",
+      "code": "class Animal {\n    void sound() {\n        System.out.println(\"Animal sound\");\n    }\n}\n\nclass Dog extends Animal {\n    @Override\n    void sound() {\n        System.out.println(\"Bark\");\n    }\n}"
+    },
+
+    "Polymorphism": {
+      "explanation": "Polymorphism allows the same interface or method call to represent different behaviors. Compile-time polymorphism is commonly achieved through overloading, while runtime polymorphism is commonly achieved through overriding.",
+      "code": "class Animal {\n    void sound() {\n        System.out.println(\"Animal sound\");\n    }\n}\n\nclass Dog extends Animal {\n    @Override\n    void sound() {\n        System.out.println(\"Bark\");\n    }\n}\n\nAnimal animal = new Dog();\nanimal.sound();"
+    },
+
+    "Abstraction": {
+      "explanation": "Abstraction hides implementation details and exposes only the essential behavior. Java supports abstraction using abstract classes and interfaces.",
+      "code": "abstract class Shape {\n    abstract void draw();\n}\n\nclass Circle extends Shape {\n    @Override\n    void draw() {\n        System.out.println(\"Drawing Circle\");\n    }\n}"
+    },
+
+    "Interfaces": {
+      "explanation": "An interface defines a contract that implementing classes can follow. Interfaces are commonly used to achieve abstraction and support multiple inheritance of type.",
+      "code": "interface Vehicle {\n    void start();\n}\n\nclass Car implements Vehicle {\n    @Override\n    public void start() {\n        System.out.println(\"Car started\");\n    }\n}"
+    },
+
+    "Access Modifiers": {
+      "explanation": "Access modifiers control the visibility of classes, fields, constructors, and methods.",
+      "modifiers": {
+        "public": "Accessible from anywhere subject to normal Java access rules.",
+        "private": "Accessible only within the declaring class.",
+        "protected": "Accessible within the same package and in subclasses under Java's protected-access rules.",
+        "default": "When no modifier is specified, access is limited to the same package."
+      }
+    },
+
+    "static Keyword": {
+      "explanation": "The static keyword indicates that a field or method belongs to the class rather than to individual objects.",
+      "code": "class Counter {\n    static int count = 0;\n\n    Counter() {\n        count++;\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        new Counter();\n        new Counter();\n        System.out.println(Counter.count);\n    }\n}"
+    },
+
+    "final Keyword": {
+      "explanation": "The final keyword can prevent reassignment of variables, overriding of methods, or inheritance of classes.",
+      "code": "final int number = 100;\n\nfinal class Utility {\n}\n\nclass Parent {\n    final void display() {\n        System.out.println(\"Hello\");\n    }\n}"
+    },
+
+    "Wrapper Classes": {
+      "explanation": "Wrapper classes provide object representations of primitive values.",
+      "types": {
+        "int": "Integer",
+        "double": "Double",
+        "float": "Float",
+        "long": "Long",
+        "short": "Short",
+        "byte": "Byte",
+        "char": "Character",
+        "boolean": "Boolean"
+      },
+      "code": "Integer number = 100;\nint value = number;\n\nSystem.out.println(number);\nSystem.out.println(value);"
+    },
+
+    "Autoboxing and Unboxing": {
+      "explanation": "Autoboxing automatically converts a primitive value into its corresponding wrapper object. Unboxing converts a wrapper object back into a primitive.",
+      "code": "int primitive = 10;\nInteger object = primitive;\n\nInteger number = 20;\nint value = number;"
+    },
+
+    "Exception Handling": {
+      "explanation": "Exception handling allows a program to handle abnormal situations without unnecessarily terminating program execution.",
+      "keywords": [
+        "try",
+        "catch",
+        "finally",
+        "throw",
+        "throws"
+      ],
+      "code": "public class ExceptionDemo {\n    public static void main(String[] args) {\n        try {\n            int result = 10 / 0;\n            System.out.println(result);\n        } catch (ArithmeticException e) {\n            System.out.println(\"Cannot divide by zero\");\n        } finally {\n            System.out.println(\"Execution completed\");\n        }\n    }\n}"
+    },
+
+    "Packages": {
+      "explanation": "Packages organize related Java classes and help avoid naming conflicts.",
+      "code": "package com.example.app;\n\npublic class Student {\n    public void display() {\n        System.out.println(\"Student\");\n    }\n}"
+    },
+
+    "Import Statement": {
+      "explanation": "The import statement allows classes from other packages to be used without writing their fully qualified names.",
+      "code": "import java.util.Scanner;\nimport java.util.ArrayList;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        ArrayList<String> names = new ArrayList<>();\n    }\n}"
+    },
+
+    "Garbage Collection": {
+      "explanation": "Java automatically manages memory and can reclaim memory occupied by objects that are no longer reachable.",
+      "code": "class Demo {\n    protected void finalize() {\n        System.out.println(\"Object cleanup example\");\n    }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Demo object = new Demo();\n        object = null;\n        System.gc();\n    }\n}",
+      "points_to_remember": [
+        "Garbage collection is automatic.",
+        "System.gc() only requests garbage collection; it does not guarantee immediate collection.",
+        "Modern Java code should not rely on finalization."
+      ]
+    },
+
+    "Command Line Arguments": {
+      "explanation": "Command-line arguments are values passed to a Java program when it is started. They are available through the String[] args parameter of main.",
+      "code": "public class Main {\n    public static void main(String[] args) {\n        if (args.length > 0) {\n            System.out.println(\"First argument: \" + args[0]);\n        }\n    }\n}",
+      "example_command": "java Main Java"
+    },
+
+    "Enums": {
+      "explanation": "An enum defines a fixed set of named constants.",
+      "code": "enum Level {\n    LOW,\n    MEDIUM,\n    HIGH\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Level level = Level.HIGH;\n        System.out.println(level);\n    }\n}"
+    },
+
+    "Basic Java Best Practices": {
+      "explanation": "Following basic coding practices makes Java programs easier to read, maintain, and debug.",
+      "points": [
+        "Use meaningful variable and method names.",
+        "Follow consistent indentation.",
+        "Keep methods focused on a single responsibility.",
+        "Use comments when they clarify non-obvious logic.",
+        "Avoid unnecessary global state.",
+        "Use appropriate access modifiers.",
+        "Handle exceptions intentionally.",
+        "Prefer readable code over unnecessarily clever code.",
+        "Use constants for values that should not change.",
+        "Close resources appropriately or use try-with-resources."
+      ]
+    },
+
+    "Basic Java Practice Problems": {
+      "explanation": "These problems help beginners practice the fundamentals of Java.",
+      "problems": [
+        "Print Hello World.",
+        "Add two numbers.",
+        "Find the largest of two numbers.",
+        "Find the largest of three numbers.",
+        "Check whether a number is even or odd.",
+        "Check whether a number is positive, negative, or zero.",
+        "Calculate the factorial of a number.",
+        "Print a multiplication table.",
+        "Reverse a number.",
+        "Check whether a number is a palindrome.",
+        "Check whether a number is prime.",
+        "Print prime numbers within a range.",
+        "Calculate the sum of array elements.",
+        "Find the maximum element in an array.",
+        "Find the minimum element in an array.",
+        "Search for an element in an array.",
+        "Reverse an array.",
+        "Count vowels in a string.",
+        "Reverse a string.",
+        "Check whether a string is a palindrome.",
+        "Create a Student class.",
+        "Create a BankAccount class using encapsulation.",
+        "Demonstrate inheritance using Animal and Dog classes.",
+        "Demonstrate method overloading.",
+        "Demonstrate method overriding.",
+        "Handle division by zero using exception handling."
+      ]
+    }
+  }
+}
